@@ -3,12 +3,14 @@
  */
 import { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
 import { postRouter } from './routers/post'
+import { siteRouter } from './routers/site'
 import { tagRouter } from './routers/tag'
 import { userRouter } from './routers/user'
 import { createCallerFactory, publicProcedure, router } from './trpc'
 
 export const appRouter = router({
   healthCheck: publicProcedure.query(() => 'yay!'),
+  site: siteRouter,
   user: userRouter,
   post: postRouter,
   tag: tagRouter,

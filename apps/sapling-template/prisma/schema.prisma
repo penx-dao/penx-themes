@@ -137,7 +137,7 @@ model Tag {
   userId   String?
   postTags PostTag[]
 
-  @@index([name])
+  @@index(name)
 }
 
 model PostTag {

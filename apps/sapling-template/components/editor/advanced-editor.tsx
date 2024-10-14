@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { cn } from '@/lib/utils'
 import {
   EditorBubble,
   EditorCommand,
@@ -27,9 +28,15 @@ const extensions = [...defaultExtensions, slashCommand]
 interface EditorProp {
   initialValue?: JSONContent
   editable?: boolean
+  className?: string
   onChange: (value: JSONContent) => void
 }
-const Editor = ({ initialValue, onChange, editable = true }: EditorProp) => {
+const Editor = ({
+  initialValue,
+  onChange,
+  editable = true,
+  className,
+}: EditorProp) => {
   const [openNode, setOpenNode] = useState(false)
   const [openColor, setOpenColor] = useState(false)
   const [openLink, setOpenLink] = useState(false)
@@ -37,6 +44,7 @@ const Editor = ({ initialValue, onChange, editable = true }: EditorProp) => {
   return (
     <EditorRoot>
       <EditorContent
+        className={cn('editor h-full', className)}
         editable={editable}
         {...(initialValue && { initialContent: initialValue })}
         extensions={extensions}

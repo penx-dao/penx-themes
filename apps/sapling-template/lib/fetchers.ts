@@ -1,6 +1,11 @@
 import prisma from '@/lib/prisma'
+import { getSite as getSiteInfo } from '@/server/lib/getSite'
 import { unstable_cache } from 'next/cache'
 import { PostStatus } from './constants'
+
+export async function getSite() {
+  return getSiteInfo()
+}
 
 export async function getPosts() {
   return await unstable_cache(
