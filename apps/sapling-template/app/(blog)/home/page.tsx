@@ -1,7 +1,7 @@
-import { getPosts } from '@/lib/fetchers'
+import { getPosts, getSite } from '@/lib/fetchers'
 
 export default async function HomePage() {
-  const posts = await getPosts()
+  const [posts, siteInfo] = await Promise.all([getPosts(), getSite()])
 
   if (!process.env.NEXT_PUBLIC_THEME) {
     return <div>Theme not found</div>
@@ -13,5 +13,5 @@ export default async function HomePage() {
     return <div>Theme not found</div>
   }
 
-  return <HomePage posts={posts} authors={[]} siteMetadata={{}} />
+  return <HomePage posts={posts} authors={[]} siteInfo={siteInfo} />
 }

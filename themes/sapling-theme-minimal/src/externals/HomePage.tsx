@@ -1,4 +1,5 @@
-import { Post } from '@saplingdao/types'
+import { Post, Site } from '@saplingdao/types'
+import { ContentRender } from '../components/ContentRender'
 import Link from '../components/Link'
 import PageTitle from '../components/PageTitle'
 import { PostItem } from '../components/PostItem'
@@ -7,21 +8,17 @@ import { Authors } from '../types'
 const MAX_DISPLAY = 5
 
 interface Props {
-  siteMetadata: any
+  siteInfo: Site
   posts: Post[]
-  authors: Authors[]
 }
 
-export function HomePage({ posts = [], authors, siteMetadata }: Props) {
-  const author = authors.find((p) => p.slug === 'default') as Authors
-
+export function HomePage({ posts = [], siteInfo }: Props) {
   return (
     <div className="">
-      {/* <div className="prose max-w-none mb-10 text-gray-700 hover:text-black dark:text-gray-100">
-        <PageTitle>{siteMetadata.headerTitle}</PageTitle>
-
-        <MDXLayoutRenderer code={author.body.code} />
-      </div> */}
+      <div className="prose max-w-none mb-10 text-gray-700 hover:text-black dark:text-gray-100">
+        <PageTitle>{siteInfo.name}</PageTitle>
+        <ContentRender content={siteInfo.about} />
+      </div>
 
       <div className="">
         <div className="pb-6 pt-6 flex items-center justify-between">

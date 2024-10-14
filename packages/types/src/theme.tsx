@@ -1,5 +1,27 @@
 import { PropsWithChildren } from 'react'
 
+export type Site = {
+  id: string
+  name: string
+  description: string
+  about: string
+  logo: string | null
+  font: string
+  image: string | null
+  socials: Record<string, any>
+  config: Record<string, any>
+  subdomain: string | null
+  customDomain: string | null
+  memberCount: number
+  postCount: number
+  message404: string | null
+  themeName: string
+  symbolName: string | null
+  spaceAddress: string | null
+  createdAt: Date
+  updatedAt: Date
+}
+
 export enum PostType {
   ARTICLE = 'ARTICLE',
   IMAGE = 'IMAGE',

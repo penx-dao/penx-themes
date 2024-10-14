@@ -15,7 +15,7 @@ interface LayoutProps {
 
 export function PostDetail({ post, next, prev, children }: LayoutProps) {
   return (
-    <SectionContainer>
+    <div>
       <header className="space-y-4 pb-4">
         <PageTitle className="mb-0">{post.title}</PageTitle>
         <dl className="flex items-center gap-2">
@@ -62,6 +62,6 @@ export function PostDetail({ post, next, prev, children }: LayoutProps) {
           </div>
         </footer>
       </div>
-    </SectionContainer>
+    </div>
   )
 }
