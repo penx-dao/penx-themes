@@ -88,7 +88,7 @@ model Post {
   id            String        @id @default(uuid())
   slug          String        @default(uuid())
   title         String        @default("") @db.Text
-  summary       String        @default("") @db.Text
+  description   String        @default("") @db.Text
   content       String        @default("") @db.Text
   type          PostType      @default(ARTICLE)
   gateType      GateType      @default(FREE)

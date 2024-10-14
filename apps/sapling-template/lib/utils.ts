@@ -89,3 +89,14 @@ export function isAddress(address = ''): boolean {
   const regex = /^0x[a-fA-F0-9]{40}$/
   return regex.test(address)
 }
+
+export function isIPFSCID(str = '') {
+  // v1
+  const v1Regex =
+    /^(Qm[1-9A-HJ-NP-Za-km-z]{44,}|b[A-Za-z2-7]{58,}|B[A-Z2-7]{58,}|z[1-9A-HJ-NP-V]{48,}|F[0-9A-F]{50,})$/
+
+  // v0
+  const v0Regex = /^([0-9A-F]{46})$/i
+
+  return v1Regex.test(str) || v0Regex.test(str)
+}

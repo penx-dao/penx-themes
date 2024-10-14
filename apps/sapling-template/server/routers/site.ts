@@ -24,7 +24,6 @@ export const siteRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input
-      console.log('======input:', input)
       const site = await prisma.site.findFirst({
         where: { id },
       })

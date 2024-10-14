@@ -1,6 +1,6 @@
+import { cn } from '@saplingdao/utils'
 import { slug } from 'github-slugger'
 import Link from 'next/link'
-import { cn } from '../lib/utils'
 
 interface Props {
   text: string

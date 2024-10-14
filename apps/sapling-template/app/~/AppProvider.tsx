@@ -22,7 +22,6 @@ export function AppProvider({ children }: PropsWithChildren) {
     initedRef.current = true
 
     appRef.current.init({
-      spaceId: params?.id,
       postId: params?.postId,
       authenticated: status === 'authenticated',
     })

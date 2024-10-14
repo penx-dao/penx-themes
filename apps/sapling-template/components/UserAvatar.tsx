@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { cn, getEnsAvatar } from '@/lib/utils'
-import { User } from '@prisma/client'
 
 function hashCode(str: string) {
   let hash = 0
@@ -63,37 +62,16 @@ function generateGradient(walletAddress: string) {
 
 interface UserAvatarProps {
   className?: string
-  user:
-    | User
-    | {
-        name: string | null
-        address: string
-        ensName: string | null
-        email: string | null
-        image?: string | null
-      }
-    | {
-        address: string
-        name: string | null
-        ensName: string | null
-        email: string | null
-        image: string | null
-      }
+  address?: string
 }
 
-export function UserAvatar({ user, className }: UserAvatarProps) {
-  const src = useMemo(() => {
-    if (user?.image) return user.image
-    return user?.ensName ? getEnsAvatar(user.ensName) : ''
-  }, [user])
+export function UserAvatar({ address = '', className }: UserAvatarProps) {
   return (
     <Avatar className={cn('h-8 w-8', className)}>
-      <AvatarImage src={src} alt="" />
+      {/* <AvatarImage src={src} alt="" /> */}
       <AvatarFallback
-        className={cn('text-white text-xs', generateGradient(user?.address))}
-      >
-        {/* {address.slice(-2)} */}
-      </AvatarFallback>
+        className={cn('text-white text-xs', generateGradient(address))}
+      ></AvatarFallback>
     </Avatar>
   )
 }

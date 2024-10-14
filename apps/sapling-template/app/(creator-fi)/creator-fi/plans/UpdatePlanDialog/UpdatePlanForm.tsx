@@ -2,7 +2,13 @@
 
 import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import Editor from '@/app/(creator-fi)/components/editor/advanced-editor'
 import { NumberInput } from '@/app/(creator-fi)/components/NumberInput'
+import { PlanStatus } from '@/app/(creator-fi)/domains/Plan'
+import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
+import { usePlans } from '@/app/(creator-fi)/hooks/usePlans'
+import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
+import LoadingDots from '@/app/(creator-fi)/loading/loading-dots'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -14,10 +20,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
-import { PlanStatus } from '@/app/(creator-fi)/domains/Plan'
-import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
-import { usePlans } from '@/app/(creator-fi)/hooks/usePlans'
-import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { spaceAbi } from '@/lib/abi'
 import { addToIpfs } from '@/lib/addToIpfs'
 import { checkChain } from '@/lib/checkChain'
@@ -30,8 +32,6 @@ import { toast } from 'sonner'
 import { Address } from 'viem'
 import { z } from 'zod'
 import { useUpdatePlanDialog } from './useUpdatePlanDialog'
-import LoadingDots from '@/app/(creator-fi)/loading/loading-dots'
-import Editor from '@/app/(creator-fi)/components/editor/advanced-editor'
 
 const FormSchema = z.object({
   name: z.string().min(1, { message: 'Plan name is required' }),
@@ -73,7 +73,7 @@ export function UpdatePlanForm() {
         JSON.stringify({
           name: data.name,
           benefits: data.benefits,
-        })
+        }),
       )
 
       const price = precision.token(Number(data.price) / ethPrice)
@@ -81,7 +81,13 @@ export function UpdatePlanForm() {
         address: space.address as Address,
         abi: spaceAbi,
         functionName: 'updatePlan',
-        args: [plan.id, cid, price, BigInt(0), data.status === PlanStatus.ACTIVE],
+        args: [
+          plan.id,
+          cid,
+          price,
+          BigInt(0),
+          data.status === PlanStatus.ACTIVE,
+        ],
       })
 
       await waitForTransactionReceipt(wagmiConfig, { hash })
@@ -121,10 +127,16 @@ export function UpdatePlanForm() {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>
-                    Subscription price (${price || '0'}/month) ={priceBuyPrice.toFixed(5)} ETH
+                    Subscription price (${price || '0'}/month) =
+                    {priceBuyPrice.toFixed(5)} ETH
                   </FormLabel>
                   <FormControl>
-                    <NumberInput placeholder="" precision={2} {...field} className="w-full" />
+                    <NumberInput
+                      placeholder=""
+                      precision={2}
+                      {...field}
+                      className="w-full"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -194,7 +206,11 @@ export function UpdatePlanForm() {
         </div>
 
         <div className="mt-4 text-center">
-          <Button className="w-64" type="submit" disabled={isLoading || !form.formState.isValid}>
+          <Button
+            className="w-64"
+            type="submit"
+            disabled={isLoading || !form.formState.isValid}
+          >
             {isLoading ? <LoadingDots color="#808080" /> : <p>Update</p>}
           </Button>
         </div>

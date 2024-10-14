@@ -45,7 +45,7 @@ export const ProfileAvatar = forwardRef<HTMLDivElement, Props>(
         className={cn('flex items-center gap-2', className)}
         {...rest}
       >
-        <UserAvatar user={{ ...data, address, ensName } as any} />
+        <UserAvatar address={address} />
         {(showEnsName || showAddress) && (
           <div>
             {showEnsName && ensName && (

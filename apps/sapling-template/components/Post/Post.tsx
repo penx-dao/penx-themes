@@ -30,7 +30,7 @@ export function Post({
             id: post.id,
             title: value.title,
             content: value.content,
-            summary: value.summary,
+            description: value.description,
           })
         } catch (error) {}
       }
@@ -69,7 +69,7 @@ export function Post({
         </div>
         <div className="mb-8 space-y-2">
           <ProfileAvatar showEnsName showAddress />
-          <Tags setData={setData} />
+          <Tags />
         </div>
 
         <Editor

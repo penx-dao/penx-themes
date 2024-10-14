@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import { NewButton } from '@/components/Navbar/NewButton'
-import { PostsNav } from './PostsNav'
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (

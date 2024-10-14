@@ -5,8 +5,8 @@ import { wagmiConfig } from '@/lib/wagmi'
 import { useQuery } from '@tanstack/react-query'
 import { readContracts } from '@wagmi/core'
 import ky from 'ky'
-import { useSpace } from './useSpace'
 import { IPFS_GATEWAY } from '../constants'
+import { useSpace } from './useSpace'
 
 export function usePlans() {
   const { space } = useSpace()
@@ -32,12 +32,20 @@ export function usePlans() {
       const planInfos = await Promise.all(
         plansRes
           .filter((plan) => isIPFSCID(plan.uri))
-          .map((plan) => ky.get(`${IPFS_GATEWAY}/ipfs/${plan.uri}`).json<PlanInfo>())
+          .map((plan) =>
+            ky.get(`${IPFS_GATEWAY}/ipfs/${plan.uri}`).json<PlanInfo>(),
+          ),
       )
 
       const plans: Plan[] = plansRes.map(
         (item, index) =>
-          new Plan(index, { ...item, ...planInfos[index] }, token[0], token[1], token[2])
+          new Plan(
+            index,
+            { ...item, ...planInfos[index] },
+            token[0],
+            token[1],
+            token[2],
+          ),
       )
 
       return plans

@@ -3,7 +3,6 @@ import { ContentRender } from '../components/ContentRender'
 import Link from '../components/Link'
 import PageTitle from '../components/PageTitle'
 import { PostItem } from '../components/PostItem'
-import { Authors } from '../types'
 
 const MAX_DISPLAY = 5
 

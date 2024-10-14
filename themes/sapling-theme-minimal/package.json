@@ -9,15 +9,11 @@
   "files": [
     "dist"
   ],
-  "scripts": {
-    "dev": "tsup --watch --dts",
-    "build": "tsup --dts"
-  },
+  "scripts": {},
   "devDependencies": {
     "@types/node": "^18.19.33",
     "@types/react": "^18.2.73",
     "@types/react-dom": "^18.2.17",
-    "tsup": "^7.2.0",
     "typescript": "^5.4.5"
   },
   "dependencies": {
