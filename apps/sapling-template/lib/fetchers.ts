@@ -7,7 +7,7 @@ export async function getPosts() {
     async () => {
       return prisma.post.findMany({
         where: {
-          status: PostStatus.PUBLISHED,
+          postStatus: PostStatus.PUBLISHED,
         },
         orderBy: [
           {

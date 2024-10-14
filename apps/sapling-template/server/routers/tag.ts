@@ -2,6 +2,7 @@ import { PostStatus } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
 import { redisKeys } from '@/lib/redisKeys'
 import { Post } from '@prisma/client'
+import { TRPCError } from '@trpc/server'
 import Redis from 'ioredis'
 import { z } from 'zod'
 import { checkPostPermission } from '../lib/checkPostPermission'
@@ -23,7 +24,7 @@ enum GateType {
   MEMBER_ONLY = 'MEMBER_ONLY',
 }
 
-export const postRouter = router({
+export const tagRouter = router({
   list: protectedProcedure.query(async ({ ctx, input }) => {
     const key = redisKeys.posts()
 
@@ -69,33 +70,47 @@ export const postRouter = router({
   create: protectedProcedure
     .input(
       z.object({
-        type: z.enum([
-          PostType.ARTICLE,
-          PostType.IMAGE,
-          PostType.VIDEO,
-          PostType.AUDIO,
-          PostType.NFT,
-          PostType.FIGMA,
-        ]),
-        title: z.string().optional(),
+        postId: z.string(),
+        name: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const newPost = await prisma.post.create({
-        data: {
-          userId: ctx.token.uid,
-          type: input.type,
+      await prisma.$transaction(
+        async (tx) => {
+          let tag = await tx.tag.findFirst({
+            where: { name: input.name },
+          })
+
+          if (!tag) {
+            tag = await tx.tag.create({
+              data: { ...input, userId: ctx.token.uid },
+            })
+          }
+
+          const postTag = await tx.postTag.findFirst({
+            where: { postId: input.postId, tagId: tag.id },
+          })
+
+          if (postTag) {
+            throw new TRPCError({
+              code: 'BAD_REQUEST',
+              message: 'Tag already exists',
+            })
+          }
+
+          await tx.postTag.create({
+            data: {
+              postId: input.postId,
+              tagId: tag.id,
+            },
+          })
         },
-      })
-
-      await Promise.all([
-        redis.del(redisKeys.posts()),
-        redis.del(redisKeys.publishedPosts()),
-      ])
-
-      return prisma.post.findUniqueOrThrow({
-        where: { id: newPost.id },
-      })
+        {
+          maxWait: 5000, // default: 2000
+          timeout: 10000, // default: 5000
+        },
+      )
+      return true
     }),
 
   update: protectedProcedure

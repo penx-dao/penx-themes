@@ -32,19 +32,28 @@ model Site {
   updatedAt    DateTime @updatedAt
 }
 
+enum UserRole {
+  ADMIN
+  AUTHOR
+  READER
+}
+
 model User {
-  id            String    @id @default(uuid())
-  address       String    @unique
+  id            String         @id @default(uuid())
+  address       String         @unique
   name          String?
   ensName       String?
-  email         String?   @unique
+  role          UserRole       @default(READER)
+  email         String?        @unique
   emailVerified DateTime?
   image         String?
-  bio           String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  bio           String         @default("")
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   posts         Post[]
   comments      Comment[]
+  tags          Tag[]
+  accessTokens  AccessTokens[]
 
   @@index([id])
   @@index([address])
@@ -70,23 +79,32 @@ enum PostStatus {
   ARCHIVED
 }
 
+enum CommentStatus {
+  OPEN
+  CLOSED
+}
+
 model Post {
-  id          String     @id @default(uuid())
-  title       String     @default("") @db.Text
-  description String     @default("") @db.Text
-  content     String     @default("") @db.Text
-  slug        String     @default(uuid())
-  type        PostType   @default(ARTICLE)
-  gateType    GateType   @default(FREE)
-  status      PostStatus @default(DRAFT)
-  image       String?    @default("") @db.Text
-  publishedAt DateTime   @default(now())
-  archivedAt  DateTime   @default(now())
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId      String
-  Comment     Comment[]
+  id            String        @id @default(uuid())
+  slug          String        @default(uuid())
+  title         String        @default("") @db.Text
+  summary       String        @default("") @db.Text
+  content       String        @default("") @db.Text
+  type          PostType      @default(ARTICLE)
+  gateType      GateType      @default(FREE)
+  postStatus    PostStatus    @default(DRAFT)
+  commentStatus CommentStatus @default(OPEN)
+  image         String?       @default("") @db.Text
+  featured      Boolean       @default(false)
+  publishedAt   DateTime      @default(now())
+  archivedAt    DateTime      @default(now())
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId        String
+  comments      Comment[]
+  postTags      PostTag[]
+  Tag           Tag[]
 
   @@index([userId])
 }
@@ -94,6 +112,7 @@ model Post {
 model Comment {
   id        String   @id @default(uuid())
   content   String   @default("")
+  parenttId String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -103,5 +122,45 @@ model Comment {
 
   @@unique([userId, postId])
   @@index([postId])
+  @@index([userId])
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String   @default("")
+  color     String   @default("")
+  postCount Int      @default(0)
+  hidden    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User     User?     @relation(fields: [userId], references: [id])
+  userId   String?
+  postTags PostTag[]
+  Post     Post?     @relation(fields: [postId], references: [id])
+  postId   String?
+}
+
+model PostTag {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  postId    String
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tagId     String
+
+  @@index([postId])
+}
+
+model AccessTokens {
+  id        String    @id @default(uuid())
+  token     String    @default("")
+  expiredAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId    String
+
   @@index([userId])
 }

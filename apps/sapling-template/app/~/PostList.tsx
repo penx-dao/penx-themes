@@ -89,7 +89,7 @@ export function PostList({ status }: PostListProps) {
 
   if (isLoading) return <div className="text-neutral-500">Loading...</div>
 
-  const posts = data.filter((post) => post.status === status)
+  const posts = data.filter((post) => post.postStatus === status)
 
   if (!posts.length) {
     return <div className="text-neutral-500">No posts yet.</div>
@@ -98,7 +98,6 @@ export function PostList({ status }: PostListProps) {
   return (
     <div className="grid gap-4">
       {posts.map((post) => {
-        if (post.status !== status) return null
         return <PostItem key={post.id} post={post} />
       })}
     </div>
