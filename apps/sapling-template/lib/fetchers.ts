@@ -44,3 +44,29 @@ export async function getPost(slug: string) {
     },
   )()
 }
+
+export async function getTags() {
+  return await unstable_cache(
+    async () => {
+      return prisma.tag.findMany()
+    },
+    [`tags`],
+    {
+      revalidate: 5,
+      tags: [`tags`],
+    },
+  )()
+}
+
+// export async function getTagPosts() {
+//   return await unstable_cache(
+//     async () => {
+//       return prisma.tag.findMany()
+//     },
+//     [`tags-posts`],
+//     {
+//       revalidate: 900,
+//       tags: [`tags-post`],
+//     },
+//   )()
+// }

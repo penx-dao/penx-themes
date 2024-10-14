@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Post } from '@/hooks/usePost'
 import { postsAtom } from '@/hooks/usePosts'
-import { GateType } from '@/lib/constants'
+import { GateType, PostStatus } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { revalidateMetadata } from '@/lib/revalidateTag'
 import { api } from '@/lib/trpc'
@@ -23,7 +23,7 @@ export function usePublishPost() {
         })
 
         // update post published
-        if (!post.published) {
+        if (post.postStatus === PostStatus.PUBLISHED) {
           const posts = await api.post.list.query()
           store.set(postsAtom, posts)
         }
@@ -31,7 +31,7 @@ export function usePublishPost() {
         setLoading(false)
 
         revalidateMetadata(`posts`)
-        revalidateMetadata(`${post.slug}`)
+        revalidateMetadata(`posts-${post.slug}`)
         toast.success('Post published successfully!')
         return
       } catch (error) {

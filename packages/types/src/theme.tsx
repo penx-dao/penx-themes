@@ -43,6 +43,13 @@ export type Post = {
   userId: string
 }
 
+export type Tag = {
+  id: string
+  name: string
+  color: string
+  postCount: string
+}
+
 export interface HomeLayoutProps {
   path: string
 }

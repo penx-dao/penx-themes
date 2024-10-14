@@ -1,5 +1,7 @@
 import { getPosts } from '@/lib/fetchers'
 
+const POSTS_PER_PAGE = 6
+
 export default async function Page() {
   const posts = await getPosts()
 

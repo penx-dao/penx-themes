@@ -33,10 +33,11 @@ function AllTags({ post }: { post: Post }) {
             )
             if (some) return
             try {
-              await mutateAsync({
+              const postTag = await mutateAsync({
                 postId: post.id,
                 tagId: item.id,
               })
+              addPostTag(postTag)
             } catch (error) {
               toast.error(extractErrorMessage(error))
             }
@@ -56,6 +57,7 @@ export function Tags() {
   const { mutateAsync } = trpc.tag.create.useMutation()
   const { mutateAsync: deletePostTag } = trpc.tag.deletePostTag.useMutation()
 
+  if (!post?.postTags) return null
   return (
     <div className="flex items-center gap-2">
       <div className="flex gap-2">

@@ -1,6 +1,5 @@
 'use client'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -20,7 +19,14 @@ import { useAddress } from '@/hooks/useAddress'
 import { GateType } from '@/lib/constants'
 import { trpc } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
-import { Cloud, Gauge, LifeBuoy, LogOut, UserRoundPen } from 'lucide-react'
+import {
+  Cloud,
+  Gauge,
+  LifeBuoy,
+  LogOut,
+  Settings,
+  UserRoundPen,
+} from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { ProfileAvatar } from './ProfileAvatar'
@@ -65,6 +71,16 @@ export function ProfilePopover({
           >
             <Gauge className="mr-2 h-4 w-4" />
             <span>Posts</span>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => {
+              push('/~/settings')
+            }}
+          >
+            <Settings className="mr-2 h-4 w-4" />
+            <span>Settings</span>
           </DropdownMenuItem>
 
           <DropdownMenuItem

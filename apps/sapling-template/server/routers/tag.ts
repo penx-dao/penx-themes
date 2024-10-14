@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { redisKeys } from '@/lib/redisKeys'
 import { TRPCError } from '@trpc/server'
+import { slug } from 'github-slugger'
 import Redis from 'ioredis'
 import { z } from 'zod'
 import { checkPostPermission } from '../lib/checkPostPermission'
@@ -24,13 +25,14 @@ export const tagRouter = router({
     .mutation(({ ctx, input }) => {
       return prisma.$transaction(
         async (tx) => {
+          const tagName = slug(input.name)
           let tag = await tx.tag.findFirst({
-            where: { name: input.name },
+            where: { name: tagName },
           })
 
           if (!tag) {
             tag = await tx.tag.create({
-              data: { name: input.name, userId: ctx.token.uid },
+              data: { name: tagName, userId: ctx.token.uid },
             })
           }
 
@@ -75,7 +77,11 @@ export const tagRouter = router({
       const postTag = await prisma.postTag.create({
         data: { ...input },
       })
-      return postTag
+
+      return prisma.postTag.findUniqueOrThrow({
+        include: { tag: true },
+        where: { id: postTag.id },
+      })
     }),
 
   deletePostTag: protectedProcedure

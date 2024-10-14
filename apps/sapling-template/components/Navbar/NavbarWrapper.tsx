@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils'
 import { useSession } from 'next-auth/react'
 import { Merienda } from 'next/font/google'
 import { usePathname } from 'next/navigation'
-import { ProfileDialog } from '../Profile/ProfileDialog/ProfileDialog'
 import { ProfilePopover } from '../Profile/ProfilePopover'
 import { WalletConnectButton } from '../WalletConnectButton'
 import { NewButton } from './NewButton'
@@ -48,7 +47,6 @@ export function NavbarWrapper({
       </div>
       <div className="flex-1"></div>
 
-      <ProfileDialog />
       {topRightJSX}
     </div>
   )

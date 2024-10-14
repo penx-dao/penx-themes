@@ -1,23 +1,18 @@
-import { slug } from 'github-slugger'
-import Link from '../components/Link'
+import { Tag } from '@saplingdao/types'
 import PageTitle from '../components/PageTitle'
-import Tag from '../components/Tag'
 import { TagList } from '../components/TagList'
 
 interface Props {
-  tagData: Record<string, number>
+  tags: Tag[]
 }
 
-export function TagListPage({ tagData }: Props) {
-  const tagCounts = tagData as Record<string, number>
-  const tagKeys = Object.keys(tagCounts)
-
+export function TagListPage({ tags }: Props) {
   return (
     <div className="flex flex-col">
       <PageTitle>Tags</PageTitle>
       <div className="grid gap-y-3">
-        {tagKeys.length === 0 && 'No tags found.'}
-        {tagKeys.length > 0 && <TagList tagData={tagData} />}
+        {tags.length === 0 && 'No tags found.'}
+        {tags.length > 0 && <TagList tags={tags} />}
       </div>
     </div>
   )

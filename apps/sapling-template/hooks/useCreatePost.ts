@@ -1,5 +1,6 @@
 import { PostType } from '@/lib/constants'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
+import { revalidateMetadata } from '@/lib/revalidateTag'
 import { api, trpc } from '@/lib/trpc'
 import { store } from '@/store'
 import { useRouter } from 'next/navigation'
@@ -21,6 +22,7 @@ export function useCreatePost() {
         store.set(postsAtom, posts)
       }, 0)
       await refetch()
+      revalidateMetadata('posts')
       push(`/~/post/${post.id}`)
     } catch (error) {
       const msg = extractErrorMessage(error)

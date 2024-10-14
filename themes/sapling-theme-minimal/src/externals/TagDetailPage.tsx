@@ -1,12 +1,11 @@
-import { Post } from '@saplingdao/types'
+import { Post, Tag } from '@saplingdao/types'
 import { PostListWithTag } from '../components/PostListWithTag'
 
 interface Props {
   posts: Post[]
-  tagData: Record<string, number>
-  title: string
+  tags: Tag[]
 }
 
-export function TagDetailPage({ posts = [], tagData, title }: Props) {
-  return <PostListWithTag posts={posts} tagData={tagData} title={title} />
+export function TagDetailPage({ posts = [], tags = [] }: Props) {
+  return <PostListWithTag posts={posts} tags={tags} />
 }

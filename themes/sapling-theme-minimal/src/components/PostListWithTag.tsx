@@ -1,4 +1,4 @@
-import { Post } from '@saplingdao/types'
+import { Post, Tag } from '@saplingdao/types'
 import PageTitle from './PageTitle'
 import { PostList } from './PostList'
 import { TagList } from './TagList'
@@ -8,17 +8,15 @@ interface PaginationProps {
   currentPage: number
 }
 interface PostListWithTagProps {
-  tagData: Record<string, number>
   posts: Post[]
-  title: string
+  tags: Tag[]
   initialDisplayPosts?: Post[]
   pagination?: PaginationProps
 }
 
 export function PostListWithTag({
-  tagData = {},
   posts,
-  title,
+  tags = [],
   initialDisplayPosts = [],
   pagination,
 }: PostListWithTagProps) {
@@ -28,7 +26,7 @@ export function PostListWithTag({
   return (
     <div className="flex flex-col">
       <PageTitle>Tags</PageTitle>
-      <TagList tagData={tagData} title={title} />
+      <TagList tags={tags} />
       <div className="mt-10">
         <PostList posts={displayPosts} />
       </div>

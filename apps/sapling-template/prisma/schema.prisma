@@ -136,6 +136,8 @@ model Tag {
   User     User?     @relation(fields: [userId], references: [id])
   userId   String?
   postTags PostTag[]
+
+  @@index([name])
 }
 
 model PostTag {

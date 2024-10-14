@@ -1,38 +1,35 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 'use client'
 
+import { Tag } from '@saplingdao/types'
 import { slug } from 'github-slugger'
 import { usePathname } from 'next/navigation'
 import Link from './Link'
 
 interface PostListWithTagProps {
-  tagData: Record<string, number>
-  title?: string
+  tags: Tag[]
 }
 
-export function TagList({ tagData = {}, title }: PostListWithTagProps) {
+export function TagList({ tags = [] }: PostListWithTagProps) {
   const pathname = usePathname()
-  const tagCounts = tagData as Record<string, number>
-  const tagKeys = Object.keys(tagCounts)
-  const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
 
   return (
     <div className="">
       <ul className="flex flex-wrap gap-x-5">
-        {sortedTags.map((t) => {
+        {tags.map((t) => {
           return (
-            <li key={t} className="my-3">
-              {decodeURI(pathname.split('/tags/')[1]) === slug(t) ? (
+            <li key={t.id} className="my-3">
+              {decodeURI(pathname.split('/tags/')[1]) === slug(t.name) ? (
                 <h3 className="inline py-2 text-primary-500 dark:text-gray-800">
-                  {`${t} (${tagCounts[t]})`}
+                  #{`${t.name}`}
                 </h3>
               ) : (
                 <Link
-                  href={`/tags/${slug(t)}`}
+                  href={`/tags/${slug(t.name)}`}
                   className="py-2 text-gray-500 hover:text-primary-500 dark:text-gray-800 dark:hover:text-primary-500 rounded-full"
-                  aria-label={`View posts tagged ${t}`}
+                  aria-label={`View posts tagged ${t.name}`}
                 >
-                  {`${t} (${tagCounts[t]})`}
+                  #{`${t.name}`}
                 </Link>
               )}
             </li>
