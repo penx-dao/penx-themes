@@ -1,37 +1,92 @@
 'use client'
 
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Post } from '@/hooks/usePost'
+import { addPostTag, Post, removePostTag, usePost } from '@/hooks/usePost'
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'
-import { Plus } from 'lucide-react'
+import { Plus, XIcon } from 'lucide-react'
 import { toast } from 'sonner'
+import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 
-interface PostHeaderProps {
-  post: Post
-  setData: Dispatch<SetStateAction<Post>>
+function AllTags({ post }: { post: Post }) {
+  const { data = [], isLoading } = trpc.tag.list.useQuery()
+  const { mutateAsync } = trpc.tag.add.useMutation()
+  if (isLoading) {
+    return <div className="px-3 py-3 text-zinc-500 text-center">Loading...</div>
+  }
+  return (
+    <>
+      {data.map((item) => (
+        <DropdownMenuItem
+          key={item.id}
+          onClick={async () => {
+            const some = post.postTags.some(
+              (postTag) => postTag.tag.id === item.id,
+            )
+            if (some) return
+            try {
+              await mutateAsync({
+                postId: post.id,
+                tagId: item.id,
+              })
+            } catch (error) {
+              toast.error(extractErrorMessage(error))
+            }
+          }}
+          className="cursor-pointer py-2"
+        >
+          {item.name}
+        </DropdownMenuItem>
+      ))}
+    </>
+  )
 }
-export function Tags({ post, setData }: PostHeaderProps) {
+
+export function Tags() {
+  const { post } = usePost()
   const [value, setValue] = useState('')
   const { mutateAsync } = trpc.tag.create.useMutation()
+  const { mutateAsync: deletePostTag } = trpc.tag.deletePostTag.useMutation()
+
   return (
     <div className="flex items-center gap-2">
-      <div>Tags...</div>
+      <div className="flex gap-2">
+        {post.postTags.map((item) => (
+          <Badge
+            variant="secondary"
+            key={item.id}
+            className="rounded-full relative gap-1 text-xs"
+            onClick={async () => {
+              try {
+                removePostTag(item.id)
+                await deletePostTag(item.id)
+              } catch (error) {
+                toast.error(extractErrorMessage(error))
+              }
+            }}
+          >
+            <div>{item.tag.name}</div>
+            <div className="inline-flex w-5 h-5 rounded-full hover:bg-zinc-500 hover:text-white items-center justify-center transition-colors cursor-pointer">
+              <XIcon size={16} />
+            </div>
+          </Badge>
+        ))}
+      </div>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             size="xs"
             variant="outline"
-            className="rounded-full gap-1 text-zinc-500 text-xs"
+            className="rounded-full gap-1 text-zinc-500 text-xs h-7 px-2"
           >
             <Plus size={16}></Plus>
             <div>Add tag</div>
@@ -46,12 +101,13 @@ export function Tags({ post, setData }: PostHeaderProps) {
               onChange={(e) => setValue(e.target.value)}
               onKeyDown={async (e) => {
                 if (e.key === 'Enter') {
-                  console.log('value======:', value)
                   try {
-                    await mutateAsync({
+                    const postTag = await mutateAsync({
                       postId: post.id,
                       name: value,
                     })
+
+                    addPostTag(postTag)
                   } catch (error) {
                     const msg = extractErrorMessage(error)
                     toast.error(msg || 'Error adding tag')
@@ -60,7 +116,7 @@ export function Tags({ post, setData }: PostHeaderProps) {
               }}
             />
           </div>
-          <DropdownMenuItem onClick={() => {}}>System</DropdownMenuItem>
+          <AllTags post={post} />
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

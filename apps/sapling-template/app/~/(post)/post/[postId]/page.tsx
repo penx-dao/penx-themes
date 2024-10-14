@@ -10,6 +10,8 @@ import { PostType } from '@/lib/constants'
 export default function PostPage() {
   const { post } = usePost()
 
+  console.log('post=======:', post)
+
   const { isPostLoading } = usePostLoading()
 
   if (isPostLoading || !post)

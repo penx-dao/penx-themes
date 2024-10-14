@@ -35,6 +35,9 @@ export const postRouter = router({
     }
 
     const posts = await prisma.post.findMany({
+      include: {
+        postTags: { include: { tag: true } },
+      },
       orderBy: { updatedAt: 'desc' },
     })
 
@@ -62,6 +65,9 @@ export const postRouter = router({
 
   byId: protectedProcedure.input(z.string()).query(async ({ input }) => {
     return prisma.post.findUnique({
+      include: {
+        postTags: { include: { tag: true } },
+      },
       where: { id: input },
     })
   }),

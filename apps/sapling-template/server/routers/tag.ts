@@ -1,7 +1,5 @@
-import { PostStatus } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
 import { redisKeys } from '@/lib/redisKeys'
-import { Post } from '@prisma/client'
 import { TRPCError } from '@trpc/server'
 import Redis from 'ioredis'
 import { z } from 'zod'
@@ -10,61 +8,10 @@ import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 const redis = new Redis(process.env.REDIS_URL!)
 
-enum PostType {
-  ARTICLE = 'ARTICLE',
-  IMAGE = 'IMAGE',
-  VIDEO = 'VIDEO',
-  AUDIO = 'AUDIO',
-  NFT = 'NFT',
-  FIGMA = 'FIGMA',
-}
-
-enum GateType {
-  FREE = 'FREE',
-  MEMBER_ONLY = 'MEMBER_ONLY',
-}
-
 export const tagRouter = router({
-  list: protectedProcedure.query(async ({ ctx, input }) => {
-    const key = redisKeys.posts()
-
-    const postsStr = await redis.get(key)
-
-    if (postsStr) {
-      // const res = JSON.parse(postsStr) as Post[]
-      // if (Array.isArray(res)) return res
-    }
-
-    const posts = await prisma.post.findMany({
-      orderBy: { updatedAt: 'desc' },
-    })
-
-    await redis.set(key, JSON.stringify(posts), 'EX', 60 * 60 * 24)
-    return posts
-  }),
-
-  publishedPosts: publicProcedure.query(async ({ ctx, input }) => {
-    const key = redisKeys.publishedPosts()
-
-    const postsStr = await redis.get(key)
-
-    if (postsStr) {
-      const res = JSON.parse(postsStr) as Post[]
-      if (Array.isArray(res)) return res
-    }
-
-    const posts = await prisma.post.findMany({
-      where: { postStatus: PostStatus.PUBLISHED },
-    })
-
-    await redis.set(key, JSON.stringify(posts), 'EX', 60 * 60 * 24)
-    return posts
-  }),
-
-  byId: protectedProcedure.input(z.string()).query(async ({ input }) => {
-    return prisma.post.findUnique({
-      where: { id: input },
-    })
+  list: publicProcedure.query(async () => {
+    const tags = await prisma.tag.findMany()
+    return tags
   }),
 
   create: protectedProcedure
@@ -74,8 +21,8 @@ export const tagRouter = router({
         name: z.string(),
       }),
     )
-    .mutation(async ({ ctx, input }) => {
-      await prisma.$transaction(
+    .mutation(({ ctx, input }) => {
+      return prisma.$transaction(
         async (tx) => {
           let tag = await tx.tag.findFirst({
             where: { name: input.name },
@@ -83,7 +30,7 @@ export const tagRouter = router({
 
           if (!tag) {
             tag = await tx.tag.create({
-              data: { ...input, userId: ctx.token.uid },
+              data: { name: input.name, userId: ctx.token.uid },
             })
           }
 
@@ -98,11 +45,16 @@ export const tagRouter = router({
             })
           }
 
-          await tx.postTag.create({
+          const newPostTag = await tx.postTag.create({
             data: {
               postId: input.postId,
               tagId: tag.id,
             },
+          })
+
+          return tx.postTag.findUniqueOrThrow({
+            include: { tag: true },
+            where: { id: newPostTag.id },
           })
         },
         {
@@ -110,92 +62,28 @@ export const tagRouter = router({
           timeout: 10000, // default: 5000
         },
       )
-      return true
     }),
 
-  update: protectedProcedure
+  add: protectedProcedure
     .input(
       z.object({
-        id: z.string(),
-        title: z.string().optional(),
-        content: z.string().optional(),
-        summary: z.string().optional(),
+        tagId: z.string(),
+        postId: z.string(),
       }),
     )
-    .mutation(async ({ ctx, input }) => {
-      const { id, ...data } = input
-      await checkPostPermission(ctx.token.uid, input.id)
-      const post = await prisma.post.update({
-        where: { id },
-        data: {
-          ...data,
-        },
+    .mutation(async ({ input }) => {
+      const postTag = await prisma.postTag.create({
+        data: { ...input },
       })
-
-      await Promise.all([
-        redis.del(redisKeys.posts()),
-        redis.del(redisKeys.publishedPosts()),
-      ])
-
-      return true
+      return postTag
     }),
 
-  updateCover: protectedProcedure
-    .input(
-      z.object({
-        id: z.string(),
-        image: z.string(),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const { id, image } = input
-      await checkPostPermission(ctx.token.uid, input.id)
-      const post = await prisma.post.update({
-        where: { id },
-        data: { image },
-      })
-
-      await Promise.all([
-        redis.del(redisKeys.posts()),
-        redis.del(redisKeys.publishedPosts()),
-      ])
-      return true
-    }),
-
-  publish: protectedProcedure
-    .input(
-      z.object({
-        id: z.string(),
-        gateType: z.enum([GateType.FREE, GateType.MEMBER_ONLY]),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      const { id, gateType } = input
-      await checkPostPermission(ctx.token.uid, input.id)
-      const post = await prisma.post.update({
-        where: { id },
-        data: {
-          postStatus: PostStatus.PUBLISHED,
-          publishedAt: new Date(),
-          gateType,
-        },
-      })
-
-      await Promise.all([
-        redis.del(redisKeys.posts()),
-        redis.del(redisKeys.publishedPosts()),
-      ])
-
-      return post
-    }),
-
-  delete: protectedProcedure
+  deletePostTag: protectedProcedure
     .input(z.string())
-    .mutation(async ({ ctx, input }) => {
-      const post = await prisma.post.delete({
+    .mutation(async ({ input }) => {
+      const post = await prisma.postTag.delete({
         where: { id: input },
       })
-
       return post
     }),
 })

@@ -104,7 +104,6 @@ model Post {
   userId        String
   comments      Comment[]
   postTags      PostTag[]
-  Tag           Tag[]
 
   @@index([userId])
 }
@@ -137,8 +136,6 @@ model Tag {
   User     User?     @relation(fields: [userId], references: [id])
   userId   String?
   postTags PostTag[]
-  Post     Post?     @relation(fields: [postId], references: [id])
-  postId   String?
 }
 
 model PostTag {

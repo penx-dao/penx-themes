@@ -21,7 +21,6 @@ export function Post({
 }) {
   const [data, setData] = useState<PostType>(post)
   const { isPending, mutateAsync } = trpc.post.update.useMutation()
-  const { data: session } = useSession()
 
   const debounced = useDebouncedCallback(
     async (value: PostType) => {
@@ -70,7 +69,7 @@ export function Post({
         </div>
         <div className="mb-8 space-y-2">
           <ProfileAvatar showEnsName showAddress />
-          <Tags post={data} setData={setData} />
+          <Tags setData={setData} />
         </div>
 
         <Editor
