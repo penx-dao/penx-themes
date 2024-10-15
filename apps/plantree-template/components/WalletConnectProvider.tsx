@@ -1,6 +1,7 @@
 'use client'
 
 import React, { ReactNode } from 'react'
+import { siweConfig } from '@/lib/wagmi/siweConfig'
 import { networks, wagmiAdapter, wagmiConfig } from '@/lib/wagmi/wagmiConfig'
 import { createAppKit } from '@reown/appkit/react'
 import { Config, cookieToInitialState, State, WagmiProvider } from 'wagmi'
@@ -16,6 +17,7 @@ const metadata = {
 
 // Create the modal
 const modal = createAppKit({
+  siweConfig: siweConfig,
   adapters: [wagmiAdapter],
   projectId,
   networks: networks,
