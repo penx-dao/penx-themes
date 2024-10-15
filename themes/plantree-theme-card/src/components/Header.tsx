@@ -1,9 +1,9 @@
 import { ReactNode } from 'react'
 import { Merienda } from 'next/font/google'
-import { cn } from '../lib/utils'
+import { Site } from '@plantreexyz/types'
+import { cn } from '@plantreexyz/utils'
 import { ClientOnly } from './ClientOnly'
 import Link from './Link'
-import { SearchButton } from './SearchButton'
 
 const merienda = Merienda({
   weight: ['400', '500', '600', '700'],
@@ -21,7 +21,7 @@ const headerNavLinks = [
 const headerNavLinksRight = [{ href: '/creator-fi/trade', title: 'CreatorFi' }]
 
 interface Props {
-  siteMetadata: any
+  site: Site
   Logo: () => ReactNode
   ThemeSwitch: () => ReactNode
   MobileNav: () => ReactNode
@@ -29,7 +29,7 @@ interface Props {
 }
 
 export const Header = ({
-  siteMetadata,
+  site,
   Logo,
   ThemeSwitch,
   MobileNav,
@@ -38,8 +38,7 @@ export const Header = ({
   return (
     <header
       className={cn(
-        'flex items-center w-ful dark:bg-gray-950 py-4 h-16',
-        siteMetadata.stickyNav && 'sticky top-0 z-50',
+        'flex items-center w-ful dark:bg-gray-950 py-4 h-16 z-50 bg-white',
       )}
     >
       <div className="flex-1 no-scrollbar hidden items-center space-x-4 overflow-x-auto sm:flex sm:space-x-6">
@@ -47,27 +46,23 @@ export const Header = ({
           <Link
             key={link.title}
             href={link.href}
-            className="block font-medium text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
+            className="block font-medium text-gray-900 hover:text-brand-500 dark:text-gray-100 dark:hover:text-primary-400"
           >
             {link.title}
           </Link>
         ))}
       </div>
 
-      <Link href="/" aria-label={siteMetadata.headerTitle}>
+      <Link href="/" aria-label={site.name}>
         <div className="flex items-center justify-between">
-          {typeof siteMetadata.headerTitle === 'string' ? (
-            <div
-              className={cn(
-                'hidden h-6 text-2xl font-semibold sm:block',
-                merienda.className,
-              )}
-            >
-              {siteMetadata.headerTitle}
-            </div>
-          ) : (
-            siteMetadata.headerTitle
-          )}
+          <div
+            className={cn(
+              'hidden h-6 text-2xl font-semibold sm:block',
+              merienda.className,
+            )}
+          >
+            {site.name}
+          </div>
         </div>
       </Link>
 
@@ -77,14 +72,13 @@ export const Header = ({
             <Link
               key={link.title}
               href={link.href}
-              className="block font-medium text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
+              className="block font-medium text-gray-900 hover:text-brand-500 dark:text-gray-100 dark:hover:text-primary-400"
             >
               {link.title}
             </Link>
           ))}
         </div>
 
-        <SearchButton siteMetadata={siteMetadata} />
         {ThemeSwitch && <ThemeSwitch />}
         {MobileNav && <MobileNav />}
         {ConnectButton && (

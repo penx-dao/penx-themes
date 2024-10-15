@@ -1,10 +1,11 @@
 import { ReactNode } from 'react'
+import { Site } from '@plantreexyz/types'
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
 import SectionContainer from '../components/SectionContainer'
 
 interface Props {
-  siteMetadata: any
+  site: Site
   Logo: () => ReactNode
   ThemeSwitch: () => ReactNode
   MobileNav: () => ReactNode
@@ -14,7 +15,7 @@ interface Props {
 
 export function SiteLayout({
   children,
-  siteMetadata,
+  site,
   Logo,
   ThemeSwitch,
   MobileNav,
@@ -29,14 +30,14 @@ export function SiteLayout({
       )}
 
       <Header
-        siteMetadata={siteMetadata}
+        site={site}
         Logo={Logo}
         ThemeSwitch={ThemeSwitch}
         MobileNav={MobileNav}
         ConnectButton={ConnectButton}
       />
       <main className="mb-auto">{children}</main>
-      <Footer siteMetadata={siteMetadata} ThemeSwitch={ThemeSwitch} />
+      <Footer site={site} ThemeSwitch={ThemeSwitch} />
     </SectionContainer>
   )
 }

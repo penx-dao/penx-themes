@@ -1,3 +1,4 @@
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Post, postAtom, usePost } from '@/hooks/usePost'
 import { postLoadingAtom } from '@/hooks/usePostLoading'
@@ -46,6 +47,13 @@ export function PostItem({ post }: PostItemProps) {
         onClick={toPost}
       >
         <div className="text-base font-bold">{post.title || 'Untitled'}</div>
+      </div>
+      <div className="flex gap-2">
+        {post.postTags.map((item) => (
+          <Badge key={item.id} variant="outline">
+            {item.tag.name}
+          </Badge>
+        ))}
       </div>
       <div className="flex items-center gap-2">
         <div className="text-sm text-zinc-500">

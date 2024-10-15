@@ -26,11 +26,11 @@ export function TagList({ tagData = {}, title }: PostListWithTagProps) {
       <div className="">
         <div className="py-4">
           {pathname.startsWith('/posts') ? (
-            <h3 className="font-bold uppercase text-primary-500">All Posts</h3>
+            <h3 className="font-bold uppercase text-brand-500">All Posts</h3>
           ) : (
             <Link
               href={`/posts`}
-              className="font-bold uppercase text-gray-700 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
+              className="font-bold uppercase text-gray-700 hover:text-brand-500 dark:text-gray-300 dark:hover:text-brand-500"
             >
               All Posts
             </Link>
@@ -40,13 +40,13 @@ export function TagList({ tagData = {}, title }: PostListWithTagProps) {
               return (
                 <li key={t} className="my-3">
                   {decodeURI(pathname.split('/tags/')[1]) === slug(t) ? (
-                    <h3 className="inline px-3 py-2 text-sm font-bold uppercase text-primary-500 rounded-full bg-gray-100">
+                    <h3 className="inline px-3 py-2 text-sm font-bold uppercase text-brand-500 rounded-full bg-gray-100">
                       {`${t} (${tagCounts[t]})`}
                     </h3>
                   ) : (
                     <Link
                       href={`/tags/${slug(t)}`}
-                      className="px-3 py-2 text-sm font-medium uppercase text-gray-500 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500 rounded-full bg-gray-100"
+                      className="px-3 py-2 text-sm font-medium uppercase text-gray-500 hover:text-brand-500 dark:text-gray-300 dark:hover:text-brand-500 rounded-full bg-gray-100"
                       aria-label={`View posts tagged ${t}`}
                     >
                       {`${t} (${tagCounts[t]})`}

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { Site } from '@plantreexyz/types'
 import { cn } from '@plantreexyz/utils'
 import { ClientOnly } from './ClientOnly'
 import Link from './Link'
@@ -11,7 +12,7 @@ const headerNavLinks = [
 ]
 
 interface Props {
-  siteMetadata: any
+  site: Site
   Logo: () => ReactNode
   ThemeSwitch: () => ReactNode
   MobileNav: () => ReactNode
@@ -19,7 +20,7 @@ interface Props {
 }
 
 export const Header = ({
-  siteMetadata = {},
+  site,
   Logo,
   ThemeSwitch,
   MobileNav,
@@ -28,23 +29,20 @@ export const Header = ({
   return (
     <header
       className={cn(
-        'flex items-center w-ful dark:bg-gray-950 justify-between py-4 h-16',
-        siteMetadata?.stickyNav && 'sticky top-0 z-50',
+        'flex items-center w-ful dark:bg-gray-950 justify-between py-4 h-16 sticky top-0 z-50',
       )}
     >
       <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
         <div className=" no-scrollbar hidden max-w-40 items-center space-x-4 overflow-x-auto sm:flex sm:space-x-6 md:max-w-72 lg:max-w-96">
-          {headerNavLinks
-            // .filter((link) => link.href !== '/')
-            .map((link) => (
-              <Link
-                key={link.title}
-                href={link.href}
-                className="block font-medium text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400"
-              >
-                {link.title}
-              </Link>
-            ))}
+          {headerNavLinks.map((link) => (
+            <Link
+              key={link.title}
+              href={link.href}
+              className="block font-medium text-gray-900 hover:text-brand-500 dark:text-gray-100 dark:hover:text-primary-400"
+            >
+              {link.title}
+            </Link>
+          ))}
         </div>
         {/* {MobileNav && <MobileNav />} */}
       </div>

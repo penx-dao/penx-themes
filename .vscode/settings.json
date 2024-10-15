@@ -1,5 +1,14 @@
 {
   "search.followSymlinks": false,
-  "cSpell.enableFiletypes": ["solidity"],
-  "rust-analyzer.linkedProjects": ["./apps/desktop/src-tauri/Cargo.toml"]
+  "rust-analyzer.linkedProjects": ["./apps/desktop/src-tauri/Cargo.toml"],
+  "tailwindCSS.includeLanguages": {
+    "javascript": "javascript",
+    "javascriptreact": "javascript",
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.classAttributes": ["className", ".*Classes.*"]
 }

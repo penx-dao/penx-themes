@@ -4,7 +4,7 @@ import Link from '../components/Link'
 import { PostItem } from '../components/PostItem'
 import { Authors, Post } from '../types'
 
-const MAX_DISPLAY = 6
+const POSTS_PER_PAGE = 6
 
 interface Props {
   siteMetadata: any
@@ -29,10 +29,10 @@ export function HomePage({ posts = [], authors, siteMetadata }: Props) {
             Latest
           </h1>
 
-          {posts.length > MAX_DISPLAY && (
+          {posts.length > POSTS_PER_PAGE && (
             <Link
               href="/posts"
-              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+              className="text-brand-500 hover:text-primary-600 dark:hover:text-primary-400"
             >
               All posts &rarr;
             </Link>
@@ -40,7 +40,7 @@ export function HomePage({ posts = [], authors, siteMetadata }: Props) {
         </div>
         <div className="grid grid-cols-1 gap-2">
           {!posts.length && 'No posts found.'}
-          {posts.slice(0, MAX_DISPLAY).map((post) => {
+          {posts.slice(0, POSTS_PER_PAGE).map((post) => {
             return <PostItem key={post.path} post={post} />
           })}
         </div>

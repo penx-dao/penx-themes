@@ -1,5 +1,4 @@
-import { CoreContent } from 'pliny/utils/contentlayer'
-import { Post } from '../types'
+import { Post } from '@plantreexyz/types'
 import { Pagination } from './Pagination'
 import { PostItem } from './PostItem'
 
@@ -8,8 +7,8 @@ interface PaginationProps {
   currentPage: number
 }
 interface PostListProps {
-  posts: CoreContent<Post>[]
-  initialDisplayPosts?: CoreContent<Post>[]
+  posts: Post[]
+  initialDisplayPosts?: Post[]
   pagination?: PaginationProps
 }
 
@@ -23,9 +22,9 @@ export function PostList({
 
   return (
     <div className="">
-      <div className="grid grid-cols-3 gap-x-6 gap-y-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
         {displayPosts.map((post) => {
-          return <PostItem key={post.path} post={post} />
+          return <PostItem key={post.slug} post={post} />
         })}
       </div>
       {pagination && pagination.totalPages > 1 && (

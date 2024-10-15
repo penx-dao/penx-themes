@@ -1,25 +1,25 @@
-import { CoreContent } from 'pliny/utils/contentlayer'
-import { formatDate } from 'pliny/utils/formatDate'
-import { Post } from '../types'
+import { Post } from '@plantreexyz/types'
+import { formatDate } from '@plantreexyz/utils'
 import Image from './Image'
 import Link from './Link'
 import Tag from './Tag'
 
 interface PostItemProps {
-  post: CoreContent<Post>
+  post: Post
 }
 
 export function PostItem({ post }: PostItemProps) {
-  const { path, date, title, summary, tags } = post
+  const { slug, title } = post
+
   return (
-    <article key={path} className="flex flex-col space-y-5">
+    <article key={slug} className="flex flex-col space-y-5">
       <Link
-        href={`/${path}`}
+        href={`/posts/${slug}`}
         className="object-cover w-full h-52 bg-neutral-100 rounded-lg overflow-hidden hover:scale-105 transition-all"
       >
-        {!!post?.images?.length && (
+        {!!post?.image && (
           <Image
-            src={post.images?.[0] || ''}
+            src={post.image || ''}
             alt=""
             width={400}
             height={400}
@@ -31,19 +31,19 @@ export function PostItem({ post }: PostItemProps) {
         <div>
           <div className="flex items-center text-sm gap-3">
             <div className="text-gray-500 dark:text-gray-400">
-              {formatDate(date)}
+              {formatDate(post.updatedAt)}
             </div>
             <div className="flex flex-wrap">
-              {tags
-                ?.slice(0, 3)
-                ?.map((tag) => (
-                  <Tag key={tag} text={tag} className="text-sm" />
+              {post.postTags
+                // ?.slice(0, 3)
+                ?.map((item) => (
+                  <Tag key={item.id} postTag={item} className="text-sm" />
                 ))}
             </div>
           </div>
           <h2 className="text-2xl font-bold leading-8 tracking-tight">
             <Link
-              href={`/${path}`}
+              href={`/posts/${slug}`}
               className="text-gray-600 hover:text-black dark:text-gray-100 transition-colors"
             >
               {title}

@@ -31,13 +31,13 @@ export function TagList({ tagData = {}, title }: PostListWithTagProps) {
           return (
             <li key={t} className="my-3">
               {decodeURI(pathname.split('/tags/')[1]) === slug(t) ? (
-                <h3 className="inline px-3 py-2 text-sm font-bold text-primary-500 rounded-full bg-gray-100 dark:text-gray-800 dark:bg-gray-300">
+                <h3 className="inline px-3 py-2 text-sm font-bold text-brand-500 rounded-full bg-gray-100 dark:text-gray-800 dark:bg-gray-300">
                   {`${t} (${tagCounts[t]})`}
                 </h3>
               ) : (
                 <Link
                   href={`/tags/${slug(t)}`}
-                  className="px-3 py-2 text-sm font-medium text-gray-500 hover:text-primary-500 dark:text-gray-800 dark:hover:text-primary-500 rounded-full bg-gray-100 dark:bg-gray-300"
+                  className="px-3 py-2 text-sm font-medium text-gray-500 hover:text-brand-500 dark:text-gray-800 dark:hover:text-brand-500 rounded-full bg-gray-100 dark:bg-gray-300"
                   aria-label={`View posts tagged ${t}`}
                 >
                   {`${t} (${tagCounts[t]})`}

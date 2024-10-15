@@ -4,7 +4,7 @@ import { Header } from '../components/Header'
 import SectionContainer from '../components/SectionContainer'
 
 interface Props {
-  siteMetadata: any
+  site: any
   Logo: () => ReactNode
   ThemeSwitch: () => ReactNode
   MobileNav: () => ReactNode
@@ -14,7 +14,7 @@ interface Props {
 
 export function SiteLayout({
   children,
-  siteMetadata,
+  site,
   Logo,
   ThemeSwitch,
   MobileNav,
@@ -23,14 +23,14 @@ export function SiteLayout({
   return (
     <SectionContainer>
       <Header
-        siteMetadata={siteMetadata}
+        site={site}
         Logo={Logo}
         ThemeSwitch={ThemeSwitch}
         MobileNav={MobileNav}
         ConnectButton={ConnectButton}
       />
       <main className="mb-auto">{children}</main>
-      <Footer siteMetadata={siteMetadata} />
+      <Footer site={site} ThemeSwitch={ThemeSwitch} />
     </SectionContainer>
   )
 }

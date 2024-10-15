@@ -1,14 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-'use client'
-
-import { slug } from 'github-slugger'
-import { usePathname } from 'next/navigation'
-import { CoreContent } from 'pliny/utils/contentlayer'
-import { formatDate } from 'pliny/utils/formatDate'
-import { Post } from '../types'
-import Link from './Link'
+import { Post, Tag } from '@plantreexyz/types'
+import PageTitle from './PageTitle'
 import { PostList } from './PostList'
-import Tag from './Tag'
 import { TagList } from './TagList'
 
 interface PaginationProps {
@@ -16,17 +8,15 @@ interface PaginationProps {
   currentPage: number
 }
 interface PostListWithTagProps {
-  tagData: Record<string, number>
-  posts: CoreContent<Post>[]
-  title: string
-  initialDisplayPosts?: CoreContent<Post>[]
+  posts: Post[]
+  tags: Tag[]
+  initialDisplayPosts?: Post[]
   pagination?: PaginationProps
 }
 
 export function PostListWithTag({
-  tagData = {},
   posts,
-  title,
+  tags = [],
   initialDisplayPosts = [],
   pagination,
 }: PostListWithTagProps) {
@@ -34,9 +24,12 @@ export function PostListWithTag({
     initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
 
   return (
-    <div className="flex flex-col gap-10">
-      <TagList tagData={tagData} title={title} />
-      <PostList posts={displayPosts} />
+    <div className="flex flex-col">
+      <PageTitle>Tags</PageTitle>
+      <TagList tags={tags} />
+      <div className="mt-10">
+        <PostList posts={displayPosts} />
+      </div>
     </div>
   )
 }

@@ -63,6 +63,13 @@ export type Post = {
   createdAt: Date
   updatedAt: Date
   userId: string
+  postTags: PostTag[]
+}
+
+export type PostTag = {
+  id: string
+  tagId: string
+  tag: Tag
 }
 
 export type Tag = {

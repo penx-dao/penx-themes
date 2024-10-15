@@ -1,18 +1,21 @@
+import { ReactNode } from 'react'
 import Link from './Link'
 import SocialIcon from './social-icons'
 
 interface Props {
-  siteMetadata: any
+  ThemeSwitch: () => ReactNode
+  site: any
 }
 
-export function Footer({ siteMetadata }: Props) {
+export function Footer({ site: siteMetadata, ThemeSwitch }: Props) {
+  if (!siteMetadata) return null
   return (
-    <footer className="mt-auto">
+    <footer className="mt-auto mb-8">
       <div className="mt-16 flex flex-col items-center">
         <div className="mb-3 flex space-x-4">
           <SocialIcon
             kind="mail"
-            href={`mailto:${siteMetadata.email}`}
+            href={`mailto:${siteMetadata?.email}`}
             size={6}
           />
           <SocialIcon kind="github" href={siteMetadata.github} size={6} />
@@ -30,11 +33,6 @@ export function Footer({ siteMetadata }: Props) {
           <div>{`© ${new Date().getFullYear()}`}</div>
           <div>{` • `}</div>
           <Link href="/">{siteMetadata.title}</Link>
-        </div>
-        <div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
-          <Link href="https://github.com/timlrx/tailwind-nextjs-starter-blog">
-            Tailwind Nextjs Theme
-          </Link>
         </div>
       </div>
     </footer>

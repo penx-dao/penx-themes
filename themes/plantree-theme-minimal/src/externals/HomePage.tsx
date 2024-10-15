@@ -4,19 +4,19 @@ import Link from '../components/Link'
 import PageTitle from '../components/PageTitle'
 import { PostItem } from '../components/PostItem'
 
-const MAX_DISPLAY = 5
+const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 10)
 
 interface Props {
-  siteInfo: Site
+  site: Site
   posts: Post[]
 }
 
-export function HomePage({ posts = [], siteInfo }: Props) {
+export function HomePage({ posts = [], site }: Props) {
   return (
     <div className="">
       <div className="prose max-w-none mb-10 text-gray-700 hover:text-black dark:text-gray-100">
-        <PageTitle>{siteInfo.name}</PageTitle>
-        <ContentRender content={siteInfo.about} />
+        <PageTitle>{site.name}</PageTitle>
+        <ContentRender content={site.about} />
       </div>
 
       <div className="">
@@ -25,10 +25,10 @@ export function HomePage({ posts = [], siteInfo }: Props) {
             Latest
           </h1>
 
-          {posts.length > MAX_DISPLAY && (
+          {posts.length > POSTS_PER_PAGE && (
             <Link
               href="/posts"
-              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+              className="text-brand-500 hover:text-primary-600 dark:hover:text-primary-400"
             >
               All posts &rarr;
             </Link>
@@ -36,7 +36,7 @@ export function HomePage({ posts = [], siteInfo }: Props) {
         </div>
         <div className="grid grid-cols-1 gap-3">
           {!posts.length && 'No posts found.'}
-          {posts.slice(0, MAX_DISPLAY).map((post) => {
+          {posts.slice(0, POSTS_PER_PAGE).map((post) => {
             return <PostItem key={post.slug} post={post} />
           })}
         </div>

@@ -1,22 +1,23 @@
 import { slug } from 'github-slugger'
 import Link from 'next/link'
-import { cn } from '../lib/utils'
+import { PostTag } from '@plantreexyz/types'
+import { cn } from '@plantreexyz/utils'
 
 interface Props {
-  text: string
+  postTag: PostTag
   className?: string
 }
 
-const Tag = ({ text, className }: Props) => {
+const Tag = ({ postTag, className }: Props) => {
   return (
     <Link
-      href={`/tags/${slug(text)}`}
+      href={`/tags/${slug(postTag.tag.name)}`}
       className={cn(
-        'mr-3 text-base font-medium text-primary-500 hover:text-primary-600 dark:hover:text-primary-400',
+        'mr-3 text-base font-medium text-brand-500 hover:text-primary-600 dark:hover:text-brand-400',
         className,
       )}
     >
-      {text.split(' ').join('-')}
+      {postTag.tag.name.split(' ').join('-')}
     </Link>
   )
 }
