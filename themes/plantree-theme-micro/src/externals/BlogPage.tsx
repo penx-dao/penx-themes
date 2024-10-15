@@ -1,18 +1,30 @@
-import { CoreContent } from 'pliny/utils/contentlayer'
-import { PostListWithTag } from '../components/PostListWithTag'
-import { Post } from '../types'
+import { Post } from '@plantreexyz/types'
+import PageTitle from '../components/PageTitle'
+import { PostList } from '../components/PostList'
 
 interface Props {
-  posts: CoreContent<Post>[]
-  tagData: Record<string, number>
-  title: string
-  initialDisplayPosts: CoreContent<Post>[]
+  posts: Post[]
+  initialDisplayPosts: Post[]
   pagination: {
     currentPage: number
     totalPages: number
   }
 }
 
-export function BlogPage({ posts = [], tagData, title }: Props) {
-  return <PostListWithTag posts={posts} tagData={tagData} title={title} />
+export function BlogPage({
+  posts = [],
+  pagination,
+  initialDisplayPosts,
+}: Props) {
+
+  return (
+    <div className="space-y-6">
+      <PageTitle>Blog</PageTitle>
+      <PostList
+        posts={posts}
+        pagination={pagination}
+        initialDisplayPosts={initialDisplayPosts}
+      />
+    </div>
+  )
 }
