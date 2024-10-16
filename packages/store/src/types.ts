@@ -1,4 +1,4 @@
-export type RouteName = 'HOME' | 'POST'
+export type RouteName = 'HOME' | 'POST' | 'SPACE_HOME'
 
 export type IRouterStore = {
   name: RouteName

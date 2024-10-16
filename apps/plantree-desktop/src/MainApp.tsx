@@ -1,28 +1,17 @@
-import { ToastContainer } from 'uikit'
-import { App } from '@plantreexyz/app'
-import { StoreProvider } from '@plantreexyz/store'
+import { useRouter } from '@plantreexyz/hooks'
 import { initFower } from './common/initFower'
-import { useInitThemeMode } from './hooks/useInitThemeMode'
-import '@glideapps/glide-data-grid/dist/index.css'
-import { AppProvider } from './AppProvider'
-import '@/styles/globals.css'
-import '@/styles/command.scss'
 import { HomePage } from './components/HomePage'
+import { SpacePage } from './components/SpacePage'
 
 initFower()
 
 function MainApp() {
-  useInitThemeMode()
-
+  const { name } = useRouter()
   return (
-    <StoreProvider>
-      <AppProvider>
-        <ToastContainer position="bottom-right" />
-        <HomePage></HomePage>
-        <App></App>
-        <div id="portal" />
-      </AppProvider>
-    </StoreProvider>
+    <div>
+      {name === 'HOME' && <HomePage />}
+      {name === 'SPACE_HOME' && <SpacePage />}
+    </div>
   )
 }
 
