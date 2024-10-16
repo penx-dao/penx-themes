@@ -4,7 +4,6 @@ import { redisKeys } from '@/lib/redisKeys'
 import { Post } from '@prisma/client'
 import Redis from 'ioredis'
 import { z } from 'zod'
-import { checkPostPermission } from '../lib/checkPostPermission'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 const redis = new Redis(process.env.REDIS_URL!)
@@ -115,7 +114,6 @@ export const postRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const { id, ...data } = input
-      await checkPostPermission(ctx.token.uid, input.id)
       const post = await prisma.post.update({
         where: { id },
         data: {
@@ -140,7 +138,6 @@ export const postRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const { id, image } = input
-      await checkPostPermission(ctx.token.uid, input.id)
       const post = await prisma.post.update({
         where: { id },
         data: { image },
@@ -162,7 +159,6 @@ export const postRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const { id, gateType } = input
-      await checkPostPermission(ctx.token.uid, input.id)
       const post = await prisma.post.update({
         where: { id },
         data: {

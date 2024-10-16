@@ -4,7 +4,6 @@ import { TRPCError } from '@trpc/server'
 import { slug } from 'github-slugger'
 import Redis from 'ioredis'
 import { z } from 'zod'
-import { checkPostPermission } from '../lib/checkPostPermission'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
 const redis = new Redis(process.env.REDIS_URL!)

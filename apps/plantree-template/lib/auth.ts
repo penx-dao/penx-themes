@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { User } from '@prisma/client'
+import { User, UserRole } from '@prisma/client'
 import {
   getAddressFromMessage,
   getChainIdFromMessage,
@@ -86,6 +86,7 @@ export const authOptions: NextAuthOptions = {
         token.address = penxUser.address as string
         token.chainId = penxUser.chainId
         token.ensName = (penxUser.ensName as string) || null
+        token.role = (penxUser.role as string) || null
       }
 
       // console.log('jwt token========:', token)
@@ -97,6 +98,7 @@ export const authOptions: NextAuthOptions = {
       session.address = token.address as string
       session.chainId = token.chainId as string
       session.ensName = token.ensName as string
+      session.role = token.role as string
 
       return session
     },
@@ -123,14 +125,17 @@ async function createUser(address: any) {
     ensName = await publicClient.getEnsName({ address })
   } catch (error) {}
 
+  const isAdmin = address === process.env.DEFAULT_ADMIN_ADDRESS
+  const role = isAdmin ? UserRole.ADMIN : UserRole.AUTHOR
+
   if (!user) {
     user = await prisma.user.create({
-      data: { address, ensName },
+      data: { address, ensName, role },
     })
   } else {
     await prisma.user.update({
       where: { id: user.id },
-      data: { ensName: ensName },
+      data: { ensName: ensName, role },
     })
   }
 
