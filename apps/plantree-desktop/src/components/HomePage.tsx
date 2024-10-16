@@ -24,7 +24,7 @@ export const HomePage = ({}: Props) => {
               // spaces.length !== index + 1 && 'border-b border-neutral-100/90',
             )}
             onClick={() => {
-              store.router.routeTo('SPACE_HOME')
+              store.router.routeTo('SPACE_HOME', space)
             }}
           >
             <div className="flex items-center gap-2">
