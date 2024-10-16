@@ -25,6 +25,7 @@ import {
   LifeBuoy,
   LogOut,
   Settings,
+  UserCog,
   UserRoundPen,
 } from 'lucide-react'
 import { signOut } from 'next-auth/react'
@@ -91,6 +92,16 @@ export function ProfilePopover({
           >
             <UserRoundPen className="mr-2 h-4 w-4" />
             <span>Profile</span>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => {
+              push('/~/role')
+            }}
+          >
+            <UserCog className="mr-2 h-4 w-4" />
+            <span>Role</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
