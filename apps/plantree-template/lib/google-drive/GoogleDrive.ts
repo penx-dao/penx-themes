@@ -67,7 +67,9 @@ export class GoogleDrive {
   async createJSON(fileName: string, data: any, parentId?: string) {
     const form = new FormData()
 
-    const file = new Blob([JSON.stringify(data)], { type: 'application/json' })
+    const file = new Blob([JSON.stringify(data, null, 2)], {
+      type: 'application/json',
+    })
 
     const metadata: any = {
       name: fileName,
@@ -163,7 +165,7 @@ export class GoogleDrive {
         Authorization: `Bearer ${this.accessToken}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data, null, 2),
     }
 
     await fetch(endpoint, options).then((response) => response.json())

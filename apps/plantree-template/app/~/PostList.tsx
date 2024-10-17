@@ -19,19 +19,19 @@ interface PostItemProps {
 export function PostItem({ post }: PostItemProps) {
   const { push } = useRouter()
   const { refetch } = usePosts()
-  const params = useParams()
+  const params: any = useParams()
   const isActive = params.postId === post.id
 
   async function toPost() {
-    store.set(postLoadingAtom, true)
-    try {
-      const selectedPost = await api.post.byId.query(post.id)
-      store.set(postAtom, selectedPost!)
-    } catch (error) {
-      console.error(error)
-    }
+    // store.set(postLoadingAtom, true)
+    // try {
+    //   const selectedPost = await api.post.byId.query(post.id)
+    //   store.set(postAtom, selectedPost!)
+    // } catch (error) {
+    //   console.error(error)
+    // }
 
-    store.set(postLoadingAtom, false)
+    // store.set(postLoadingAtom, false)
     push(`/~/post/${post.id}`)
   }
 

@@ -6,7 +6,7 @@ import Redis from 'ioredis'
 import { z } from 'zod'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
 
-const redis = new Redis(process.env.REDIS_URL!)
+// const redis = new Redis(process.env.REDIS_URL!)
 
 export const tagRouter = router({
   list: publicProcedure.query(async () => {
