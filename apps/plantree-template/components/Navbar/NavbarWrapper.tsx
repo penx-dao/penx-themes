@@ -22,7 +22,7 @@ export function NavbarWrapper({
   children,
   ...rest
 }: PropsWithChildren & Props) {
-  const pathname = usePathname()
+  const pathname = usePathname()!
   const { data: session } = useSession()
   const isPost = pathname.startsWith(`/~/post/`)
   const site = useSiteContext()
