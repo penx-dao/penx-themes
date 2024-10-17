@@ -20,13 +20,12 @@ import { GateType } from '@/lib/constants'
 import { trpc } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
 import {
-  Cloud,
+  DatabaseBackup,
   Gauge,
-  LifeBuoy,
   LogOut,
   Settings,
   UserCog,
-  UserRoundPen,
+  UserRound,
 } from 'lucide-react'
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
@@ -99,6 +98,16 @@ export function ProfilePopover({
                 <UserCog className="mr-2 h-4 w-4" />
                 <span>Role</span>
               </DropdownMenuItem>
+
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => {
+                  push('/~/backup')
+                }}
+              >
+                <DatabaseBackup className="mr-2 h-4 w-4" />
+                <span>Backup</span>
+              </DropdownMenuItem>
             </>
           )}
 
@@ -108,7 +117,7 @@ export function ProfilePopover({
               setIsOpen(true)
             }}
           >
-            <UserRoundPen className="mr-2 h-4 w-4" />
+            <UserRound className="mr-2 h-4 w-4" />
             <span>Profile</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>

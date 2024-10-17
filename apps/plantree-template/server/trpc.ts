@@ -69,8 +69,6 @@ export const protectedProcedure = t.procedure.use(
       })
     }
 
-    console.log('===========ctx.token:', ctx.token)
-
     // if (['spae.update'].includes(path)) {
     //   checkSpacePermission(ctx.token.uid, rest.input.id)
     // }
