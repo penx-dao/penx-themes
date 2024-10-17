@@ -10,7 +10,6 @@
   "devDependencies": {
     "@types/node": "^20.10.3",
     "eslint": "^8.57.0",
-    "@plantreexyz/tsconfig": "workspace:*",
     "typescript": "^5.3.2"
   }
 }

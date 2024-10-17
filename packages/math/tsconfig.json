@@ -1,8 +1,20 @@
 {
-  "extends": "@plantreexyz/tsconfig/react-library.json",
   "compilerOptions": {
-    "lib": ["ESNext"]
-  },
-  "include": ["."],
-  "exclude": ["dist", "build", "node_modules"]
+    "module": "esnext",
+    "strict": true,
+    "lib": ["ESNext", "DOM"],
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "target": "es6",
+    "composite": false,
+    "declaration": true,
+    "noUnusedLocals": false,
+    "noImplicitAny": true,
+    "allowJs": true,
+    "noEmit": true,
+    "outDir": "dist",
+    "resolveJsonModule": true
+  }
 }

@@ -1,6 +1,6 @@
 # Plantree
 
-> The best way to build a web3 blog!
+> The best way to build web3 independent blog.
 
 ## Prepare
 
