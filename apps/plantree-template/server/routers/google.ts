@@ -45,7 +45,7 @@ export const googleRouter = router({
 
       const accessToken = await oauth2Client.getAccessToken()
 
-      console.log('======accessToken:', accessToken)
+      // console.log('======accessToken:', accessToken)
 
       const oauth2 = google.oauth2({
         auth: oauth2Client,

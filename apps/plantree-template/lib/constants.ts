@@ -1,5 +1,9 @@
 import { Address } from 'viem'
 
+export const isServer = typeof window === 'undefined'
+export const isBrowser = typeof window !== 'undefined'
+export const isProd = process.env.NODE_ENV === 'production'
+
 export enum TradeType {
   BUY = 'BUY',
   SELL = 'SELL',
@@ -49,3 +53,7 @@ export enum NetworkNames {
 export const SPACE_ID = process.env.NEXT_PUBLIC_SPACE_ID as Address
 
 export const RESPACE_BASE_URI = process.env.NEXT_PUBLIC_RESPACE_BASE_URI!
+
+export enum WorkerEvents {
+  START_POLLING,
+}
