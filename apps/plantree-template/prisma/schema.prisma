@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  url      = env("DATABASE_URL") // uses connection pooling
 }
 
 generator client {
@@ -39,23 +39,23 @@ enum UserRole {
 }
 
 model User {
-  id            String    @id @default(uuid())
-  address       String    @unique
+  id            String        @id @default(uuid())
+  address       String        @unique
   name          String?
   ensName       String?
-  role          UserRole  @default(READER)
-  email         String?   @unique
+  role          UserRole      @default(READER)
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
-  bio           String    @default("")
-  github       Json? // github oauth info
-  google       Json? // google oauth info
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  posts        Post[]
-  comments     Comment[]
-  tags         Tag[]
-  accessTokens AccessToken[]
+  bio           String        @default("")
+  github        Json? // github oauth info
+  google        Json? // google oauth info
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  posts         Post[]
+  comments      Comment[]
+  tags          Tag[]
+  accessTokens  AccessToken[]
 
   @@index([id])
   @@index([address])

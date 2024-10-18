@@ -50,10 +50,13 @@ export enum NetworkNames {
   BASE_SEPOLIA = 'BASE_SEPOLIA',
 }
 
-export const SPACE_ID = process.env.NEXT_PUBLIC_SPACE_ID as Address
-
-export const RESPACE_BASE_URI = process.env.NEXT_PUBLIC_RESPACE_BASE_URI!
-
 export enum WorkerEvents {
   START_POLLING,
 }
+
+export const SPACE_ID = process.env.NEXT_PUBLIC_SPACE_ID as Address
+
+export const RESPACE_BASE_URI = 'https://www.respace.one'
+
+export const SUBGRAPH_URL =
+  'https://api.studio.thegraph.com/query/88544/respace-base-sepolia/version/latest'
