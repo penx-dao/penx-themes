@@ -16,7 +16,8 @@ export const appRouter = router({
   user: userRouter,
   post: postRouter,
   tag: tagRouter,
-  accesstoken: accessTokenRouter,
+  google: googleRouter,
+  accessToken: accessTokenRouter,
 })
 
 export const createCaller = createCallerFactory(appRouter)
