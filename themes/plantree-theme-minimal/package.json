@@ -7,6 +7,7 @@
     "access": "public"
   },
   "files": [
+    "tsconfig.json",
     "src"
   ],
   "scripts": {},
@@ -14,6 +15,7 @@
     "@types/node": "^18.19.33",
     "@types/react": "^18.2.73",
     "@types/react-dom": "^18.2.17",
+    "next": "14.2.15",
     "typescript": "^5.4.5"
   },
   "dependencies": {
@@ -21,11 +23,7 @@
     "@plantreexyz/utils": "workspace:*",
     "@troop.com/tiptap-react-render": "^0.0.2",
     "clsx": "^2.1.1",
-    "contentlayer2": "0.5.1",
     "github-slugger": "^2.0.0",
-    "next": "14.2.15",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
     "tailwind-merge": "^2.5.3"
   }
 }
