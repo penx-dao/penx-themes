@@ -22,6 +22,7 @@ import { cn } from '@/lib/utils'
 import {
   DatabaseBackup,
   Gauge,
+  KeySquare,
   LogOut,
   Settings,
   UserCog,
@@ -97,6 +98,16 @@ export function ProfilePopover({
               >
                 <UserCog className="mr-2 h-4 w-4" />
                 <span>Role</span>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => {
+                  push('/~/accesstoken')
+                }}
+              >
+                <KeySquare className="mr-2 h-4 w-4" />
+                <span>Access Token</span>
               </DropdownMenuItem>
 
               <DropdownMenuItem

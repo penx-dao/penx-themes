@@ -3,20 +3,20 @@
 import { extractErrorMessage } from '@/lib/extractErrorMessage'
 import { trpc } from '@/lib/trpc'
 import { toast } from 'sonner'
-import { RoleSection } from './RoleSection'
+import RoleSection from './RoleSection'
 
 export default function Page() {
   const {
     isLoading: isAdminListLoading,
     data: adminList,
     refetch: refetchAdminList,
-  } = trpc.user.listAdminUser.useQuery()
+  } = trpc.user.listAdminUsers.useQuery()
 
   const {
     isLoading: isAuthorListLoading,
     data: authorList,
     refetch: refetchAuthorList,
-  } = trpc.user.listAuthorUser.useQuery()
+  } = trpc.user.listAuthorUsers.useQuery()
 
   const { mutateAsync: adminSetmutateAsync } =
     trpc.user.setRoleToAdmin.useMutation()
@@ -45,7 +45,6 @@ export default function Page() {
     <div className="flex flex-col justify-between space-y-8">
       <RoleSection
         title="Admin role"
-        description="Users with the Admin role can manage the site."
         users={adminList}
         isLoading={isAdminListLoading}
         onInvite={(address) =>
@@ -58,7 +57,6 @@ export default function Page() {
 
       <RoleSection
         title="Author role"
-        description="Users with the Author role can write articles."
         users={authorList}
         isLoading={isAuthorListLoading}
         onInvite={(address) =>

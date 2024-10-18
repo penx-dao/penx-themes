@@ -10,7 +10,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
 import {
   Tooltip,
   TooltipContent,
@@ -24,9 +23,15 @@ interface Props {
   title: string
   content: string
   onConfirm: () => void
+  tooltipContent?: string
 }
 
-export function DeleteConfirmDialog({ title, content, onConfirm }: Props) {
+export function DeleteConfirmDialog({
+  title,
+  content,
+  onConfirm,
+  tooltipContent,
+}: Props) {
   const { isOpen, setIsOpen } = useDeleteConfirmDialog()
 
   return (
@@ -41,7 +46,7 @@ export function DeleteConfirmDialog({ title, content, onConfirm }: Props) {
               />
             </TooltipTrigger>
             <TooltipContent>
-              <p>remove admin role</p>
+              <p>{tooltipContent}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

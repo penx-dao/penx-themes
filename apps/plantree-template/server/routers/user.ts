@@ -40,7 +40,7 @@ export const userRouter = router({
     return prisma.user.findMany({ take: 20 })
   }),
 
-  listAdminUser: publicProcedure.query(async ({ ctx }) => {
+  listAdminUsers: publicProcedure.query(async ({ ctx }) => {
     return prisma.user.findMany({
       where: {
         AND: {
@@ -50,7 +50,7 @@ export const userRouter = router({
     })
   }),
 
-  listAuthorUser: publicProcedure.query(async ({ ctx }) => {
+  listAuthorUsers: publicProcedure.query(async ({ ctx }) => {
     return prisma.user.findMany({
       where: {
         AND: {

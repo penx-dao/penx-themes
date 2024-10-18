@@ -16,21 +16,19 @@ import { User } from '@prisma/client'
 
 interface RoleSectionProps {
   title: string
-  description: string
   users: User[] | undefined
   isLoading: boolean
   onInvite: (address: string) => Promise<void>
   onRemove: (address: string) => Promise<void>
 }
 
-export const RoleSection: React.FC<RoleSectionProps> = ({
+export default function RoleSection({
   title,
-  description,
   users,
   isLoading,
   onInvite,
   onRemove,
-}) => {
+}: RoleSectionProps) {
   const [invitedAddress, setInvitedAddress] = useState('')
 
   const handleInvite = async () => {
@@ -45,7 +43,6 @@ export const RoleSection: React.FC<RoleSectionProps> = ({
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
           {title}
         </h4>
-        <p className="text-sm text-muted-foreground my-1">{description}</p>
         <Separator className="my-4" />
       </div>
 
@@ -82,9 +79,14 @@ export const RoleSection: React.FC<RoleSectionProps> = ({
                 <TableCell>{user.name}</TableCell>
                 <TableCell className="flex space-x-3 justify-center">
                   <DeleteConfirmDialog
-                    title="Confirm Delete"
-                    content="Are you sure you want to delete this item?"
+                    title="Delete Confirmation"
+                    content="Are you sure you want to delete this item? This action cannot be undone."
                     onConfirm={() => onRemove(user.address)}
+                    tooltipContent={
+                      title === 'Author role'
+                        ? 'remove author role'
+                        : 'remove admin role'
+                    }
                   />
                 </TableCell>
               </TableRow>
