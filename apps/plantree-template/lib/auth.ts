@@ -10,15 +10,11 @@ import NextAuth, { getServerSession, type NextAuthOptions } from 'next-auth'
 import credentialsProvider from 'next-auth/providers/credentials'
 import { Address, createPublicClient, http } from 'viem'
 import { mainnet } from 'viem/chains'
+import { PROJECT_ID } from './constants'
 
 const nextAuthSecret = process.env.NEXTAUTH_SECRET
 if (!nextAuthSecret) {
   throw new Error('NEXTAUTH_SECRET is not set')
-}
-
-const projectId = process.env.NEXT_PUBLIC_PROJECT_ID
-if (!projectId) {
-  throw new Error('NEXT_PUBLIC_PROJECT_ID is not set')
 }
 
 const publicClient = createPublicClient({
@@ -57,7 +53,7 @@ export const authOptions: NextAuthOptions = {
             message,
             signature,
             chainId,
-            projectId,
+            projectId: PROJECT_ID,
           })
 
           if (isValid) {
@@ -81,12 +77,12 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, account, user, profile, trigger, session }) {
       if (user) {
-        const penxUser = user as User & { chainId: string }
-        token.uid = penxUser.id
-        token.address = penxUser.address as string
-        token.chainId = penxUser.chainId
-        token.ensName = (penxUser.ensName as string) || null
-        token.role = (penxUser.role as string) || null
+        const sessionUser = user as User & { chainId: string }
+        token.uid = sessionUser.id
+        token.address = sessionUser.address as string
+        token.chainId = sessionUser.chainId
+        token.ensName = (sessionUser.ensName as string) || null
+        token.role = (sessionUser.role as string) || null
       }
 
       // console.log('jwt token========:', token)

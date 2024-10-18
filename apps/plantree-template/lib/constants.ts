@@ -4,6 +4,9 @@ export const isServer = typeof window === 'undefined'
 export const isBrowser = typeof window !== 'undefined'
 export const isProd = process.env.NODE_ENV === 'production'
 
+export const PROJECT_ID =
+  process.env.NEXT_PUBLIC_PROJECT_ID || '3d31c4aa12acd88d0b8cad38b0a5686a'
+
 export enum TradeType {
   BUY = 'BUY',
   SELL = 'SELL',
