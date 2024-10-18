@@ -44,10 +44,10 @@ export default function AccessTokenList({
             key={token.id}
             className="flex border-b px-2 py-3 font-mono hover:bg-stone-100"
           >
-            <div className="grow flex flex-col space-y-2 ">
+            <div className="grow flex flex-col space-y-2">
               <div className="flex space-x-2">
                 <KeySquare className="h-6 w-6" />
-                <a className="border py-1 px-2 rounded-lg text-xs font-medium border-transparent bg-primary text-primary-foreground">
+                <a className="border py-1 px-2 rounded-lg text-xs font-medium border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">
                   {token.alias}
                 </a>
               </div>
@@ -73,12 +73,14 @@ export default function AccessTokenList({
               </div>
             </div>
 
-            <DeleteConfirmDialog
-              title="Delete Confirm"
-              content="Are you sure you want to delete this access token?"
-              tooltipContent="delete access token"
-              onConfirm={() => handleDelete(token.id)}
-            />
+            <div className="flex justify-center items-center">
+              <DeleteConfirmDialog
+                title="Delete Confirm"
+                content="Are you sure you want to delete this access token?"
+                tooltipContent="delete access token"
+                onConfirm={() => handleDelete(token.id)}
+              />
+            </div>
           </div>
         ))
       ) : (

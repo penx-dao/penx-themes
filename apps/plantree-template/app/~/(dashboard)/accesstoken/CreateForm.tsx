@@ -33,7 +33,7 @@ interface Props {
 
 const FormSchema = z.object({
   alias: z.string().min(2, {
-    message: 'Alias must be at least 2 characters.',
+    message: 'Alias must be at least 2 characters long.',
   }),
   expiredAt: z.union([z.date(), z.undefined()]).optional(),
 })
@@ -52,6 +52,7 @@ export default function AccessTokenCreateForm({ refetch }: Props) {
       expiredAt: new Date(now.setDate(now.getDate() + 7)),
     },
   })
+  const expiredAtValue = form.watch('expiredAt')
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     let plainToken = AccessTokenUtils.generateToken()
@@ -88,7 +89,7 @@ export default function AccessTokenCreateForm({ refetch }: Props) {
                       <Input placeholder="Enter token alias" {...field} />
                     </FormControl>
                     <FormDescription>
-                      This is help identify and differentiate tokens.
+                      This helps to identify and differentiate your tokens.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -105,9 +106,7 @@ export default function AccessTokenCreateForm({ refetch }: Props) {
                       defaultValue="1w"
                       onValueChange={(value) => {
                         const now = new Date()
-                        let expirationDate =
-                          field.value ||
-                          new Date(now.setDate(now.getDate() + 7))
+                        let expirationDate
 
                         if (value === '1w') {
                           expirationDate = new Date(
@@ -121,11 +120,17 @@ export default function AccessTokenCreateForm({ refetch }: Props) {
                           expirationDate = new Date(
                             now.setFullYear(now.getFullYear() + 1),
                           )
+                        } else {
+                          expirationDate = undefined
                         }
 
-                        field.onChange(
-                          value === 'no-expiry' ? undefined : expirationDate,
-                        )
+                        if (value === 'no-expiry') {
+                          form.setValue('expiredAt', undefined)
+                        } else {
+                          form.setValue('expiredAt', expirationDate)
+                        }
+
+                        field.onChange(expirationDate)
                       }}
                     >
                       <FormControl>
@@ -141,9 +146,9 @@ export default function AccessTokenCreateForm({ refetch }: Props) {
                       </SelectContent>
                     </Select>
                     <FormDescription>
-                      {field.value === null
-                        ? 'The token has no expiry date.'
-                        : `The token will expire on ${field.value?.toLocaleDateString()}.`}
+                      {expiredAtValue === undefined
+                        ? 'Token has no expiry date.'
+                        : `Token will expire on ${expiredAtValue.toLocaleDateString()}.`}
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
