@@ -1,4 +1,5 @@
 import { getPost, getPosts } from '@/lib/fetchers'
+import { loadTheme } from '@/lib/loadTheme'
 import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
 
@@ -16,7 +17,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   const prev = posts[postIndex + 1]
   const next = posts[postIndex - 1]
 
-  const { PostDetail } = await import(process.env.NEXT_PUBLIC_THEME!)
+  const { PostDetail } = await loadTheme()
   if (!PostDetail) throw new Error('Missing PostDetail component')
 
   return (

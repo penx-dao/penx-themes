@@ -1,13 +1,10 @@
 import { getPosts, getSite } from '@/lib/fetchers'
+import { loadTheme } from '@/lib/loadTheme'
 
 export default async function HomePage() {
   const [posts, site] = await Promise.all([getPosts(), getSite()])
 
-  if (!process.env.NEXT_PUBLIC_THEME) {
-    return <div>Theme not found</div>
-  }
-
-  const { HomePage } = await import(process.env.NEXT_PUBLIC_THEME!)
+  const { HomePage } = await loadTheme()
 
   if (!HomePage) {
     return <div>Theme not found</div>
