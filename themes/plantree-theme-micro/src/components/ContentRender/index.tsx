@@ -2,12 +2,12 @@ import { TipTapNode, TipTapRender } from '@troop.com/tiptap-react-render'
 import { handlers } from './handlers'
 
 interface Props {
-  content: string
+  content: TipTapNode
   renderRate?: number
 }
 
 export function ContentRender({ content, renderRate = 1 }: Props) {
-  const node: TipTapNode = JSON.parse(content || '{}')
+  const node: TipTapNode = content
   const len = node.content?.length || 0
 
   node.content =

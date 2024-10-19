@@ -1,6 +1,5 @@
 import { Post } from '@plantreexyz/types'
 import { ContentRender } from '../ContentRender'
-import { GateCover } from './GateCover'
 
 interface Props {
   canRead: boolean

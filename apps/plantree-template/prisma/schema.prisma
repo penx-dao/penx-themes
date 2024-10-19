@@ -49,6 +49,7 @@ model User {
   emailVerified DateTime?
   image         String?
   bio           String        @default("")
+  subscriptions Json?
   github        Json? // github oauth info
   google        Json? // google oauth info
   createdAt     DateTime      @default(now())
@@ -73,6 +74,7 @@ enum PostType {
 
 enum GateType {
   FREE
+  PAID
   MEMBER_ONLY
 }
 

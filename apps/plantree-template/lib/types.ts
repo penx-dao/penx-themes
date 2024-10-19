@@ -125,3 +125,18 @@ export type Socials = {
   instagram: string
   medium: string
 }
+
+export type SubscriptionRaw = {
+  planId: number
+  account: string
+  startTime: bigint
+  duration: bigint
+  amount: bigint
+  uri: string
+}
+
+export type SubscriptionInSession = {
+  planId: number
+  startTime: number
+  duration: number
+}

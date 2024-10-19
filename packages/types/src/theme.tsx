@@ -47,7 +47,7 @@ export enum PostType {
 
 export enum GateType {
   FREE = 'FREE',
-  MEMBER_ONLY = 'MEMBER_ONLY',
+  PAID = 'PAID',
 }
 
 export enum PostStatus {
@@ -116,4 +116,15 @@ export type Theme = {
   Home?: ({ posts }: HomeProps) => JSX.Element
   Post?: ({ post, isGated }: PostProps) => JSX.Element
   About?: ({}: AboutProps) => JSX.Element
+}
+
+interface Attrs {
+  readonly [attr: string]: any
+}
+export interface TipTapNode {
+  type: string
+  attrs?: Attrs
+  marks?: Attrs[]
+  content?: TipTapNode[]
+  readonly [attr: string]: any
 }

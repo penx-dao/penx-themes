@@ -9,12 +9,11 @@ import SectionContainer from '../components/SectionContainer'
 
 interface LayoutProps {
   post: Post
-  children: ReactNode
   next?: Post
   prev?: Post
 }
 
-export function PostDetail({ post, next, prev, children }: LayoutProps) {
+export function PostDetail({ post, next, prev }: LayoutProps) {
   return (
     <SectionContainer>
       <article className="mt-20  mx-auto lg:max-w-3xl">
