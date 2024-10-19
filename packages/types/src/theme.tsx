@@ -8,7 +8,7 @@ export type Site = {
   logo: string | null
   font: string
   image: string | null
-  socials: Record<string, any>
+  socials: Socials
   config: Record<string, any>
   subdomain: string | null
   customDomain: string | null
@@ -20,6 +20,20 @@ export type Site = {
   spaceAddress: string | null
   createdAt: Date
   updatedAt: Date
+}
+
+export interface Socials {
+  farcaster: string
+  x: string
+  mastodon: string
+  github: string
+  facebook: string
+  youtube: string
+  linkedin: string
+  threads: string
+  instagram: string
+  medium: string
+  [key: string]: string
 }
 
 export enum PostType {

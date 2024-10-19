@@ -112,3 +112,16 @@ export type GoogleInfo = {
   email: string
   picture: string
 }
+
+export type Socials = {
+  farcaster: string
+  x: string
+  mastodon: string
+  github: string
+  facebook: string
+  youtube: string
+  linkedin: string
+  threads: string
+  instagram: string
+  medium: string
+}

@@ -29,7 +29,7 @@ export const Header = ({
   return (
     <header
       className={cn(
-        'flex items-center w-ful dark:bg-gray-950 justify-between py-4 h-16 sticky top-0 z-50',
+        'flex items-center w-ful dark:bg-gray-950 justify-between py-4 h-16 z-50',
       )}
     >
       <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
