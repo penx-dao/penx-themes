@@ -10,7 +10,6 @@
   "ignore": [
     "plantree",
     "plantree-desktop",
-    "plantree-web",
     "@plantreexyz/constants",
     "@plantreexyz/hooks",
     "@plantreexyz/math",
