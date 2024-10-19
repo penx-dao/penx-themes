@@ -23,7 +23,7 @@ const headerNavLinksRight = [{ href: '/creator-fi/trade', title: 'CreatorFi' }]
 interface Props {
   site: Site
   Logo: () => ReactNode
-  ThemeSwitch: () => ReactNode
+  ModeToggle: () => ReactNode
   MobileNav: () => ReactNode
   ConnectButton: () => ReactNode
 }
@@ -31,7 +31,7 @@ interface Props {
 export const Header = ({
   site,
   Logo,
-  ThemeSwitch,
+  ModeToggle,
   MobileNav,
   ConnectButton,
 }: Props) => {
@@ -79,7 +79,7 @@ export const Header = ({
           ))}
         </div>
 
-        {ThemeSwitch && <ThemeSwitch />}
+        {ModeToggle && <ModeToggle />}
         {MobileNav && <MobileNav />}
         {ConnectButton && (
           <ClientOnly>

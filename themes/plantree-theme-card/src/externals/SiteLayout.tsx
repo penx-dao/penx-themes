@@ -6,7 +6,7 @@ import SectionContainer from '../components/SectionContainer'
 interface Props {
   site: any
   Logo: () => ReactNode
-  ThemeSwitch: () => ReactNode
+  ModeToggle: () => ReactNode
   MobileNav: () => ReactNode
   ConnectButton: () => ReactNode
   children: ReactNode
@@ -16,7 +16,7 @@ export function SiteLayout({
   children,
   site,
   Logo,
-  ThemeSwitch,
+  ModeToggle,
   MobileNav,
   ConnectButton,
 }: Props) {
@@ -25,12 +25,12 @@ export function SiteLayout({
       <Header
         site={site}
         Logo={Logo}
-        ThemeSwitch={ThemeSwitch}
+        ModeToggle={ModeToggle}
         MobileNav={MobileNav}
         ConnectButton={ConnectButton}
       />
       <main className="mb-auto">{children}</main>
-      <Footer site={site} ThemeSwitch={ThemeSwitch} />
+      <Footer site={site} ModeToggle={ModeToggle} />
     </SectionContainer>
   )
 }

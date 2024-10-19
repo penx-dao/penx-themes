@@ -14,7 +14,7 @@ const headerNavLinks = [
 interface Props {
   site: Site
   Logo: () => ReactNode
-  ThemeSwitch: () => ReactNode
+  ModeToggle: () => ReactNode
   MobileNav: () => ReactNode
   ConnectButton: () => ReactNode
 }
@@ -22,7 +22,7 @@ interface Props {
 export const Header = ({
   site,
   Logo,
-  ThemeSwitch,
+  ModeToggle,
   MobileNav,
   ConnectButton,
 }: Props) => {
@@ -44,7 +44,9 @@ export const Header = ({
         </div>
         {/* {MobileNav && <MobileNav />} */}
       </div>
-      <div>
+
+      <div className="flex item-center gap-2">
+        <ModeToggle />
         {!!ConnectButton && (
           <ClientOnly>
             <ConnectButton />

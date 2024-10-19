@@ -3,11 +3,11 @@ import { Site } from '@plantreexyz/types'
 import SocialIcon from './social-icons'
 
 interface Props {
-  ThemeSwitch: () => ReactNode
+  ModeToggle: () => ReactNode
   site: Site
 }
 
-export function Footer({ site, ThemeSwitch }: Props) {
+export function Footer({ site, ModeToggle }: Props) {
   if (!site) return null
   const socials = site.socials
   return (

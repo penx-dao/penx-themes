@@ -14,7 +14,7 @@ interface Props {
 export function HomePage({ posts = [], site }: Props) {
   return (
     <div className="">
-      <div className="prose max-w-none mb-10 text-gray-700 hover:text-black dark:text-gray-100">
+      <div className="prose max-w-none mb-10 text-zinc-700 dark:text-zinc-200">
         <PageTitle>{site.name}</PageTitle>
         <ContentRender content={site.about} />
       </div>
