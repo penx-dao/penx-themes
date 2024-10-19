@@ -36,11 +36,7 @@ export const Header = ({
   ConnectButton,
 }: Props) => {
   return (
-    <header
-      className={cn(
-        'flex items-center w-ful dark:bg-gray-950 py-4 h-16 z-50 bg-white',
-      )}
-    >
+    <header className={cn('flex items-center w-ful py-4 h-16 z-50')}>
       <div className="flex-1 no-scrollbar hidden items-center space-x-4 overflow-x-auto sm:flex sm:space-x-6">
         {headerNavLinks.map((link) => (
           <Link
