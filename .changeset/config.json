@@ -9,7 +9,6 @@
   "updateInternalDependencies": "patch",
   "ignore": [
     "plantree",
-    "plantree-desktop",
     "@plantreexyz/constants",
     "@plantreexyz/hooks",
     "@plantreexyz/math",

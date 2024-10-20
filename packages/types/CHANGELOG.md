@@ -1,5 +1,11 @@
 # @plantreexyz/types
 
+## 0.0.3
+
+### Patch Changes
+
+- release theme
+
 ## 0.0.2
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # plantree-theme-card
 
+## 0.0.3
+
+### Patch Changes
+
+- release theme
+- Updated dependencies
+  - @plantreexyz/types@0.0.3
+  - @plantreexyz/utils@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes
