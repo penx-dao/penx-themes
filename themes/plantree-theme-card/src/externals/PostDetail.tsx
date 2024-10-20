@@ -11,24 +11,27 @@ interface LayoutProps {
   post: Post
   next?: Post
   prev?: Post
+  MintPost?: () => ReactNode
 }
 
-export function PostDetail({ post, next, prev }: LayoutProps) {
+export function PostDetail({ post, MintPost, next, prev }: LayoutProps) {
   return (
     <SectionContainer>
-      <article className="mt-20  mx-auto lg:max-w-3xl">
-        <header className="space-y-4 pb-4 text-center">
+      <article className="mt-20 mx-auto lg:max-w-3xl">
+        <header className="space-y-4 pb-4">
           <PageTitle>{post.title}</PageTitle>
-          <dl className="flex items-center justify-center gap-2">
-            <dt className="sr-only">Published on</dt>
-            <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-              <time>{formatDate(post.updatedAt)}</time>
-            </dd>
-            <dd>·</dd>
-            <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-              {post.readingTime.text}
-            </dd>
-          </dl>
+          <div className="flex justify-between items-center">
+            <dl className="flex items-center justify-center gap-2">
+              <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                <time>{formatDate(post.updatedAt)}</time>
+              </dd>
+              <dd>·</dd>
+              <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                {post.readingTime.text}
+              </dd>
+            </dl>
+            {!!MintPost && <MintPost />}
+          </div>
         </header>
 
         {!!post.image && (
