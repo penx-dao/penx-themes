@@ -22,12 +22,16 @@ const modal = createAppKit({
   networks: networks,
   defaultNetwork: networks[0],
   metadata: metadata,
+  showWallets: true,
   features: {
     analytics: true, // Optional - defaults to your Cloud configuration
+    email: false,
+    socials: false,
+    allWallets: true,
   },
 })
 
-export function WalletConnectProvider({
+export function ReownWagmiProvider({
   children,
   cookies,
 }: {

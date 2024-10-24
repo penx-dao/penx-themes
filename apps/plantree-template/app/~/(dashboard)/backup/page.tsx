@@ -1,5 +1,9 @@
+'use client'
+
 import { GoogleBackup } from './GoogleBackup/GoogleBackup'
 
-export default async function Page() {
+export const dynamic = 'force-static'
+
+export default function Page() {
   return <GoogleBackup />
 }

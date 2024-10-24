@@ -4,22 +4,13 @@ import { useEffect, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { Post } from '@/hooks/usePost'
 import { trpc } from '@/lib/trpc'
-import { useSession } from 'next-auth/react'
 import { useDebouncedCallback } from 'use-debounce'
 import { ProfileAvatar } from '../Profile/ProfileAvatar'
 import { ImageCreationUpload } from './ImageCreationUpload'
-import { PostHeader } from './PostHeader'
 
-export function ImageCreation({
-  post,
-  isPostLoading,
-}: {
-  post: Post
-  isPostLoading: boolean
-}) {
+export function ImageCreation({ post }: { post: Post }) {
   const [data, setData] = useState<Post>(post)
   const { isPending, mutateAsync } = trpc.post.update.useMutation()
-  const { data: session } = useSession()
 
   const debounced = useDebouncedCallback(
     async (value: Post) => {
@@ -28,7 +19,7 @@ export function ImageCreation({
           await mutateAsync({
             id: post.id,
             title: value.title,
-            content: value.content,
+            content: value.content as any,
             description: value.description,
           })
         } catch (error) {}
@@ -44,7 +35,6 @@ export function ImageCreation({
 
   return (
     <div className="w-full">
-      <PostHeader post={data} setData={setData} isSaving={isPending} />
       <div className="relative min-h-[500px] max-w-screen-lg p-12 px-8 mx-auto z-0 md:w-[800px] sm:w-full">
         <div className="mb-5 flex flex-col space-y-3 pb-5">
           <input

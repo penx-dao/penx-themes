@@ -1,27 +1,15 @@
-import { spaceAbi } from '@/lib/abi'
-import { getSession } from '@/lib/auth'
-import { GateType, SPACE_ID } from '@/lib/constants'
+import { authOptions } from '@/lib/auth'
+import { GateType } from '@/lib/constants'
 import { getPost, getPosts } from '@/lib/fetchers'
+import { getSession } from '@/lib/getSession'
 import { loadTheme } from '@/lib/loadTheme'
 import { SubscriptionInSession } from '@/lib/types'
-import { wagmiConfig } from '@/lib/wagmi'
 import { TipTapNode } from '@plantreexyz/types'
 import { Post } from '@prisma/client'
-import { readContract } from '@wagmi/core'
 import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
-import { Address } from 'viem'
 import { GateCover } from './GateCover'
-import { MintPost } from './MintPost/MintPost'
-
-async function checkReadable(post: Post) {
-  const session = await getSession()
-  if (!session) return post.gateType === GateType.FREE
-  console.log('=======session:', session)
-
-  const userId = (session as any).userId as string
-  return true
-}
+import { PaidContent } from './PaidContent'
 
 function checkMembership(subscriptions: SubscriptionInSession[]) {
   if (!Array.isArray(subscriptions)) return false
@@ -37,9 +25,12 @@ function getContent(post: Post, isGated = false) {
   const node: TipTapNode = JSON.parse(post.content || '{}')
   if (!isGated) return node
   const len = node.content?.length || 0
-  node.content = node.content?.slice(1, parseInt((len * 0.1) as any)) || []
+  node.content = node.content?.slice(1, parseInt((len * 0.4) as any)) || []
   return node
 }
+
+export const dynamic = 'force-static'
+export const revalidate = 3600 * 24
 
 export async function generateStaticParams() {
   const posts = await getPosts()
@@ -69,7 +60,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
         post={{
           ...post,
           content: getContent(post),
-          readingTime: readingTime(post?.content || ''),
+          readingTime: readingTime(post.content),
         }}
         // MintPost={MintPost}
         readable
@@ -79,6 +70,14 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     )
   }
 
+  return (
+    <PaidContent>
+      {(content) => {
+        return <div>{content}</div>
+      }}
+    </PaidContent>
+  )
+
   /** gated but not login */
   if (!session) {
     return (
@@ -87,7 +86,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
           post={{
             ...post,
             content: getContent(post, true),
-            readingTime: readingTime(post?.content || ''),
+            readingTime: readingTime(post.content),
           }}
           readable={false}
           // MintPost={MintPost}
@@ -110,7 +109,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
         post={{
           ...post,
           content: hasMembership ? getContent(post) : getContent(post, true),
-          readingTime: readingTime(post?.content || ''),
+          readingTime: readingTime(post.content),
         }}
         readable={hasMembership}
         // MintPost={MintPost}
