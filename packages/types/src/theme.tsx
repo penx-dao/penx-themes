@@ -4,7 +4,7 @@ export type Site = {
   id: string
   name: string
   description: string
-  about: string
+  about: any
   logo: string | null
   font: string
   image: string | null
@@ -60,7 +60,7 @@ export type Post = {
   id: string
   title: string
   description: string
-  content: string
+  content: any
   slug: string
   type: PostType
   gateType: GateType
