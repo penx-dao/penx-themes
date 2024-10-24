@@ -1,5 +1,11 @@
 # @plantreexyz/utils
 
+## 0.0.5
+
+### Patch Changes
+
+- release
+
 ## 0.0.4
 
 ### Patch Changes

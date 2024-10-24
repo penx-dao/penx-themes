@@ -1,5 +1,14 @@
 # plantree-theme-micro
 
+## 0.0.5
+
+### Patch Changes
+
+- release
+- Updated dependencies
+  - @plantreexyz/types@0.0.5
+  - @plantreexyz/utils@0.0.5
+
 ## 0.0.4
 
 ### Patch Changes
