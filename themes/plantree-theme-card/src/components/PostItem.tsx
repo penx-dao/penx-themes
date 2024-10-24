@@ -30,7 +30,7 @@ export function PostItem({ post }: PostItemProps) {
       <div className="space-y-3">
         <div>
           <div className="flex items-center text-sm gap-3">
-            <div className="text-gray-500 dark:text-gray-400">
+            <div className="text-foreground/50">
               {formatDate(post.updatedAt)}
             </div>
             <div className="flex flex-wrap">
@@ -44,15 +44,13 @@ export function PostItem({ post }: PostItemProps) {
           <h2 className="text-2xl font-bold leading-8 tracking-tight">
             <Link
               href={`/posts/${slug}`}
-              className="text-gray-600 hover:text-black dark:text-gray-100 transition-colors"
+              className="hover:text-black transition-colors text-foreground/80"
             >
               {title}
             </Link>
           </h2>
         </div>
-        {/* <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                  {summary}
-                </div> */}
+        {/* <div className="prose max-w-none text-foreground/70">{summary}</div> */}
       </div>
     </article>
   )

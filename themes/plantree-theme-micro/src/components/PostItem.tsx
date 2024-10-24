@@ -15,13 +15,13 @@ export function PostItem({ post }: PostItemProps) {
       <Link
         key={slug}
         href={`/posts/${slug}`}
-        className="text-gray-700 hover:text-black dark:text-gray-100 flex items-center justify-between gap-6"
+        className="hover:text-black flex items-center justify-between gap-6 text-foreground/80"
       >
         <div className="text-lg">{title}</div>
       </Link>
 
       <div className="flex items-center text-sm gap-3">
-        <div className="text-gray-500 dark:text-gray-400">
+        <div className="text-sm text-foreground/50">
           {formatDate(post.updatedAt)}
         </div>
         <div className="flex flex-wrap">

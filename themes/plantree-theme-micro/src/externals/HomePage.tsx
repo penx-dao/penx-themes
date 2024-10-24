@@ -21,7 +21,7 @@ export function HomePage({ posts = [], site }: Props) {
 
       <div className="">
         <div className="pb-6 pt-6 flex items-center justify-between">
-          <h1 className="text-xl font-medium tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl leading-none">
+          <h1 className="text-xl font-medium tracking-tight text-foreground sm:text-3xl leading-none">
             Latest
           </h1>
 

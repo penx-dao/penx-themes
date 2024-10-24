@@ -24,7 +24,7 @@ export function Footer({ site, ModeToggle }: Props) {
           <SocialIcon kind="instagram" href={socials.instagram} size={6} />
           <SocialIcon kind="threads" href={socials.threads} size={6} />
         </div>
-        <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
+        <div className="mb-2 flex space-x-2 text-sm item-center text-card-foreground/50">
           {/* <div>{` • `}</div> */}
           <div>{`© ${new Date().getFullYear()}`}</div>
           <div>{` • `}</div>

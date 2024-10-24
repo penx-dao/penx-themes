@@ -27,7 +27,7 @@ export function AboutPage({ site }: Props) {
             <h3 className="pb-2 pt-4 text-2xl font-bold leading-8 tracking-tight">
               {site.name}
             </h3>
-            <div className="text-gray-500 dark:text-gray-400">
+            <div className="text-foreground/60">
               {site.description}
             </div>
             {/* <div className="flex space-x-3 pt-6">

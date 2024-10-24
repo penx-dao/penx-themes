@@ -36,7 +36,7 @@ export const Header = ({
             <Link
               key={link.title}
               href={link.href}
-              className="block font-medium text-gray-900 hover:text-brand-500 dark:text-gray-100 dark:hover:text-primary-400"
+              className="font-medium  hover:text-brand-500 dark:hover:text-brand-400 text-foreground/90"
             >
               {link.title}
             </Link>

@@ -14,7 +14,7 @@ interface Props {
 export function HomePage({ posts = [], site }: Props) {
   return (
     <div className="">
-      <div className="max-w-none mb-10 text-gray-700 hover:text-black dark:text-gray-100">
+      <div className="max-w-none mb-10 hover:text-black text-foreground/80">
         <div className="flex flex-row items-center justify-center gap-20">
           <div className="flex flex-col items-center space-x-2 flex-shrink-0">
             {site.logo && (
@@ -29,9 +29,7 @@ export function HomePage({ posts = [], site }: Props) {
             <h3 className="pb-2 pt-4 text-2xl font-bold leading-8 tracking-tight">
               {site.name}
             </h3>
-            <div className="text-gray-500 dark:text-gray-400">
-              {site.description}
-            </div>
+            <div className="text-foreground/60">{site.description}</div>
           </div>
           <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2">
             <ContentRender content={site.about} />
@@ -41,7 +39,7 @@ export function HomePage({ posts = [], site }: Props) {
 
       <div className="">
         <div className="pb-6 pt-6 flex items-center justify-between">
-          <h1 className="text-xl font-medium tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl leading-none">
+          <h1 className="text-xl font-medium tracking-tight text-foreground sm:text-3xl leading-none">
             Latest
           </h1>
 
