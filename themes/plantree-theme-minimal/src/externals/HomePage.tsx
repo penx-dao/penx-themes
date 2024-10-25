@@ -28,7 +28,7 @@ export function HomePage({ posts = [], site }: Props) {
           {posts.length > POSTS_PER_PAGE && (
             <Link
               href="/posts"
-              className="text-brand-500 hover:text-primary-600 dark:hover:text-primary-400"
+              className="text-brand-500 hover:text-brand-600 dark:hover:text-brand-400"
             >
               All posts &rarr;
             </Link>

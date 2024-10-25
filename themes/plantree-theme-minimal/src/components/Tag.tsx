@@ -12,7 +12,7 @@ const Tag = ({ text, className }: Props) => {
     <Link
       href={`/tags/${slug(text)}`}
       className={cn(
-        'mr-3 text-base font-medium text-brand-500 hover:text-primary-600 dark:hover:text-primary-400',
+        'mr-3 text-base font-medium text-brand-500 hover:text-brand-600 dark:hover:text-brand-400',
         className,
       )}
     >

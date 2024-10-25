@@ -7,12 +7,5 @@
   "access": "restricted",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": [
-    "plantree",
-    "@plantreexyz/constants",
-    "@plantreexyz/hooks",
-    "@plantreexyz/math",
-    "@plantreexyz/store",
-    "@plantreexyz/unique-id"
-  ]
+  "ignore": ["plantree"]
 }

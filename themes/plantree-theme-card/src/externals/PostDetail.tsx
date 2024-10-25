@@ -67,7 +67,7 @@ export function PostDetail({ post, MintPost, next, prev }: LayoutProps) {
                 <div className="pt-4 xl:pt-8">
                   <Link
                     href={`/posts/${next.slug}`}
-                    className="text-brand-500 hover:text-primary-600 dark:hover:text-primary-400"
+                    className="text-brand-500 hover:text-brand-600 dark:hover:text-brand-400"
                     aria-label={`Next post: ${next.title}`}
                   >
                     {next.title} &rarr;

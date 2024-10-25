@@ -46,10 +46,7 @@ export const handlers: NodeHandlers = {
       )
     }
 
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src={src} alt="" className="my-4 w-full" />
-    )
+    return <img src={src} alt="" className="my-4 w-full" />
   },
   heading: (props) => {
     const attrs: any = props.node.attrs

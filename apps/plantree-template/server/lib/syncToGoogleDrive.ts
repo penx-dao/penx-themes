@@ -1,6 +1,6 @@
 import {
   GOOGLE_DRIVE_FOLDER_PREFIX,
-  REFRESH_GOOGLE_OAUTH_TOKEN_URL,
+  REFRESH_GOOGLE_DRIVE_OAUTH_TOKEN_URL,
 } from '@/lib/constants'
 import { GoogleDrive } from '@/lib/google-drive'
 import { prisma } from '@/lib/prisma'
@@ -37,6 +37,7 @@ export async function syncToGoogleDrive(
 
 async function getAccessToken(user: User) {
   const googleInfo = user.google as GoogleInfo
+  if (!googleInfo) return null
   // console.log('========googleInfo:', googleInfo)
   const isExpired = googleInfo.expiry_date < Date.now()
   console.log('======isExpired:', isExpired)
@@ -47,7 +48,7 @@ async function getAccessToken(user: User) {
 
   const tokenInfo = await ky
     .get(
-      REFRESH_GOOGLE_OAUTH_TOKEN_URL +
+      REFRESH_GOOGLE_DRIVE_OAUTH_TOKEN_URL +
         `?refresh_token=${googleInfo.refresh_token}`,
     )
     .json<GoogleInfo>()
