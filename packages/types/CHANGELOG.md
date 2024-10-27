@@ -1,5 +1,11 @@
 # @plantreexyz/types
 
+## 0.0.6
+
+### Patch Changes
+
+- improve types
+
 ## 0.0.5
 
 ### Patch Changes
