@@ -36,15 +36,15 @@ export type Site = {
   spaceId: string | null
   font: string
   image: string | null
+  privyAppId: string
+  privyAppSecret: string
   authType: AuthType
   authConfig?: {
-    vercelBlobToken: string
     [key: string]: string
   }
   storageProvider: StorageProvider
   storageConfig?: {
-    privyAppId: string
-    privyAppSecret: string
+    vercelBlobToken: string
     [key: string]: string
   }
   socials: Socials
@@ -55,7 +55,6 @@ export type Site = {
   postCount: number
   message404: string | null
   themeName: string
-  symbolName: string | null
   spaceAddress: string | null
   createdAt: Date
   updatedAt: Date
