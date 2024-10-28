@@ -1,14 +1,17 @@
 'use client'
 
 import { Button, ButtonProps } from '@/components/ui/button'
-import { isPrivy } from '@/lib/constants'
+import { AuthType } from '@prisma/client'
 import { getAccessToken, useLogin } from '@privy-io/react-auth'
 import { useAppKit } from '@reown/appkit/react'
 import { signIn } from 'next-auth/react'
+import { useSiteContext } from './SiteContext'
 
-interface Props extends ButtonProps {}
+interface Props extends ButtonProps {
+  authType?: AuthType
+}
 
-const ReownConnectButton = (props: Props) => {
+export const ReownConnectButton = (props: Props) => {
   const { open } = useAppKit()
   async function onOpen() {
     await open()
@@ -25,7 +28,9 @@ const ReownConnectButton = (props: Props) => {
   )
 }
 
-const PrivyConnectButton = (props: Props) => {
+export const PrivyConnectButton = (props: Props) => {
+  const site = useSiteContext()
+
   const { login } = useLogin({
     onComplete: async (
       user,
@@ -61,6 +66,7 @@ const PrivyConnectButton = (props: Props) => {
 
   return (
     <Button
+      disabled={!site.authConfig?.privyAppId}
       onClick={() => {
         login()
       }}
@@ -72,6 +78,10 @@ const PrivyConnectButton = (props: Props) => {
 }
 
 export const WalletConnectButton = (props: Props) => {
-  if (isPrivy) return <PrivyConnectButton {...props} />
+  if (props.authType === AuthType.PRIVY)
+    return <PrivyConnectButton {...props} />
+  if (props.authType === AuthType.REOWN)
+    return <ReownConnectButton {...props} />
+
   return <ReownConnectButton {...props} />
 }

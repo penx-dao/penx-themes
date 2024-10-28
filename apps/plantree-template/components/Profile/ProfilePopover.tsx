@@ -15,10 +15,8 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useAddress } from '@/hooks/useAddress'
-import { GateType, isGoogleOauth, isPrivy } from '@/lib/constants'
-import { trpc } from '@/lib/trpc'
 import { cn } from '@/lib/utils'
+import { AuthType } from '@prisma/client'
 import { usePrivy } from '@privy-io/react-auth'
 import {
   DatabaseBackup,
@@ -28,9 +26,11 @@ import {
   Settings,
   UserCog,
   UserRound,
+  Wallet,
 } from 'lucide-react'
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { useSiteContext } from '../SiteContext'
 import { ProfileAvatar } from './ProfileAvatar'
 import { WalletInfo } from './WalletInfo'
 
@@ -48,6 +48,8 @@ export function ProfilePopover({
   const { data } = useSession()
   const { push } = useRouter()
   const { logout } = usePrivy()
+  const { authType } = useSiteContext()
+  const isGoogleOauth = authType === AuthType.GOOGLE
 
   if (!data) return null
   const isEditor = ['ADMIN', 'AUTHOR'].includes(data.role)
@@ -78,7 +80,18 @@ export function ProfilePopover({
           )}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+
         <DropdownMenuGroup>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => {
+              push('/wallet')
+            }}
+          >
+            <Wallet className="mr-2 h-4 w-4" />
+            <span>Wallet</span>
+          </DropdownMenuItem>
+
           {isEditor && (
             <>
               <DropdownMenuItem
@@ -137,7 +150,7 @@ export function ProfilePopover({
         <DropdownMenuItem
           className="cursor-pointer"
           onClick={() => {
-            if (isPrivy) {
+            if (authType === AuthType.PRIVY) {
               logout()
             }
 

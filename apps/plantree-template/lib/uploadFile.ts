@@ -1,5 +1,6 @@
+import { StorageProvider } from '@prisma/client'
 import { calculateSHA256FromFile } from './calculateSHA256FromFile'
-import { IPFS_UPLOAD_URL, UPLOAD_PROVIDER, UploadProvider } from './constants'
+import { IPFS_GATEWAY, IPFS_UPLOAD_URL } from './constants'
 import { uploadToGoogleDrive } from './uploadToGoogleDrive'
 
 type UploadReturn = {
@@ -16,7 +17,9 @@ export async function uploadFile(
 ) {
   const fileHash = await calculateSHA256FromFile(file)
   let data: UploadReturn = {}
-  if (UPLOAD_PROVIDER === UploadProvider.VERCEL_BLOB) {
+  const site = (window as any).__SITE__
+
+  if (site.storageProvider === StorageProvider.VERCEL_BLOB) {
     data = await fetch(`/api/upload?fileHash=${fileHash}`, {
       method: 'POST',
       body: file,
@@ -31,6 +34,10 @@ export async function uploadFile(
 
     if (res.ok) {
       data = await res.json()
+      data = {
+        ...data,
+        url: `${IPFS_GATEWAY}/ipfs/${data.cid}`,
+      }
     } else {
       throw new Error('Failed to upload file')
     }
