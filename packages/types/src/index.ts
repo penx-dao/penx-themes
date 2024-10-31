@@ -55,7 +55,6 @@ export type Site = {
   postCount: number
   message404: string | null
   themeName: string
-  spaceAddress: string | null
   createdAt: Date
   updatedAt: Date
 }

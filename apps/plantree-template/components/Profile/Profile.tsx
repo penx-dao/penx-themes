@@ -23,7 +23,7 @@ export function Profile({}: Props) {
   const { address = '' } = useAccount()
   const site = useSiteContext()
 
-  if (status == 'loading') return <Skeleton className="h-10 w-[100px]" />
+  if (status === 'loading') return <Skeleton className="h-10 w-[100px]" />
 
   const authenticated = !!data && address
   const isGoogleOauth = site.authType === AuthType.GOOGLE

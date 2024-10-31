@@ -17,7 +17,7 @@ interface LayoutProps {
 export function PostDetail({ post, MintPost, next, prev }: LayoutProps) {
   return (
     <SectionContainer>
-      <article className="mt-20 mx-auto lg:max-w-3xl">
+      <article className="mt-20 mx-auto w-full lg:max-w-3xl">
         <header className="space-y-4 pb-4">
           <PageTitle>{post.title}</PageTitle>
           <div className="flex justify-between items-center">

@@ -1,7 +1,6 @@
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
 import { Site } from '@plantreexyz/types'
 import { cn } from '@plantreexyz/utils'
-import { ClientOnly } from './ClientOnly'
 import Link from './Link'
 
 const headerNavLinks = [
@@ -32,15 +31,20 @@ export const Header = ({
     >
       <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
         <div className=" no-scrollbar hidden max-w-40 items-center space-x-4 overflow-x-auto sm:flex sm:space-x-6 md:max-w-72 lg:max-w-96">
-          {headerNavLinks.map((link) => (
-            <Link
-              key={link.title}
-              href={link.href}
-              className="font-medium  hover:text-brand-500 dark:hover:text-brand-400 text-foreground/90"
-            >
-              {link.title}
-            </Link>
-          ))}
+          {headerNavLinks.map((link) => {
+            if (link.href === '/creator-fi/trade' && !site.spaceId) {
+              return null
+            }
+            return (
+              <Link
+                key={link.title}
+                href={link.href}
+                className="font-medium  hover:text-brand-500 dark:hover:text-brand-400 text-foreground/90"
+              >
+                {link.title}
+              </Link>
+            )
+          })}
         </div>
         {/* {MobileNav && <MobileNav />} */}
       </div>
@@ -48,9 +52,9 @@ export const Header = ({
       <div className="flex item-center gap-2">
         <ModeToggle />
         {!!ConnectButton && (
-          <ClientOnly>
+          <Suspense fallback={<div></div>}>
             <ConnectButton />
-          </ClientOnly>
+          </Suspense>
         )}
       </div>
     </header>

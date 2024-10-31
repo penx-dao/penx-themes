@@ -1,17 +1,20 @@
 'use client'
 
 import { Button, ButtonProps } from '@/components/ui/button'
+import { useAddress } from '@/hooks/useAddress'
 import { AuthType } from '@prisma/client'
 import { getAccessToken, useLogin } from '@privy-io/react-auth'
 import { useAppKit } from '@reown/appkit/react'
 import { signIn } from 'next-auth/react'
 import { useSiteContext } from './SiteContext'
+import { Avatar, AvatarFallback } from './ui/avatar'
 
 interface Props extends ButtonProps {
   authType?: AuthType
 }
 
 export const ReownConnectButton = (props: Props) => {
+  const address = useAddress()
   const { open } = useAppKit()
   async function onOpen() {
     await open()
@@ -19,6 +22,14 @@ export const ReownConnectButton = (props: Props) => {
 
   function onClick() {
     onOpen()
+  }
+
+  if (address) {
+    return (
+      <Avatar className="h-8 w-8">
+        <AvatarFallback></AvatarFallback>
+      </Avatar>
+    )
   }
 
   return (
@@ -30,6 +41,7 @@ export const ReownConnectButton = (props: Props) => {
 
 export const PrivyConnectButton = (props: Props) => {
   const site = useSiteContext()
+  const address = useAddress()
 
   const { login } = useLogin({
     onComplete: async (
@@ -63,6 +75,14 @@ export const PrivyConnectButton = (props: Props) => {
       // Any logic you'd like to execute after a user exits the login flow or there is an error
     },
   })
+
+  if (address) {
+    return (
+      <Avatar className="h-8 w-8">
+        <AvatarFallback></AvatarFallback>
+      </Avatar>
+    )
+  }
 
   return (
     <Button

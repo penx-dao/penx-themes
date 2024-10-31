@@ -1,8 +1,7 @@
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
 import { Merienda } from 'next/font/google'
 import { Site } from '@plantreexyz/types'
 import { cn } from '@plantreexyz/utils'
-import { ClientOnly } from './ClientOnly'
 import Link from './Link'
 
 const merienda = Merienda({
@@ -64,23 +63,28 @@ export const Header = ({
 
       <div className="flex items-center justify-end flex-1 gap-4">
         <div className="no-scrollbar hidden items-center space-x-4 overflow-x-auto sm:flex sm:space-x-6">
-          {headerNavLinksRight.map((link) => (
-            <Link
-              key={link.title}
-              href={link.href}
-              className="font-medium  hover:text-brand-500 dark:hover:text-brand-400 text-foreground/90"
-            >
-              {link.title}
-            </Link>
-          ))}
+          {headerNavLinksRight.map((link) => {
+            if (link.href === '/creator-fi/trade' && !site.spaceId) {
+              return null
+            }
+            return (
+              <Link
+                key={link.title}
+                href={link.href}
+                className="font-medium  hover:text-brand-500 dark:hover:text-brand-400 text-foreground/90"
+              >
+                {link.title}
+              </Link>
+            )
+          })}
         </div>
 
         {ModeToggle && <ModeToggle />}
         {MobileNav && <MobileNav />}
         {ConnectButton && (
-          <ClientOnly>
+          <Suspense fallback={<div></div>}>
             <ConnectButton />
-          </ClientOnly>
+          </Suspense>
         )}
       </div>
     </header>

@@ -13,27 +13,25 @@ interface Props {
 
 export function HomePage({ posts = [], site }: Props) {
   return (
-    <div className="">
+    <div className="mt-12">
       <div className="max-w-none mb-10 hover:text-black text-foreground/80">
-        <div className="flex flex-row items-center justify-center gap-20">
-          <div className="flex flex-col items-center space-x-2 flex-shrink-0">
-            {site.logo && (
-              <Image
-                src={site.logo}
-                alt="avatar"
-                width={192}
-                height={192}
-                className="h-48 w-48 rounded-full"
-              />
-            )}
-            <h3 className="pb-2 pt-4 text-2xl font-bold leading-8 tracking-tight">
-              {site.name}
-            </h3>
-            <div className="text-foreground/60">{site.description}</div>
-          </div>
-          <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2">
-            <ContentRender content={site.about} />
-          </div>
+        <div className="flex flex-col items-center flex-shrink-0">
+          {site.logo && (
+            <Image
+              src={site.logo}
+              alt="avatar"
+              width={192}
+              height={192}
+              className="h-48 w-48 rounded-full"
+            />
+          )}
+          <h3 className="pb-2 pt-4 text-2xl font-bold leading-8 tracking-tight">
+            {site.name}
+          </h3>
+          <div className="text-foreground/60">{site.description}</div>
+        </div>
+        <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2">
+          <ContentRender content={site.about} />
         </div>
       </div>
 
