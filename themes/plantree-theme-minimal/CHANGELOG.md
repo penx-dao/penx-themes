@@ -1,5 +1,14 @@
 # plantree-theme-minimal
 
+## 0.0.7
+
+### Patch Changes
+
+- improve theme
+- Updated dependencies
+  - @plantreexyz/types@0.0.7
+  - @plantreexyz/utils@0.0.7
+
 ## 0.0.6
 
 ### Patch Changes
