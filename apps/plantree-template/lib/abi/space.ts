@@ -145,12 +145,6 @@ export const addressAbi = [
     inputs: [{ name: 'target', internalType: 'address', type: 'address' }],
     name: 'AddressEmptyCode',
   },
-  {
-    type: 'error',
-    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
-    name: 'AddressInsufficientBalance',
-  },
-  { type: 'error', inputs: [], name: 'FailedInnerCall' },
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1681,48 +1675,21 @@ export const erc20PermitAbi = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const errorsAbi = [
-  { type: 'error', inputs: [], name: 'AllocationTooLarge' },
-  { type: 'error', inputs: [], name: 'AmountIsZero' },
-  { type: 'error', inputs: [], name: 'AmountTooLarge' },
-  { type: 'error', inputs: [], name: 'AppNotFound' },
-  { type: 'error', inputs: [], name: 'BeneficiaryExists' },
-  { type: 'error', inputs: [], name: 'BeneficiaryNotFound' },
-  { type: 'error', inputs: [], name: 'CannotInviteYourself' },
-  { type: 'error', inputs: [], name: 'CodeAlreadyExists' },
-  { type: 'error', inputs: [], name: 'CodeIsEmpty' },
-  { type: 'error', inputs: [], name: 'CodeIsUsed' },
-  { type: 'error', inputs: [], name: 'CodeNotExists' },
-  { type: 'error', inputs: [], name: 'ContributorExisted' },
-  { type: 'error', inputs: [], name: 'CreationNotFound' },
-  { type: 'error', inputs: [], name: 'EthAmountIsZero' },
-  { type: 'error', inputs: [], name: 'ExceedOrderAmount' },
-  { type: 'error', inputs: [], name: 'InsufficientPayment' },
-  { type: 'error', inputs: [], name: 'InsufficientShares' },
-  { type: 'error', inputs: [], name: 'InvalidAddress' },
-  { type: 'error', inputs: [], name: 'InvalidAppFeePercent' },
-  { type: 'error', inputs: [], name: 'InvalidAppId' },
-  { type: 'error', inputs: [], name: 'InvalidBeneficiary' },
-  { type: 'error', inputs: [], name: 'InvalidFeePercent' },
-  { type: 'error', inputs: [], name: 'InvalidFeeReceiver' },
-  { type: 'error', inputs: [], name: 'InvalidRecipient' },
-  { type: 'error', inputs: [], name: 'InvalidStakingRevenuePercent' },
-  { type: 'error', inputs: [], name: 'InvalidTokens' },
-  { type: 'error', inputs: [], name: 'OnlyContributor' },
-  { type: 'error', inputs: [], name: 'OnlyCreator' },
-  { type: 'error', inputs: [], name: 'OnlyFactory' },
-  { type: 'error', inputs: [], name: 'OnlyPayer' },
-  { type: 'error', inputs: [], name: 'OnlySeller' },
-  { type: 'error', inputs: [], name: 'OrderNotFound' },
-  { type: 'error', inputs: [], name: 'PlanNotActive' },
-  { type: 'error', inputs: [], name: 'PlanNotExisted' },
-  { type: 'error', inputs: [], name: 'PriceIsZero' },
-  { type: 'error', inputs: [], name: 'ShouldCreateCodeFirstly' },
-  { type: 'error', inputs: [], name: 'SlippageTooHigh' },
-  { type: 'error', inputs: [], name: 'SubscribeAmountTooSmall' },
-  { type: 'error', inputs: [], name: 'SubscriptionNotFound' },
-  { type: 'error', inputs: [], name: 'TokenAmountTooLarge' },
-  { type: 'error', inputs: [], name: 'URIIsEmpty' },
-  { type: 'error', inputs: [], name: 'UserIsInvited' },
+  { type: 'error', inputs: [], name: 'FailedCall' },
+  { type: 'error', inputs: [], name: 'FailedDeployment' },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'balance', internalType: 'uint256', type: 'uint256' },
+      { name: 'needed', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'InsufficientBalance',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'MissingPrecompile',
+  },
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1979,6 +1946,19 @@ export const eventsAbi = [
     anonymous: false,
     inputs: [
       {
+        name: 'rate',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'ReferralRewardRateUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
         name: 'accumulated',
         internalType: 'uint256',
         type: 'uint256',
@@ -2199,6 +2179,12 @@ export const eventsAbi = [
         name: 'preBuyEthAmount',
         internalType: 'uint256',
         type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'referral',
+        internalType: 'address',
+        type: 'address',
         indexed: false,
       },
     ],
@@ -3261,6 +3247,180 @@ export const ierc1155ReceiverAbi = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// IERC1363
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const ierc1363Abi = [
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'spender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Approval',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Transfer',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'spender', internalType: 'address', type: 'address' },
+    ],
+    name: 'allowance',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approveAndCall',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'approveAndCall',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transfer',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferAndCall',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'transferAndCall',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'transferFromAndCall',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFromAndCall',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+    stateMutability: 'nonpayable',
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // IERC165
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -4230,6 +4390,7 @@ export const iSpaceFactoryAbi = [
           { name: 'symbol', internalType: 'string', type: 'string' },
           { name: 'uri', internalType: 'string', type: 'string' },
           { name: 'preBuyEthAmount', internalType: 'uint256', type: 'uint256' },
+          { name: 'referral', internalType: 'address', type: 'address' },
         ],
       },
     ],
@@ -4312,14 +4473,6 @@ export const iSpaceFactoryAbi = [
     outputs: [],
     stateMutability: 'nonpayable',
   },
-] as const
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Math
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export const mathAbi = [
-  { type: 'error', inputs: [], name: 'MathOverflowedMulDiv' },
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4434,6 +4587,39 @@ export const reentrancyGuardAbi = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SafeCast
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const safeCastAbi = [
+  {
+    type: 'error',
+    inputs: [
+      { name: 'bits', internalType: 'uint8', type: 'uint8' },
+      { name: 'value', internalType: 'int256', type: 'int256' },
+    ],
+    name: 'SafeCastOverflowedIntDowncast',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'value', internalType: 'int256', type: 'int256' }],
+    name: 'SafeCastOverflowedIntToUint',
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'bits', internalType: 'uint8', type: 'uint8' },
+      { name: 'value', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'SafeCastOverflowedUintDowncast',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'value', internalType: 'uint256', type: 'uint256' }],
+    name: 'SafeCastOverflowedUintToInt',
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SafeERC20
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -4543,16 +4729,6 @@ export const spaceAbi = [
     ],
     stateMutability: 'nonpayable',
   },
-  {
-    type: 'error',
-    inputs: [{ name: 'target', internalType: 'address', type: 'address' }],
-    name: 'AddressEmptyCode',
-  },
-  {
-    type: 'error',
-    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
-    name: 'AddressInsufficientBalance',
-  },
   { type: 'error', inputs: [], name: 'AmountIsZero' },
   { type: 'error', inputs: [], name: 'ECDSAInvalidSignature' },
   {
@@ -4617,7 +4793,6 @@ export const spaceAbi = [
     name: 'ERC2612InvalidSigner',
   },
   { type: 'error', inputs: [], name: 'EthAmountIsZero' },
-  { type: 'error', inputs: [], name: 'FailedInnerCall' },
   {
     type: 'error',
     inputs: [
@@ -6129,8 +6304,8 @@ export const spaceFactoryAbi = [
     name: 'AccessControlUnauthorizedAccount',
   },
   { type: 'error', inputs: [], name: 'AppNotFound' },
+  { type: 'error', inputs: [], name: 'ExceedMaxAppFeePercent' },
   { type: 'error', inputs: [], name: 'InsufficientPayment' },
-  { type: 'error', inputs: [], name: 'InvalidAppFeePercent' },
   { type: 'error', inputs: [], name: 'InvalidAppId' },
   { type: 'error', inputs: [], name: 'InvalidFeeReceiver' },
   { type: 'error', inputs: [], name: 'OnlyCreator' },
@@ -6214,6 +6389,19 @@ export const spaceFactoryAbi = [
       },
     ],
     name: 'PriceUpdated',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'rate',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'ReferralRewardRateUpdated',
   },
   {
     type: 'event',
@@ -6314,6 +6502,12 @@ export const spaceFactoryAbi = [
         name: 'preBuyEthAmount',
         internalType: 'uint256',
         type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'referral',
+        internalType: 'address',
+        type: 'address',
         indexed: false,
       },
     ],
@@ -6434,6 +6628,7 @@ export const spaceFactoryAbi = [
           { name: 'symbol', internalType: 'string', type: 'string' },
           { name: 'uri', internalType: 'string', type: 'string' },
           { name: 'preBuyEthAmount', internalType: 'uint256', type: 'uint256' },
+          { name: 'referral', internalType: 'address', type: 'address' },
         ],
       },
     ],
@@ -6519,6 +6714,13 @@ export const spaceFactoryAbi = [
   },
   {
     type: 'function',
+    inputs: [],
+    name: 'referralRewardRate',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    stateMutability: 'view',
+  },
+  {
+    type: 'function',
     inputs: [
       { name: 'role', internalType: 'bytes32', type: 'bytes32' },
       { name: 'callerConfirmation', internalType: 'address', type: 'address' },
@@ -6548,6 +6750,13 @@ export const spaceFactoryAbi = [
     type: 'function',
     inputs: [{ name: '_price', internalType: 'uint256', type: 'uint256' }],
     name: 'setPrice',
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  {
+    type: 'function',
+    inputs: [{ name: '_rate', internalType: 'uint256', type: 'uint256' }],
+    name: 'setReferralRewardRate',
     outputs: [],
     stateMutability: 'nonpayable',
   },
@@ -6637,17 +6846,6 @@ export const spaceFactoryAbi = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const spaceHelperAbi = [
-  {
-    type: 'error',
-    inputs: [{ name: 'target', internalType: 'address', type: 'address' }],
-    name: 'AddressEmptyCode',
-  },
-  {
-    type: 'error',
-    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
-    name: 'AddressInsufficientBalance',
-  },
-  { type: 'error', inputs: [], name: 'FailedInnerCall' },
   { type: 'error', inputs: [], name: 'InvalidTokens' },
   { type: 'error', inputs: [], name: 'OnlyFactory' },
   {
@@ -6683,19 +6881,8 @@ export const spaceHelperAbi = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const stakingAbi = [
-  {
-    type: 'error',
-    inputs: [{ name: 'target', internalType: 'address', type: 'address' }],
-    name: 'AddressEmptyCode',
-  },
-  {
-    type: 'error',
-    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
-    name: 'AddressInsufficientBalance',
-  },
   { type: 'error', inputs: [], name: 'AmountIsZero' },
   { type: 'error', inputs: [], name: 'AmountTooLarge' },
-  { type: 'error', inputs: [], name: 'FailedInnerCall' },
   {
     type: 'error',
     inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
@@ -6774,19 +6961,8 @@ export const stringsAbi = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const tokenAbi = [
-  {
-    type: 'error',
-    inputs: [{ name: 'target', internalType: 'address', type: 'address' }],
-    name: 'AddressEmptyCode',
-  },
-  {
-    type: 'error',
-    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
-    name: 'AddressInsufficientBalance',
-  },
   { type: 'error', inputs: [], name: 'AmountIsZero' },
   { type: 'error', inputs: [], name: 'EthAmountIsZero' },
-  { type: 'error', inputs: [], name: 'FailedInnerCall' },
   {
     type: 'error',
     inputs: [{ name: 'token', internalType: 'address', type: 'address' }],
