@@ -78,10 +78,9 @@ export const PrivyConnectButton = (props: Props) => {
 }
 
 export const WalletConnectButton = (props: Props) => {
-  if (props.authType === AuthType.PRIVY)
-    return <PrivyConnectButton {...props} />
-  if (props.authType === AuthType.REOWN)
-    return <ReownConnectButton {...props} />
+  const { authType, ...rest } = props
+  if (props.authType === AuthType.PRIVY) return <PrivyConnectButton {...rest} />
+  if (props.authType === AuthType.REOWN) return <ReownConnectButton {...rest} />
 
-  return <ReownConnectButton {...props} />
+  return <ReownConnectButton {...rest} />
 }

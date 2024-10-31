@@ -10,7 +10,7 @@ interface LayoutProps {
   children: ReactNode
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
-  TipTokenButton?: () => JSX.Element
+  TipTokenButton?: (props: { post: Post }) => JSX.Element
 }
 
 export function PostDetail({ post, next, prev, TipTokenButton }: LayoutProps) {
@@ -29,7 +29,7 @@ export function PostDetail({ post, next, prev, TipTokenButton }: LayoutProps) {
               {post.readingTime.text}
             </dd>
           </dl>
-          {TipTokenButton && <TipTokenButton />}
+          {TipTokenButton && <TipTokenButton post={post} />}
         </div>
       </header>
       <div className="grid-rows-[auto_1fr]">

@@ -82,6 +82,7 @@
     "nextjs-toploader": "^1.6.12",
     "novel": "^0.5.0",
     "openai-edge": "^1.2.2",
+    "p-retry": "^6.2.0",
     "plantree-theme-card": "workspace:*",
     "plantree-theme-micro": "workspace:*",
     "plantree-theme-minimal": "workspace:*",

@@ -1,8 +1,23 @@
 import { atom, useAtom } from 'jotai'
 
-const tipTokenDialogAtom = atom<boolean>(false)
+interface State {
+  isLoading: boolean
+  isOpen: boolean
+}
+
+const tipTokenDialogAtom = atom<State>({
+  isLoading: false,
+  isOpen: false,
+})
 
 export function useTipTokenDialog() {
-  const [isOpen, setIsOpen] = useAtom(tipTokenDialogAtom)
-  return { isOpen, setIsOpen }
+  const [state, setState] = useAtom(tipTokenDialogAtom)
+  return {
+    isOpen: state.isOpen,
+    isLoading: state.isLoading,
+    setIsOpen: (isOpen: boolean) => setState((prev) => ({ ...prev, isOpen })),
+    setIsLoading: (isLoading: boolean) =>
+      setState((prev) => ({ ...prev, isLoading })),
+    setState,
+  }
 }

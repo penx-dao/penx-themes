@@ -7,7 +7,18 @@ import { cookieStorage, createStorage, http } from '@wagmi/core'
 import { baseSepolia as viemBaseSepolia } from 'viem/chains'
 import { PROJECT_ID } from '../constants'
 
-export const networks: [AppKitNetwork, ...AppKitNetwork[]] = [baseSepolia]
+export const networks: [AppKitNetwork, ...AppKitNetwork[]] = [
+  {
+    ...baseSepolia,
+    rpcUrls: {
+      default: {
+        http: [
+          'https://base-sepolia.g.alchemy.com/v2/3NOJzJclAc6EPYa2uW4rBchMV5o6eAI0',
+        ],
+      },
+    },
+  },
+]
 
 //Set up the Wagmi Adapter (Config)
 export const wagmiAdapter = new WagmiAdapter({
@@ -20,7 +31,7 @@ export const wagmiAdapter = new WagmiAdapter({
 })
 
 export const privyWagmiConfig = createConfig({
-  chains: [baseSepolia], // Pass your required chains as an array
+  chains: [viemBaseSepolia], // Pass your required chains as an array
   transports: {
     [viemBaseSepolia.id]: http(),
   },
