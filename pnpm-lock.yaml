@@ -72,8 +72,8 @@ importers:
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.1(react@18.2.0))
       '@plantreexyz/types':
-        specifier: 0.0.6
-        version: 0.0.6
+        specifier: workspace:*
+        version: link:../../packages/types
       '@prisma/client':
         specifier: ^5.21.1
         version: 5.21.1(prisma@5.21.1)
@@ -518,6 +518,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.17
         version: 18.3.1
+      lucide-react:
+        specifier: ^0.417.0
+        version: 0.417.0(react@18.2.0)
       next:
         specifier: 14.2.15
         version: 14.2.15(@babel/core@7.25.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -555,6 +558,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.17
         version: 18.3.1
+      lucide-react:
+        specifier: ^0.417.0
+        version: 0.417.0(react@18.2.0)
       next:
         specifier: 14.2.15
         version: 14.2.15(@babel/core@7.25.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -592,6 +598,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.17
         version: 18.3.1
+      lucide-react:
+        specifier: ^0.417.0
+        version: 0.417.0(react@18.2.0)
       next:
         specifier: 14.2.15
         version: 14.2.15(@babel/core@7.25.9)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -2294,9 +2303,6 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
-
-  '@plantreexyz/types@0.0.6':
-    resolution: {integrity: sha512-4Bm2dQKyInVzDeKIMm8qkRo1uASJnrTwraysgF20Jag9uOaM6cGI1Gd+alvFF/BOvLEwGS+5dcfOdRrkReidvw==}
 
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
@@ -12732,8 +12738,6 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
-
-  '@plantreexyz/types@0.0.6': {}
 
   '@popperjs/core@2.11.8': {}
 

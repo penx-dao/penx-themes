@@ -49,6 +49,7 @@ export type Site = {
   }
   socials: Socials
   config: Record<string, any>
+  themeConfig: Record<string, any>
   subdomain: string | null
   customDomain: string | null
   memberCount: number
@@ -66,6 +67,7 @@ export enum PostType {
   AUDIO = 'AUDIO',
   NFT = 'NFT',
   FIGMA = 'FIGMA',
+  NOTE = 'NOTE',
 }
 
 export enum GateType {
@@ -85,6 +87,7 @@ export type Post = {
   description: string
   content: any
   slug: string
+  cid: string
   type: PostType
   gateType: GateType
   readingTime: {

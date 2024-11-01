@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { ExternalLink } from 'lucide-react'
 import { Post } from '@plantreexyz/types'
 import { formatDate } from '@plantreexyz/utils'
 import Link from '../components/Link'
@@ -33,11 +34,23 @@ export function PostDetail({ post, next, prev, TipTokenButton }: LayoutProps) {
         </div>
       </header>
       <div className="grid-rows-[auto_1fr]">
-        <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-          <div className="prose max-w-none pb-8 dark:prose-invert">
-            <PostCreation post={post} canRead />
-          </div>
+        <div className="prose max-w-none pb-8 dark:prose-invert">
+          <PostCreation post={post} canRead />
         </div>
+        {post.cid && (
+          <div className="text-foreground/60 text-sm rounded-md px-3 py-2 border border-sidebar flex items-center gap-2">
+            <span className="text-foreground/80">IPFS CID:</span>
+            <span>{post.cid}</span>
+            <a
+              className="inline-flex"
+              href={`https://ipfs-gateway.spaceprotocol.xyz/ipfs/${post.cid}`}
+              target="_blank"
+            >
+              <ExternalLink className="cursor-pointer" size={16} />
+            </a>
+          </div>
+        )}
+
         <footer>
           <div className="flex flex-col text-sm font-medium sm:flex-row sm:justify-between sm:text-base">
             {prev && prev.path && (

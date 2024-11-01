@@ -12,6 +12,7 @@ import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
 import { GoogleOauthButton } from '../GoogleOauthButton'
 import { useSiteContext } from '../SiteContext'
+import { Avatar, AvatarFallback } from '../ui/avatar'
 import { GoogleOauthDialog } from './GoogleOauthDialog/GoogleOauthDialog'
 import { ProfileDialog } from './ProfileDialog/ProfileDialog'
 import { ProfilePopover } from './ProfilePopover'
@@ -23,7 +24,15 @@ export function Profile({}: Props) {
   const { address = '' } = useAccount()
   const site = useSiteContext()
 
-  if (status === 'loading') return <Skeleton className="h-10 w-[100px]" />
+  // console.log('====address:', address, 'data:', data, 'status:', status)
+
+  if (status === 'loading')
+    return (
+      <Avatar className="h-8 w-8">
+        <AvatarFallback></AvatarFallback>
+      </Avatar>
+    )
+  // <Skeleton className="h-10 w-[100px]" />
 
   const authenticated = !!data && address
   const isGoogleOauth = site.authType === AuthType.GOOGLE
