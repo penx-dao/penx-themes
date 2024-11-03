@@ -11,7 +11,7 @@ export function PostCreation({ canRead = true, post }: Props) {
   const renderRate = canRead ? 1 : 0.5
 
   return (
-    <div className="relative min-h-[400px] mt-4">
+    <div className="relative mt-4">
       <div className="relative">
         <ContentRender content={post.content} renderRate={renderRate} />
       </div>
