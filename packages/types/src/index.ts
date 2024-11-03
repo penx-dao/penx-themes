@@ -88,8 +88,10 @@ export type Post = {
   content: any
   slug: string
   cid: string
+  creationId: number
   type: PostType
   gateType: GateType
+  collectable: boolean
   readingTime: {
     text: string
     minutes: number

@@ -11,10 +11,10 @@ interface LayoutProps {
   children: ReactNode
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
-  TipTokenButton?: (props: { post: Post }) => JSX.Element
+  PostActions?: (props: { post: Post; className?: string }) => JSX.Element
 }
 
-export function PostDetail({ post, next, prev, TipTokenButton }: LayoutProps) {
+export function PostDetail({ post, next, prev, PostActions }: LayoutProps) {
   return (
     <div>
       <header className="space-y-4 pb-4">
@@ -30,8 +30,9 @@ export function PostDetail({ post, next, prev, TipTokenButton }: LayoutProps) {
               {post.readingTime.text}
             </dd>
           </dl>
-          {TipTokenButton && <TipTokenButton post={post} />}
         </div>
+
+        {PostActions && <PostActions post={post} />}
       </header>
       <div className="grid-rows-[auto_1fr]">
         <div className="prose max-w-none pb-8 dark:prose-invert">
