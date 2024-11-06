@@ -5,17 +5,24 @@ import { formatDate } from '@plantreexyz/utils'
 import Image from '../components/Image'
 import Link from '../components/Link'
 import PageTitle from '../components/PageTitle'
-import { PostCreation } from '../components/PostCreation/PostCreation'
 import SectionContainer from '../components/SectionContainer'
 
 interface LayoutProps {
   post: Post
+  children: ReactNode
   next?: Post
   prev?: Post
-  MintPost?: () => ReactNode
+  PostActions?: (props: { post: Post; className?: string }) => JSX.Element
+  PostRender?: (props: { post: Post; className?: string }) => JSX.Element
 }
 
-export function PostDetail({ post, MintPost, next, prev }: LayoutProps) {
+export function PostDetail({
+  post,
+  PostActions,
+  PostRender,
+  next,
+  prev,
+}: LayoutProps) {
   return (
     <SectionContainer>
       <article className="mt-20 mx-auto w-full lg:max-w-3xl">
@@ -31,8 +38,9 @@ export function PostDetail({ post, MintPost, next, prev }: LayoutProps) {
                 {post.readingTime.text}
               </dd>
             </dl>
-            {!!MintPost && <MintPost />}
           </div>
+
+          {PostActions && <PostActions post={post} />}
         </header>
 
         {!!post.image && (
@@ -47,7 +55,7 @@ export function PostDetail({ post, MintPost, next, prev }: LayoutProps) {
 
         <div className="grid-rows-[auto_1fr]">
           <div className="prose max-w-none pb-8 dark:prose-invert">
-            <PostCreation post={post} canRead />
+            {PostRender && <PostRender post={post} />}
           </div>
 
           {post.cid && (

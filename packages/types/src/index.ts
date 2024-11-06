@@ -88,6 +88,7 @@ export type Post = {
   content: any
   slug: string
   cid: string
+  nodeId: string
   creationId: number
   type: PostType
   gateType: GateType

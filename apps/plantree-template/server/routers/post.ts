@@ -2,6 +2,7 @@ import { IPFS_ADD_URL, PostStatus } from '@/lib/constants'
 import { prisma } from '@/lib/prisma'
 import { GateType, PostType, Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
+import { Node as SlateNode } from 'slate'
 import { z } from 'zod'
 import { syncToGoogleDrive } from '../lib/syncToGoogleDrive'
 import { protectedProcedure, publicProcedure, router } from '../trpc'
@@ -102,23 +103,62 @@ export const postRouter = router({
   publish: protectedProcedure
     .input(
       z.object({
-        id: z.string(),
+        nodeId: z.string(),
+        creationId: z.number().optional(),
+        type: z.nativeEnum(PostType),
         gateType: z.nativeEnum(GateType),
         collectable: z.boolean(),
-        creationId: z.number().optional(),
+        image: z.string().optional(),
+        content: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { id, gateType, collectable, creationId } = input
-      const post = await prisma.post.findUnique({
+      const userId = ctx.token.uid
+      const { nodeId, gateType, collectable, creationId } = input
+
+      let post = await prisma.post.findFirst({
+        where: { nodeId },
+      })
+      const [title, ...nodes] = JSON.parse(input.content)
+
+      if (!post) {
+        post = await prisma.post.create({
+          data: {
+            userId,
+            title: SlateNode.string(title),
+            type: input.type,
+            nodeId: input.nodeId,
+            postStatus: PostStatus.PUBLISHED,
+            image: input.image,
+            gateType: input.gateType,
+            collectable: input.collectable,
+            content: JSON.stringify(nodes),
+          },
+        })
+      } else {
+        post = await prisma.post.update({
+          where: { id: post.id },
+          data: {
+            title: SlateNode.string(title),
+            type: input.type,
+            image: input.image,
+            postStatus: PostStatus.PUBLISHED,
+            gateType: input.gateType,
+            collectable: input.collectable,
+            content: JSON.stringify(nodes),
+          },
+        })
+      }
+
+      const newPost = await prisma.post.findUnique({
         include: { postTags: { include: { tag: true } } },
-        where: { id },
+        where: { id: post.id },
       })
 
       const res = await fetch(IPFS_ADD_URL, {
         method: 'POST',
         body: JSON.stringify({
-          ...post,
+          ...newPost,
           postStatus: PostStatus.PUBLISHED,
           collectable,
           creationId,
@@ -127,7 +167,7 @@ export const postRouter = router({
       }).then((d) => d.json())
 
       await prisma.post.update({
-        where: { id },
+        where: { id: post.id },
         data: {
           postStatus: PostStatus.PUBLISHED,
           collectable,
@@ -146,13 +186,24 @@ export const postRouter = router({
 
       // sync google
       syncToGoogleDrive(ctx.token.uid, {
-        ...post,
+        ...newPost,
         postStatus: PostStatus.PUBLISHED,
         collectable,
         creationId,
         cid: res.cid,
         gateType,
       } as any)
+
+      return newPost
+    }),
+
+  archive: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      const post = await prisma.post.update({
+        where: { id: input },
+        data: { postStatus: PostStatus.ARCHIVED },
+      })
 
       return post
     }),

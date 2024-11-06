@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation'
 import readingTime from 'reading-time'
 import { PaidContent } from './PaidContent'
 import { PostActions } from './PostActions/PostActions'
+import { PostRender } from './PostRender/PostRender'
 
 function getContent(post: Post, isGated = false) {
   const node: TipTapNode = JSON.parse(post.content || '{}')
@@ -53,6 +54,8 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   const { PostDetail } = await loadTheme()
   if (!PostDetail) throw new Error('Missing PostDetail component')
 
+  console.log('=====post:', post)
+
   /** No gated */
   if (post?.gateType == GateType.FREE) {
     return (
@@ -66,6 +69,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
         next={next}
         prev={prev}
         PostActions={PostActions}
+        PostRender={PostRender}
       />
     )
   }

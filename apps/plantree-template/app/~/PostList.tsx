@@ -33,7 +33,8 @@ export function PostItem({ post }: PostItemProps) {
     <div className={cn('flex flex-col gap-2 py-[6px]')}>
       <div>
         <Link
-          href={`/~/post/${post.id}`}
+          target="_blank"
+          href={`/posts/${post.slug}`}
           className="inline-flex items-center hover:scale-105 transition-transform"
           onClick={() => {
             toPost(false)
@@ -68,7 +69,7 @@ export function PostItem({ post }: PostItemProps) {
           variant="ghost"
           className="rounded-full text-xs h-7 text-red-500 gap-1 opacity-60"
           onClick={async () => {
-            await api.post.delete.mutate(post.id)
+            await api.post.archive.mutate(post.id)
             refetch()
           }}
         >

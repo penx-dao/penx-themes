@@ -4,16 +4,24 @@ import { Post } from '@plantreexyz/types'
 import { formatDate } from '@plantreexyz/utils'
 import Link from '../components/Link'
 import PageTitle from '../components/PageTitle'
-import { PostCreation } from '../components/PostCreation/PostCreation'
 
 interface LayoutProps {
   post: Post
   children: ReactNode
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
+  PostActions?: (props: { post: Post; className?: string }) => JSX.Element
+  PostRender?: (props: { post: Post; className?: string }) => JSX.Element
 }
 
-export function PostDetail({ post, next, prev, children }: LayoutProps) {
+export function PostDetail({
+  post,
+  next,
+  prev,
+  children,
+  PostActions,
+  PostRender,
+}: LayoutProps) {
   return (
     <div>
       <header className="space-y-4 pb-4">
@@ -28,10 +36,11 @@ export function PostDetail({ post, next, prev, children }: LayoutProps) {
             {post.readingTime.text}
           </dd>
         </dl>
+        {PostActions && <PostActions post={post} />}
       </header>
       <div className="grid-rows-[auto_1fr]">
         <div className="prose max-w-none pb-8 dark:prose-invert">
-          <PostCreation post={post} canRead />
+          {PostRender && <PostRender post={post} />}
         </div>
 
         {post.cid && (

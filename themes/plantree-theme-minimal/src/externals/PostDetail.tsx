@@ -4,7 +4,6 @@ import { Post } from '@plantreexyz/types'
 import { formatDate } from '@plantreexyz/utils'
 import Link from '../components/Link'
 import PageTitle from '../components/PageTitle'
-import { PostCreation } from '../components/PostCreation/PostCreation'
 
 interface LayoutProps {
   post: Post
@@ -12,9 +11,16 @@ interface LayoutProps {
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
   PostActions?: (props: { post: Post; className?: string }) => JSX.Element
+  PostRender?: (props: { post: Post; className?: string }) => JSX.Element
 }
 
-export function PostDetail({ post, next, prev, PostActions }: LayoutProps) {
+export function PostDetail({
+  post,
+  next,
+  prev,
+  PostActions,
+  PostRender,
+}: LayoutProps) {
   return (
     <div>
       <header className="space-y-4 pb-4">
@@ -36,7 +42,7 @@ export function PostDetail({ post, next, prev, PostActions }: LayoutProps) {
       </header>
       <div className="grid-rows-[auto_1fr]">
         <div className="prose max-w-none pb-8 dark:prose-invert">
-          <PostCreation post={post} canRead />
+          {PostRender && <PostRender post={post} />}
         </div>
         {post.cid && (
           <div className="text-foreground/60 text-sm rounded-md px-3 py-2 border border-sidebar flex items-center gap-2">
