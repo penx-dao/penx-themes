@@ -1,14 +1,32 @@
-'use client';
+'use client'
 
-import isEqual from 'react-fast-compare';
-import { EditorMode, ELEMENT_TODO, isServer, TODO_DATABASE_NAME } from '@/lib/constants';
-import { ArraySorter, db } from '@/lib/local-db';
-import { ICellNode, IColumnNode, IDatabaseNode, IDatabaseRootNode, INode, IOptionNode, IRootNode, IRowNode, IViewNode, Node, NodeType, ViewType } from '@/lib/model';
-import { format } from 'date-fns';
-import { atom } from 'jotai';
-import { atomWithStorage } from 'jotai/utils';
-import { StoreType } from '../store-types';
-
+import isEqual from 'react-fast-compare'
+import {
+  EditorMode,
+  ELEMENT_TODO,
+  isServer,
+  TODO_DATABASE_NAME,
+} from '@/lib/constants'
+import { ArraySorter, db } from '@/lib/local-db'
+import {
+  ICellNode,
+  IColumnNode,
+  IDailyRootNode,
+  IDatabaseNode,
+  IDatabaseRootNode,
+  INode,
+  IOptionNode,
+  IRootNode,
+  IRowNode,
+  IViewNode,
+  Node,
+  NodeType,
+  ViewType,
+} from '@/lib/model'
+import { format } from 'date-fns'
+import { atom } from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
+import { StoreType } from '../store-types'
 
 type FindOptions<T = INode> = {
   where?: Partial<T>
@@ -49,11 +67,6 @@ export class NodeStore {
     return this.store.set(nodesAtom, nodes)
   }
 
-  setActiveNode(node: INode) {
-    window.localStorage.setItem('ACTIVE_NODE', JSON.stringify(node))
-    return this.store.set(activeNodeAtom, node)
-  }
-
   getNode(id: string) {
     const nodes = this.getNodes()
     return nodes.find((node) => node.id === id)!
@@ -68,6 +81,12 @@ export class NodeStore {
     let nodes = this.getNodes()
     const node = nodes.find((node) => node.type === NodeType.ROOT)!
     return node as IRootNode
+  }
+
+  getDailyRootNode = () => {
+    let nodes = this.getNodes()
+    const node = nodes.find((node) => node.type === NodeType.DAILY_ROOT)!
+    return node as IDailyRootNode
   }
 
   getDatabaseRootNode = () => {
@@ -202,18 +221,6 @@ export class NodeStore {
       console.log('is equal node')
       return
     }
-
-    // const editor = this.store.editor.getEditor(index)
-    // const nodes = this.getNodes()
-    // const activeSpace = this.store.space.getActiveSpace()
-    // const isOutliner = activeSpace.editorMode === EditorMode.OUTLINER
-    // const value = nodeToSlate(node, nodes, isOutliner)
-
-    // TODO: the good way  is to clear the editor, but now has bug
-    this.setActiveNode(undefined as any)
-    setTimeout(async () => {
-      this.setActiveNode(node)
-    }, 20)
   }
 
   async selectInbox() {}
@@ -236,10 +243,10 @@ export class NodeStore {
 
   async closePanel(index: number) {}
 
-  async selectDailyNote(date: Date = new Date()) {
+  async selectDailyNote(date: Date = new Date(), isSelectNode = true) {
     const dateStr = format(date, 'yyyy-MM-dd')
 
-    const userId = (window as any).__USER_ID__
+    const userId = window.__USER_ID__
     const newNodes = await db.listNodesByUserId(userId)
 
     let dateNode = newNodes.find(
@@ -254,7 +261,9 @@ export class NodeStore {
     }
 
     this.setNodes(newNodes)
-    this.selectNode(dateNode)
+    if (isSelectNode) {
+      this.selectNode(dateNode)
+    }
     return dateNode
   }
 
@@ -263,7 +272,7 @@ export class NodeStore {
   async addNodesToToday(nodes: INode[]) {}
 
   async createPageNode(input: Partial<INode> = {}) {
-    const userId = (window as any).__USER_ID__
+    const userId = window.__USER_ID__
     const node = await db.createPageNode(
       {
         collapsed: true,
@@ -275,7 +284,6 @@ export class NodeStore {
     const nodes = await db.listNodesByUserId(userId)
 
     this.setNodes(nodes)
-    this.selectNode(node)
     return node
   }
 

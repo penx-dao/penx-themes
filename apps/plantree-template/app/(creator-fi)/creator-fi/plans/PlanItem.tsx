@@ -7,7 +7,7 @@ import { useEthPrice } from '@/app/(creator-fi)/hooks/useEthPrice'
 import { useMembers } from '@/app/(creator-fi)/hooks/useMembers'
 import { useSpace } from '@/app/(creator-fi)/hooks/useSpace'
 import { useSubscriptions } from '@/app/(creator-fi)/hooks/useSubscriptions'
-import Editor from '@/components/editor/advanced-editor'
+import { PlateEditor } from '@/components/editor/plate-editor'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { useAppKit } from '@reown/appkit/react'
@@ -35,7 +35,7 @@ export function PlanItem({ plan }: Props) {
   )
 
   return (
-    <Card className="relative flex min-h-[520px] flex-col justify-between gap-4 rounded-xl p-4 shadow-none dark:bg-zinc-800">
+    <Card className="relative flex min-h-[520px] flex-col justify-between gap-4 rounded-xl p-4 shadow-none bg-foreground">
       {space.isFounder(address) && (
         <Button
           variant="ghost"
@@ -43,7 +43,7 @@ export function PlanItem({ plan }: Props) {
           className="absolute right-1 top-1 rounded-full"
           onClick={() => setState({ isOpen: true, plan: plan })}
         >
-          <EditIcon size={20} className="text-neutral-400" />
+          <EditIcon size={20} className="text-foreground/50" />
         </Button>
       )}
       <div>
@@ -59,12 +59,7 @@ export function PlanItem({ plan }: Props) {
       </div>
 
       <div className="prose-xl prose-neutral flex-1 prose-p:m-4 prose-p:leading-none">
-        <Editor
-          className="break-all"
-          initialValue={plan.benefitsJson}
-          editable={false}
-          onChange={(v) => {}}
-        />
+        <PlateEditor value={plan.benefitsJson} readonly />
       </div>
 
       <Button

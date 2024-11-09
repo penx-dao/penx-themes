@@ -102,7 +102,6 @@ export class NodeToSlateSerializer {
 
     // console.log('=======isCreateTitle:', isCreateTitle, 'value:', value)
 
-
     for (const id of this.node.children) {
       const node = new Node(this.nodeMap.get(id)!)
       if (!node) continue
@@ -398,7 +397,7 @@ function getDailyRootEditorValue(node: Node, nodeMap: Map<string, INode>) {
       children: [
         {
           type: 'p',
-          children: [{ text: 'Daily notes' }],
+          children: [{ text: 'Journals' }],
         },
       ],
     },

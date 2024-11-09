@@ -1,79 +1,37 @@
 'use client'
 
 import { PropsWithChildren, useEffect } from 'react'
-import { extensionList } from '@/lib/extension-list'
-import { extensionStore } from '@/lib/extension-store'
-import { ExtensionContext } from '@/lib/extension-typings'
 import { db } from '@/lib/local-db'
+import { INode } from '@/lib/model'
 import { useNodes } from '@/lib/node-hooks'
-import { commandsAtom, getLocalActiveNode, store } from '@/store'
+import { api } from '@/lib/trpc'
+import { store } from '@/store'
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
+import { useParams } from 'next/navigation'
 import LoadingDots from './icons/loading-dots'
-
-export const extensionContext: ExtensionContext = {
-  pluginId: undefined,
-
-  registerCommand(options) {
-    const commands = store.get(commandsAtom)
-    store.set(commandsAtom, [...commands, options])
-
-    extensionStore.addCommand(options)
-  },
-
-  executeCommand(id) {
-    //
-  },
-
-  defineSettings(schema) {
-    extensionStore.addSetting(this.pluginId!, schema)
-  },
-
-  registerComponent({ at, component }) {
-    extensionStore.addComponent(this.pluginId!, { at, component })
-  },
-
-  registerBlock(options) {
-    extensionStore.addBlock(this.pluginId!, options)
-  },
-  notify() {
-    //
-  },
-}
 
 export const NodesProvider = ({ children }: PropsWithChildren) => {
   const { data: session } = useSession()
+
   const { data = [], isLoading } = useQuery({
     queryKey: ['nodes'],
-
     queryFn: async () => {
       const t0 = Date.now()
-      let node = await db.getRootNode(session?.userId!)
-      if (!node) {
-        await db.initNodes(session?.userId!)
+      let nodes = await db.listNodesByUserId(session?.userId!)
+      if (!nodes?.length) {
+        const remoteNodes = await api.node.myNodes.query()
+        if (remoteNodes.length) {
+          await db.deleteNodeByUserId()
+          for (const node of remoteNodes) {
+            await db.createNode(node as INode)
+          }
+        } else {
+          await db.initNodes(session?.userId!)
+        }
       }
       const userId = session?.userId!
-      const nodes = await db.listNodesByUserId(userId)
-      const localNode = getLocalActiveNode()
-      const activeNode = nodes.find((n) => n.id === localNode?.id)
-
-      if (!activeNode) {
-        const todayNode = await db.getOrCreateTodayNode(userId)
-        store.node.selectNode(todayNode)
-      } else {
-        store.node.selectNode(activeNode)
-      }
-
-      for (const item of extensionList) {
-        const ctx = Object.create(extensionContext, {
-          pluginId: {
-            writable: false,
-            configurable: false,
-            value: item.id,
-          },
-        })
-        item.activate(ctx)
-      }
+      nodes = await db.listNodesByUserId(userId)
 
       const t1 = Date.now()
 
@@ -83,6 +41,7 @@ export const NodesProvider = ({ children }: PropsWithChildren) => {
     },
     enabled: !!session?.userId,
   })
+
   const { nodes } = useNodes()
 
   useEffect(() => {

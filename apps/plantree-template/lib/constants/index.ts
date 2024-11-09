@@ -30,6 +30,7 @@ export const PROJECT_ID =
   process.env.NEXT_PUBLIC_PROJECT_ID || '3d31c4aa12acd88d0b8cad38b0a5686a'
 
 export const GOOGLE_DRIVE_FOLDER_PREFIX = `plantree-`
+export const GOOGLE_DRIVE_FOLDER = 'plantree'
 
 export enum TradeType {
   BUY = 'BUY',
@@ -68,7 +69,11 @@ export enum WorkerEvents {
   START_POLLING,
 }
 
-export const RESPACE_BASE_URI = 'https://www.respace.one'
+export const RESPACE_BASE_URI =
+  NETWORK === NetworkNames.BASE
+    ? 'https://www.respace.one'
+    : // : 'http://localhost:5000'
+      'https://sepolia.respace.one'
 
 export const RESPACE_SUBGRAPH_URL =
   NETWORK === NetworkNames.BASE

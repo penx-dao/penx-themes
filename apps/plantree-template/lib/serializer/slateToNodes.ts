@@ -1,5 +1,5 @@
+import { getNodeByPath } from '@/components/editor/lib/getNodeByPath'
 import { ELEMENT_LI, ELEMENT_LIC } from '@/lib/constants'
-import { getNodeByPath } from '@/lib/editor-queries'
 import { INode, NodeType } from '@/lib/model'
 import { uniqueId } from '@/lib/unique-id'
 import _ from 'lodash'
@@ -103,7 +103,7 @@ export function slateToNodes(
     } else {
       nodes.push({
         id: item?.id || uniqueId(),
-        userId: (window as any).__USER_ID__,
+        userId: window.__USER_ID__,
         parentId: newParentId,
         type: NodeType.COMMON,
         element,

@@ -2,7 +2,6 @@
 
 import { Skeleton } from '@/components/ui/skeleton'
 import {
-  PrivyConnectButton,
   ReownConnectButton,
   WalletConnectButton,
 } from '@/components/WalletConnectButton'
@@ -32,24 +31,20 @@ export function Profile({}: Props) {
         <AvatarFallback></AvatarFallback>
       </Avatar>
     )
-  // <Skeleton className="h-10 w-[100px]" />
 
-  const authenticated = !!data && address
+  const authenticated = !!data
   const isGoogleOauth = site.authType === AuthType.GOOGLE
 
   return (
     <>
       <ProfileDialog />
       <GoogleOauthDialog />
-
       {!authenticated && (
         <>
           {isGoogleOauth && <GoogleOauthButton />}
           {site.authType === AuthType.REOWN && <ReownConnectButton />}
-          {site.authType === AuthType.PRIVY && <PrivyConnectButton />}
         </>
       )}
-
       {authenticated && <ProfilePopover />}
     </>
   )

@@ -1,5 +1,6 @@
 'use client'
 
+import { memo } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -17,9 +18,10 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 import { AuthType } from '@prisma/client'
-import { usePrivy } from '@privy-io/react-auth'
+import { useDisconnect } from '@reown/appkit/react'
 import {
   DatabaseBackup,
+  FileText,
   Gauge,
   KeySquare,
   LogOut,
@@ -31,6 +33,7 @@ import {
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useSiteContext } from '../SiteContext'
+import { Skeleton } from '../ui/skeleton'
 import { ProfileAvatar } from './ProfileAvatar'
 import { WalletInfo } from './WalletInfo'
 
@@ -38,20 +41,22 @@ interface Props {
   className?: string
   showAddress?: boolean
   showEnsName?: boolean
+  showDropIcon?: boolean
 }
 
-export function ProfilePopover({
+export const ProfilePopover = memo(function ProfilePopover({
   showAddress,
   showEnsName,
+  showDropIcon = false,
   className = '',
 }: Props) {
   const { data } = useSession()
   const { push } = useRouter()
-  const { logout } = usePrivy()
   const { authType } = useSiteContext()
+  const { disconnect } = useDisconnect()
   const isGoogleOauth = authType === AuthType.GOOGLE
 
-  if (!data) return null
+  if (!data) return <div></div>
   const isEditor = ['ADMIN', 'AUTHOR'].includes(data.role)
 
   return (
@@ -60,6 +65,7 @@ export function ProfilePopover({
         <ProfileAvatar
           showAddress={showAddress}
           showEnsName={showEnsName}
+          showDropIcon={showDropIcon}
           image={data.user?.image || ''}
           className={cn('cursor-pointer', className)}
         />
@@ -97,20 +103,11 @@ export function ProfilePopover({
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => {
-                  push('/~/notes')
+                  push('/~/today')
                 }}
               >
                 <Gauge className="mr-2 h-4 w-4" />
-                <span>Pages</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="cursor-pointer"
-                onClick={() => {
-                  push('/~/posts')
-                }}
-              >
-                <Gauge className="mr-2 h-4 w-4" />
-                <span>Posts</span>
+                <span>Dashboard</span>
               </DropdownMenuItem>
 
               <DropdownMenuItem
@@ -123,16 +120,6 @@ export function ProfilePopover({
                 <span>Settings</span>
               </DropdownMenuItem>
 
-              <DropdownMenuItem
-                className="cursor-pointer"
-                onClick={() => {
-                  push('/~/role')
-                }}
-              >
-                <UserCog className="mr-2 h-4 w-4" />
-                <span>Role</span>
-              </DropdownMenuItem>
-
               {/* <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => {
@@ -142,16 +129,6 @@ export function ProfilePopover({
                 <KeySquare className="mr-2 h-4 w-4" />
                 <span>Access Token</span>
               </DropdownMenuItem> */}
-
-              <DropdownMenuItem
-                className="cursor-pointer"
-                onClick={() => {
-                  push('/~/backup')
-                }}
-              >
-                <DatabaseBackup className="mr-2 h-4 w-4" />
-                <span>Backup</span>
-              </DropdownMenuItem>
             </>
           )}
         </DropdownMenuGroup>
@@ -159,11 +136,8 @@ export function ProfilePopover({
         <DropdownMenuItem
           className="cursor-pointer"
           onClick={async () => {
-            if (authType === AuthType.PRIVY) {
-              logout()
-            }
-
             await signOut()
+            await disconnect()
             push('/')
           }}
         >
@@ -173,4 +147,4 @@ export function ProfilePopover({
       </DropdownMenuContent>
     </DropdownMenu>
   )
-}
+})
