@@ -22,7 +22,6 @@
   "dependencies": {
     "@plantreexyz/types": "workspace:*",
     "@plantreexyz/utils": "workspace:*",
-    "@troop.com/tiptap-react-render": "^0.0.2",
     "clsx": "^2.1.1",
     "github-slugger": "^2.0.0",
     "tailwind-merge": "^2.5.3"

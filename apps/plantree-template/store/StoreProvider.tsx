@@ -26,13 +26,6 @@ export function StoreProvider(props: PropsWithChildren) {
 
   useEffect(() => {
     if (status === 'loading') return
-    if (status == 'unauthenticated' && address) {
-      disconnect()
-    }
-  }, [status, address, disconnect])
-
-  useEffect(() => {
-    if (status === 'loading') return
 
     if (status == 'authenticated') {
       if (

@@ -1,5 +1,4 @@
 import { Post, Site } from '@plantreexyz/types'
-import { ContentRender } from '../components/ContentRender'
 import Link from '../components/Link'
 import PageTitle from '../components/PageTitle'
 import { PostItem } from '../components/PostItem'
@@ -16,7 +15,7 @@ export function HomePage({ posts = [], site }: Props) {
     <div className="">
       <div className="prose max-w-none mb-10 text-zinc-700 dark:text-zinc-200">
         <PageTitle>{site.name}</PageTitle>
-        <ContentRender content={site.about} />
+        {/* <ContentRender content={site.about} /> */}
       </div>
 
       <div className="">

@@ -1,5 +1,4 @@
 import { Site } from '@plantreexyz/types'
-import { ContentRender } from '../components/ContentRender'
 import Image from '../components/Image'
 import PageTitle from '../components/PageTitle'
 import SocialIcon from '../components/social-icons'
@@ -38,7 +37,7 @@ export function AboutPage({ site }: Props) {
             </div> */}
           </div>
           <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2 mx-auto lg:max-w-3xl">
-            <ContentRender content={site.about} />
+            {/* <ContentRender content={site.about} /> */}
           </div>
         </div>
       </div>
