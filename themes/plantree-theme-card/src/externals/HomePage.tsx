@@ -8,9 +8,10 @@ const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 10)
 interface Props {
   site: Site
   posts: Post[]
+  ContentRender: (props: { content: any[]; className?: string }) => JSX.Element
 }
 
-export function HomePage({ posts = [], site }: Props) {
+export function HomePage({ posts = [], site, ContentRender }: Props) {
   return (
     <div className="mt-12">
       <div className="max-w-none mb-10 hover:text-black text-foreground/80">
@@ -30,7 +31,7 @@ export function HomePage({ posts = [], site }: Props) {
           <div className="text-foreground/60">{site.description}</div>
         </div>
         <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2">
-          {/* <ContentRender content={site.about} /> */}
+          <ContentRender content={site.about} />
         </div>
       </div>
 

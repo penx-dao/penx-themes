@@ -4,9 +4,10 @@ import PageTitle from '../components/PageTitle'
 
 interface Props {
   site: Site
+  ContentRender: (props: { content: any[]; className?: string }) => JSX.Element
 }
 
-export function AboutPage({ site }: Props) {
+export function AboutPage({ site, ContentRender }: Props) {
   return (
     <>
       <div className="">
@@ -34,7 +35,7 @@ export function AboutPage({ site }: Props) {
             </div> */}
           </div>
           <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2 mx-auto lg:max-w-3xl">
-            {/* <ContentRender content={site.about} /> */}
+            <ContentRender content={site.about} />
           </div>
         </div>
       </div>

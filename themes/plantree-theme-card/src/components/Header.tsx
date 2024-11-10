@@ -13,7 +13,7 @@ const merienda = Merienda({
 const headerNavLinks = [
   { href: '/', title: 'Home' },
   { href: '/posts', title: 'Blog' },
-  { href: '/tags', title: 'Tags' },
+  // { href: '/tags', title: 'Tags' },
   { href: '/about', title: 'About' },
 ]
 

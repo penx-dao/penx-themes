@@ -1,14 +1,7 @@
 'use client'
 
-import { Skeleton } from '@/components/ui/skeleton'
-import { WalletConnectButton } from '@/components/WalletConnectButton'
-import { cn } from '@/lib/utils'
-import { AuthType } from '@prisma/client'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
-import { GoogleOauthButton } from '../GoogleOauthButton'
-import { GoogleOauthDialog } from '../GoogleOauthDialog/GoogleOauthDialog'
 import LoginButton from '../LoginButton'
 import { useSiteContext } from '../SiteContext'
 import { Avatar, AvatarFallback } from '../ui/avatar'
@@ -34,7 +27,6 @@ export function Profile({}: Props) {
   return (
     <>
       <ProfileDialog />
-      <GoogleOauthDialog />
       {!authenticated && <LoginButton />}
       {authenticated && <ProfilePopover />}
     </>

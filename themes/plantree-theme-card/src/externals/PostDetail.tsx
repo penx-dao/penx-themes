@@ -13,13 +13,13 @@ interface LayoutProps {
   next?: Post
   prev?: Post
   PostActions?: (props: { post: Post; className?: string }) => JSX.Element
-  PostRender?: (props: { post: Post; className?: string }) => JSX.Element
+  ContentRender?: (props: { content: any; className?: string }) => JSX.Element
 }
 
 export function PostDetail({
   post,
   PostActions,
-  PostRender,
+  ContentRender,
   next,
   prev,
 }: LayoutProps) {
@@ -55,7 +55,7 @@ export function PostDetail({
 
         <div className="grid-rows-[auto_1fr]">
           <div className="prose max-w-none pb-8 dark:prose-invert">
-            {PostRender && <PostRender post={post} />}
+            {ContentRender && <ContentRender content={post.content} />}
           </div>
 
           {post.cid && (

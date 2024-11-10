@@ -8,14 +8,15 @@ const POSTS_PER_PAGE = Number(process.env.NEXT_PUBLIC_POSTS_PER_PAGE || 10)
 interface Props {
   site: Site
   posts: Post[]
+  ContentRender: (props: { content: any[]; className?: string }) => JSX.Element
 }
 
-export function HomePage({ posts = [], site }: Props) {
+export function HomePage({ posts = [], site, ContentRender }: Props) {
   return (
     <div className="">
       <div className="prose max-w-none mb-10 text-zinc-700 dark:text-zinc-200">
         <PageTitle>{site.name}</PageTitle>
-        {/* <ContentRender content={site.about} /> */}
+        <ContentRender content={site.about} />
       </div>
 
       <div className="">

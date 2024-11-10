@@ -5,9 +5,10 @@ import SocialIcon from '../components/social-icons'
 
 interface Props {
   site: Site
+  ContentRender: (props: { content: any[]; className?: string }) => JSX.Element
 }
 
-export function AboutPage({ site }: Props) {
+export function AboutPage({ site, ContentRender }: Props) {
   return (
     <>
       <div className="">
@@ -26,9 +27,7 @@ export function AboutPage({ site }: Props) {
             <h3 className="pb-2 pt-4 text-2xl font-bold leading-8 tracking-tight">
               {site.name}
             </h3>
-            <div className="text-foreground/60">
-              {site.description}
-            </div>
+            <div className="text-foreground/60">{site.description}</div>
             {/* <div className="flex space-x-3 pt-6">
               <SocialIcon kind="mail" href={`mailto:${email}`} />
               <SocialIcon kind="github" href={github} />
@@ -37,7 +36,7 @@ export function AboutPage({ site }: Props) {
             </div> */}
           </div>
           <div className="prose max-w-none pb-8 pt-8 dark:prose-invert xl:col-span-2 mx-auto lg:max-w-3xl">
-            {/* <ContentRender content={site.about} /> */}
+            <ContentRender content={site.about} />
           </div>
         </div>
       </div>
