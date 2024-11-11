@@ -9,7 +9,7 @@
     "^react",
     "<BUILTIN_MODULES>",
     "<THIRD_PARTY_MODULES>",
-    "^@plantreexyz/(.*)$",
+    "^@penxio/(.*)$",
     "^~(.*)$",
     "^[./]"
   ]

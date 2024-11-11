@@ -66,7 +66,7 @@ importers:
         specifier: ^1.12.5
         version: 1.13.4
 
-  apps/plantree-template:
+  apps/penx-template:
     dependencies:
       '@ai-sdk/openai':
         specifier: ^0.0.72
@@ -116,7 +116,7 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.9.0
         version: 3.9.0(react-hook-form@7.53.1(react@18.2.0))
-      '@plantreexyz/types':
+      '@penxio/types':
         specifier: workspace:*
         version: link:../../packages/types
       '@prisma/client':
@@ -479,15 +479,15 @@ importers:
       p-retry:
         specifier: ^6.2.0
         version: 6.2.0
-      plantree-theme-card:
+      penx-theme-card:
         specifier: workspace:*
-        version: link:../../themes/plantree-theme-card
-      plantree-theme-micro:
+        version: link:../../themes/penx-theme-card
+      penx-theme-micro:
         specifier: workspace:*
-        version: link:../../themes/plantree-theme-micro
-      plantree-theme-minimal:
+        version: link:../../themes/penx-theme-micro
+      penx-theme-minimal:
         specifier: workspace:*
-        version: link:../../themes/plantree-theme-minimal
+        version: link:../../themes/penx-theme-minimal
       prisma-extension-pagination:
         specifier: ^0.7.4
         version: 0.7.4(@prisma/client@5.21.1(prisma@5.21.1))
@@ -770,12 +770,12 @@ importers:
         specifier: ^5.3.2
         version: 5.6.3
 
-  themes/plantree-theme-card:
+  themes/penx-theme-card:
     dependencies:
-      '@plantreexyz/types':
+      '@penxio/types':
         specifier: workspace:*
         version: link:../../packages/types
-      '@plantreexyz/utils':
+      '@penxio/utils':
         specifier: workspace:*
         version: link:../../packages/utils
       clsx:
@@ -807,12 +807,12 @@ importers:
         specifier: ^5.4.5
         version: 5.6.3
 
-  themes/plantree-theme-micro:
+  themes/penx-theme-micro:
     dependencies:
-      '@plantreexyz/types':
+      '@penxio/types':
         specifier: workspace:*
         version: link:../../packages/types
-      '@plantreexyz/utils':
+      '@penxio/utils':
         specifier: workspace:*
         version: link:../../packages/utils
       clsx:
@@ -844,12 +844,12 @@ importers:
         specifier: ^5.4.5
         version: 5.6.3
 
-  themes/plantree-theme-minimal:
+  themes/penx-theme-minimal:
     dependencies:
-      '@plantreexyz/types':
+      '@penxio/types':
         specifier: workspace:*
         version: link:../../packages/types
-      '@plantreexyz/utils':
+      '@penxio/utils':
         specifier: workspace:*
         version: link:../../packages/utils
       clsx:

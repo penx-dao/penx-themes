@@ -1,0 +1,29 @@
+{
+  "name": "penx-theme-micro",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "tsconfig.json",
+    "src"
+  ],
+  "scripts": {},
+  "devDependencies": {
+    "@types/node": "^18.19.33",
+    "@types/react": "^18.2.73",
+    "@types/react-dom": "^18.2.17",
+    "lucide-react": "^0.417.0",
+    "next": "14.2.15",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@penxio/types": "workspace:*",
+    "@penxio/utils": "workspace:*",
+    "clsx": "^2.1.1",
+    "github-slugger": "^2.0.0",
+    "tailwind-merge": "^2.5.3"
+  }
+}

@@ -1,6 +1,7 @@
-# Plantree
+# PenX
 
 > The best way to build web3 independent blog.
+
 
 ## Prepare
 
@@ -11,37 +12,37 @@ pnpm install
 ## Start blog
 
 ```bash
-cd apps/plantree-blog-starter
+cd apps/penx-template
 ```
 
 ## Develop a theme
 
-1. copy `themes/plantree-theme-simple`, eg: `themes/plantree-theme-my-theme`
+1. copy `themes/penx-theme-minimal`, eg: `themes/penx-theme-my-theme`
 
-2. update `.env` in `plantree-blog-starter`
-
-```bash
-NEXT_PUBLIC_THEME=plantree-theme-my-theme
-```
-
-2. update `next.config.js` in `plantree-blog-starter`
+2. update `.env` in `penx-template`
 
 ```bash
-transpilePackages: ['plantree-theme-my-theme'],
+NEXT_PUBLIC_THEME=penx-theme-my-theme
 ```
 
-3. update `next.config.js` in `plantree-blog-starter`
+2. update `next.config.js` in `penx-template`
 
 ```bash
-transpilePackages: ['plantree-theme-my-theme'],
+transpilePackages: ['penx-theme-my-theme'],
 ```
 
-4. update `tailwind.config.js` in `plantree-blog-starter`
+3. update `next.config.js` in `penx-template`
+
+```bash
+transpilePackages: ['penx-theme-my-theme'],
+```
+
+4. update `tailwind.config.js` in `penx-template`
 
 ```js
   content: [
     './node_modules/pliny/**/*.js',
-    './node_modules/plantree-theme-my-theme/src/**/*.{js,tsx,ts}',
+    './node_modules/penx-theme-my-theme/src/**/*.{js,tsx,ts}',
     './app/**/*.{js,ts,jsx,tsx}',
     './pages/**/*.{js,ts,tsx}',
     './components/**/*.{js,ts,tsx}',
@@ -68,6 +69,6 @@ transpilePackages: ['plantree-theme-my-theme'],
 
 ## references
 
-plantree-blog-starter fork from:
+penx-template fork from:
 
 - https://github.com/timlrx/tailwind-nextjs-starter-blog

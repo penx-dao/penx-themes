@@ -1,8 +1,5 @@
 {
   "search.followSymlinks": false,
-  "rust-analyzer.linkedProjects": [
-    "./apps/plantree-desktop/src-tauri/Cargo.toml"
-  ],
   "tailwindCSS.includeLanguages": {
     "javascript": "javascript",
     "javascriptreact": "javascript",
