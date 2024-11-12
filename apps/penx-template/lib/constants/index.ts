@@ -7,7 +7,7 @@ export const isNavigator = typeof navigator !== 'undefined'
 
 export const GOOGLE_OAUTH_REDIRECT_URI = 'https://www.penx.io/api/google-oauth'
 
-export const IPFS_UPLOAD_URL = 'https://www.penx.io/api/ipfs-upload'
+export const IPFS_UPLOAD_URL = 'https://penx.io/api/ipfs-upload'
 export const IPFS_ADD_URL = 'https://www.penx.io/api/ipfs-add'
 // export const IPFS_ADD_URL = 'http://localhost:4000/api/ipfs-add'
 export const IPFS_GATEWAY = 'https://ipfs-gateway.spaceprotocol.xyz'
@@ -81,7 +81,7 @@ export const RESPACE_SUBGRAPH_URL =
 
 export const PENX_SUBGRAPH_URL =
   NETWORK === NetworkNames.BASE
-    ? 'https://api.studio.thegraph.com/query/88544/creation-sepolia/version/latest'
+    ? 'https://gateway.thegraph.com/api/c2921e95d896043ce3602d19cbbedcd2/subgraphs/id/3xiEYVz3SuQ1rnTiwfwfuuHnxkh4EYM9RXqaErDwMUZE'
     : 'https://api.studio.thegraph.com/query/88544/creation-sepolia/version/latest'
 
 export const TODO_DATABASE_NAME = '__TODO__'

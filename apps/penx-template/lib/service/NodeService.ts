@@ -113,7 +113,7 @@ export class NodeService {
           },
         })
       }
-      return
+      return node
     }
 
     const oldHash = new Node(node).toHash()
@@ -131,9 +131,10 @@ export class NodeService {
         props: {
           ...node.props,
           ...title.props,
-          image: title?.props?.image,
+          image: title?.props?.imageUrl,
         },
       })
+      return node
     }
   }
 
@@ -143,7 +144,7 @@ export class NodeService {
     isInReference = false,
   ) => {
     const [title, ...elements] = value
-    await this.saveTitle(node, title)
+    const titleNode = await this.saveTitle(node, title)
 
     if (this.node.isDatabase || this.node.isDatabaseRoot) {
       return
@@ -153,6 +154,8 @@ export class NodeService {
     const nodes = await db.listNodesByUserId(this.userId)
 
     store.node.setNodes(nodes)
+
+    if (titleNode) info.updated.push(titleNode)
 
     try {
       if (window.__SYNCING__) return

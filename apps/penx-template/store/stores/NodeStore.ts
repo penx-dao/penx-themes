@@ -15,14 +15,17 @@ import {
   IDatabaseNode,
   IDatabaseRootNode,
   INode,
+  IObjectNode,
   IOptionNode,
   IRootNode,
   IRowNode,
   IViewNode,
   Node,
   NodeType,
+  ObjectType,
   ViewType,
 } from '@/lib/model'
+import { syncLatestNodes } from '@/lib/syncLatestNodes'
 import { format } from 'date-fns'
 import { atom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
@@ -258,6 +261,8 @@ export class NodeStore {
         userId,
         date: dateStr,
       })
+
+      await syncLatestNodes()
     }
 
     this.setNodes(newNodes)
@@ -271,12 +276,16 @@ export class NodeStore {
 
   async addNodesToToday(nodes: INode[]) {}
 
-  async createPageNode(input: Partial<INode> = {}) {
+  async createPageNode(input: Partial<IObjectNode> = {}) {
     const userId = window.__USER_ID__
     const node = await db.createPageNode(
       {
         collapsed: true,
         ...input,
+        props: {
+          objectType: ObjectType.ARTICLE,
+        },
+        type: NodeType.OBJECT,
       },
       userId,
     )

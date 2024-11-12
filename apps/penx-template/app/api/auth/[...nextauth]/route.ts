@@ -73,19 +73,19 @@ async function handler(req: Request, res: Response) {
               return null
             }
 
-            const nextAuthUrl =
-              process.env.NEXTAUTH_URL ||
-              (process.env.VERCEL_URL
-                ? `https://${process.env.VERCEL_URL}`
-                : null)
-            if (!nextAuthUrl) {
-              return null
-            }
+            // const nextAuthUrl =
+            //   process.env.NEXTAUTH_URL ||
+            //   (process.env.VERCEL_URL
+            //     ? `https://${process.env.VERCEL_URL}`
+            //     : null)
+            // if (!nextAuthUrl) {
+            //   return null
+            // }
 
-            const nextAuthHost = new URL(nextAuthUrl).host
-            if (siweMessage.domain !== nextAuthHost) {
-              return null
-            }
+            // const nextAuthHost = new URL(nextAuthUrl).host
+            // if (siweMessage.domain !== nextAuthHost) {
+            //   return null
+            // }
 
             const publicClient = createPublicClient({
               chain: getChain(),
