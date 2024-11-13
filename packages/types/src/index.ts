@@ -107,6 +107,19 @@ export type Post = {
   updatedAt: Date
   userId: string
   postTags: PostTag[]
+  user: User
+}
+
+export type User = {
+  id: string
+  address: string
+  name: string
+  ensName: string
+  role: string
+  email: string
+  image: string | null
+  bio: string
+  about: string
 }
 
 export type PostTag = {

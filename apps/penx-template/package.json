@@ -151,6 +151,7 @@
     "openai-edge": "^1.2.2",
     "p-retry": "^6.2.0",
     "penx-theme-card": "workspace:*",
+    "penx-theme-creation": "workspace:*",
     "penx-theme-micro": "workspace:*",
     "penx-theme-minimal": "workspace:*",
     "penx-theme-timeline": "workspace:*",

@@ -5,7 +5,7 @@ import Link from './Link'
 
 const headerNavLinks = [
   { href: '/', title: 'Home' },
-  { href: '/posts', title: 'Blog' },
+  // { href: '/posts', title: 'Blog' },
   // { href: '/tags', title: 'Tags' },
   { href: '/about', title: 'About' },
   { href: '/creator-fi/trade', title: 'CreatorFi' },
@@ -27,7 +27,11 @@ export const Header = ({
   ConnectButton,
 }: Props) => {
   return (
-    <header className={cn('flex items-center w-full py-4 h-16 z-50')}>
+    <header
+      className={cn(
+        'flex items-center w-full justify-between py-4 h-16 z-50 sticky top-0',
+      )}
+    >
       <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
         <div className="flex items-center space-x-4">
           {headerNavLinks.map((link) => {
@@ -38,7 +42,7 @@ export const Header = ({
               <Link
                 key={link.title}
                 href={link.href}
-                className="font-medium hover:text-brand-500 dark:hover:text-brand-400 text-foreground/90"
+                className="font-medium hover:text-brand-500 dark:hover:text-brand-400 text-foreground/60 text-xs"
               >
                 {link.title}
               </Link>

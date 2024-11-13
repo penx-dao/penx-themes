@@ -482,6 +482,9 @@ importers:
       penx-theme-card:
         specifier: workspace:*
         version: link:../../themes/penx-theme-card
+      penx-theme-creation:
+        specifier: workspace:*
+        version: link:../../themes/penx-theme-creation
       penx-theme-micro:
         specifier: workspace:*
         version: link:../../themes/penx-theme-micro
@@ -774,6 +777,43 @@ importers:
         version: 5.6.3
 
   themes/penx-theme-card:
+    dependencies:
+      '@penxio/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@penxio/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      github-slugger:
+        specifier: ^2.0.0
+        version: 2.0.0
+      tailwind-merge:
+        specifier: ^2.5.3
+        version: 2.5.4
+    devDependencies:
+      '@types/node':
+        specifier: ^18.19.33
+        version: 18.19.59
+      '@types/react':
+        specifier: ^18.2.73
+        version: 18.3.12
+      '@types/react-dom':
+        specifier: ^18.2.17
+        version: 18.3.1
+      lucide-react:
+        specifier: ^0.417.0
+        version: 0.417.0(react@18.2.0)
+      next:
+        specifier: 14.2.15
+        version: 14.2.15(@babel/core@7.25.9)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      typescript:
+        specifier: ^5.4.5
+        version: 5.6.3
+
+  themes/penx-theme-creation:
     dependencies:
       '@penxio/types':
         specifier: workspace:*
