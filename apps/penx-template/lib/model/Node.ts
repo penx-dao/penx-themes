@@ -59,7 +59,7 @@ export class Node {
   }
 
   get element(): Element[] {
-    if (!this.raw.element) return null as any
+    if (!this.raw?.element) return null as any
 
     // TODO: make element writable, why not override it directly?
     this.raw.element = JSON.parse(JSON.stringify(this.raw.element))
@@ -221,6 +221,14 @@ export class Node {
 
   get tagColor(): string {
     return this.raw.props.color || ''
+  }
+
+  get gateType(): any {
+    return this.raw.props.gateType || ''
+  }
+
+  get collectable(): boolean {
+    return this.raw.props.collectable || false
   }
 
   get children() {
