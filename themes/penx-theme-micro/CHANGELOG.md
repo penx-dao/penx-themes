@@ -1,5 +1,14 @@
 # penx-theme-micro
 
+## 0.0.3
+
+### Patch Changes
+
+- release themes
+- Updated dependencies
+  - @penxio/types@0.0.3
+  - @penxio/utils@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes
