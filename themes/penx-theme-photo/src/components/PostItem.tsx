@@ -1,6 +1,5 @@
 import { Post } from '@penxio/types'
 import { cn, formatDate } from '@penxio/utils'
-import Link from './Link'
 
 interface PostItemProps {
   post: Post
@@ -31,7 +30,7 @@ export function PostItem({ post, PostActions, receivers = [] }: PostItemProps) {
           <div className="text-foreground/50 text-sm">posted</div>
           <div className="">{title}</div>p
         </div>
-        <time className="text-sm text-foreground/50">
+        <time className="text-xs text-foreground/50">
           {formatDate(post.updatedAt)}
         </time>
       </div>

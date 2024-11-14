@@ -482,18 +482,18 @@ importers:
       penx-theme-card:
         specifier: workspace:*
         version: link:../../themes/penx-theme-card
-      penx-theme-creation:
+      penx-theme-garden:
         specifier: workspace:*
-        version: link:../../themes/penx-theme-creation
+        version: link:../../themes/penx-theme-garden
       penx-theme-micro:
         specifier: workspace:*
         version: link:../../themes/penx-theme-micro
       penx-theme-minimal:
         specifier: workspace:*
         version: link:../../themes/penx-theme-minimal
-      penx-theme-timeline:
+      penx-theme-photo:
         specifier: workspace:*
-        version: link:../../themes/penx-theme-timeline
+        version: link:../../themes/penx-theme-photo
       prisma-extension-pagination:
         specifier: ^0.7.4
         version: 0.7.4(@prisma/client@5.21.1(prisma@5.21.1))
@@ -730,8 +730,8 @@ importers:
   packages/types:
     devDependencies:
       '@types/node':
-        specifier: ^20.16.12
-        version: 20.17.0
+        specifier: ^20.17.6
+        version: 20.17.6
       '@types/react':
         specifier: ^18.2.73
         version: 18.3.12
@@ -743,7 +743,7 @@ importers:
         version: 8.57.1
       tsup:
         specifier: ^7.2.0
-        version: 7.3.0(postcss@8.4.47)(ts-node@10.9.2(@types/node@20.17.0)(typescript@5.6.3))(typescript@5.6.3)
+        version: 7.3.0(postcss@8.4.47)(ts-node@10.9.2(@types/node@20.17.6)(typescript@5.6.3))(typescript@5.6.3)
       typescript:
         specifier: ^5.3.2
         version: 5.6.3
@@ -813,7 +813,7 @@ importers:
         specifier: ^5.4.5
         version: 5.6.3
 
-  themes/penx-theme-creation:
+  themes/penx-theme-garden:
     dependencies:
       '@penxio/types':
         specifier: workspace:*
@@ -846,6 +846,9 @@ importers:
       next:
         specifier: 14.2.15
         version: 14.2.15(@babel/core@7.25.9)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      slate:
+        specifier: ^0.110.2
+        version: 0.110.2
       typescript:
         specifier: ^5.4.5
         version: 5.6.3
@@ -924,7 +927,7 @@ importers:
         specifier: ^5.4.5
         version: 5.6.3
 
-  themes/penx-theme-timeline:
+  themes/penx-theme-photo:
     dependencies:
       '@penxio/types':
         specifier: workspace:*
@@ -3931,6 +3934,9 @@ packages:
 
   '@types/node@20.17.0':
     resolution: {integrity: sha512-a7zRo0f0eLo9K5X9Wp5cAqTUNGzuFLDG2R7C4HY2BhcMAsxgSPuRvAC1ZB6QkuUQXf0YZAgfOX2ZyrBa2n4nHQ==}
+
+  '@types/node@20.17.6':
+    resolution: {integrity: sha512-VEI7OdvK2wP7XHnsuXbAJnEpEkF6NjSN45QJlL4VGqZSXsnicpesdTWsg9RISeSdYd3yeRj/y3k5KGjUXYnFwQ==}
 
   '@types/node@20.5.1':
     resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
@@ -12804,14 +12810,14 @@ snapshots:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
       jest-mock: 29.7.0
 
   '@jest/fake-timers@29.7.0':
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -12845,7 +12851,7 @@ snapshots:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
       '@types/yargs': 17.0.33
       chalk: 4.1.2
 
@@ -14699,7 +14705,7 @@ snapshots:
 
   '@types/dns-packet@5.6.5':
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
 
   '@types/escape-html@1.0.4': {}
 
@@ -14712,11 +14718,11 @@ snapshots:
   '@types/glob@7.2.0':
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
 
   '@types/graceful-fs@4.1.9':
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
 
   '@types/hast@2.3.10':
     dependencies:
@@ -14745,7 +14751,7 @@ snapshots:
 
   '@types/jsdom@20.0.1':
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
       '@types/tough-cookie': 4.0.5
       parse5: 7.2.0
 
@@ -14777,7 +14783,7 @@ snapshots:
 
   '@types/node-forge@1.3.11':
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
 
   '@types/node@12.20.55': {}
 
@@ -14789,13 +14795,17 @@ snapshots:
     dependencies:
       undici-types: 6.19.8
 
+  '@types/node@20.17.6':
+    dependencies:
+      undici-types: 6.19.8
+
   '@types/node@20.5.1': {}
 
   '@types/normalize-package-data@2.4.4': {}
 
   '@types/pg@8.6.6':
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
       pg-protocol: 1.7.0
       pg-types: 2.2.0
 
@@ -14827,7 +14837,7 @@ snapshots:
 
   '@types/through@0.0.33':
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
 
   '@types/tinycolor2@1.4.6': {}
 
@@ -16769,7 +16779,7 @@ snapshots:
 
   chrome-launcher@0.15.2:
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -16780,7 +16790,7 @@ snapshots:
 
   chromium-edge-launcher@0.2.0:
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -19020,7 +19030,7 @@ snapshots:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
       '@types/jsdom': 20.0.1
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
       jest-mock: 29.7.0
       jest-util: 29.7.0
       jsdom: 20.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.3)
@@ -19034,7 +19044,7 @@ snapshots:
       '@jest/environment': 29.7.0
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
       jest-mock: 29.7.0
       jest-util: 29.7.0
 
@@ -19044,7 +19054,7 @@ snapshots:
     dependencies:
       '@jest/types': 29.6.3
       '@types/graceful-fs': 4.1.9
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.11
@@ -19071,7 +19081,7 @@ snapshots:
   jest-mock@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
       jest-util: 29.7.0
 
   jest-regex-util@29.6.3: {}
@@ -19079,7 +19089,7 @@ snapshots:
   jest-util@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -19096,13 +19106,13 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
   jest-worker@29.7.0:
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.6
       jest-util: 29.7.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
@@ -21021,6 +21031,14 @@ snapshots:
       postcss: 8.4.47
       ts-node: 10.9.2(@types/node@20.17.0)(typescript@5.6.3)
 
+  postcss-load-config@4.0.2(postcss@8.4.47)(ts-node@10.9.2(@types/node@20.17.6)(typescript@5.6.3)):
+    dependencies:
+      lilconfig: 3.1.2
+      yaml: 2.6.0
+    optionalDependencies:
+      postcss: 8.4.47
+      ts-node: 10.9.2(@types/node@20.17.6)(typescript@5.6.3)
+
   postcss-modules-extract-imports@3.1.0(postcss@8.4.47):
     dependencies:
       postcss: 8.4.47
@@ -22659,6 +22677,25 @@ snapshots:
       yn: 3.1.1
     optional: true
 
+  ts-node@10.9.2(@types/node@20.17.6)(typescript@5.6.3):
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.11
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 20.17.6
+      acorn: 8.13.0
+      acorn-walk: 8.3.4
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 5.6.3
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    optional: true
+
   ts-node@10.9.2(@types/node@20.5.1)(typescript@5.6.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
@@ -22699,6 +22736,29 @@ snapshots:
       globby: 11.1.0
       joycon: 3.1.1
       postcss-load-config: 4.0.2(postcss@8.4.47)(ts-node@10.9.2(@types/node@20.17.0)(typescript@5.6.3))
+      resolve-from: 5.0.0
+      rollup: 4.24.0
+      source-map: 0.8.0-beta.0
+      sucrase: 3.35.0
+      tree-kill: 1.2.2
+    optionalDependencies:
+      postcss: 8.4.47
+      typescript: 5.6.3
+    transitivePeerDependencies:
+      - supports-color
+      - ts-node
+
+  tsup@7.3.0(postcss@8.4.47)(ts-node@10.9.2(@types/node@20.17.6)(typescript@5.6.3))(typescript@5.6.3):
+    dependencies:
+      bundle-require: 4.2.1(esbuild@0.19.12)
+      cac: 6.7.14
+      chokidar: 3.6.0
+      debug: 4.3.7
+      esbuild: 0.19.12
+      execa: 5.1.1
+      globby: 11.1.0
+      joycon: 3.1.1
+      postcss-load-config: 4.0.2(postcss@8.4.47)(ts-node@10.9.2(@types/node@20.17.6)(typescript@5.6.3))
       resolve-from: 5.0.0
       rollup: 4.24.0
       source-map: 0.8.0-beta.0

@@ -1,5 +1,5 @@
 {
-  "name": "penx-theme-creation",
+  "name": "penx-theme-garden",
   "version": "0.0.2",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -17,6 +17,7 @@
     "@types/react-dom": "^18.2.17",
     "lucide-react": "^0.417.0",
     "next": "14.2.15",
+    "slate": "^0.110.2",
     "typescript": "^5.4.5"
   },
   "dependencies": {

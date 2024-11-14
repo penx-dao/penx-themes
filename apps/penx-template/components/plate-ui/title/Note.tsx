@@ -39,7 +39,7 @@ export const Note = ({
       // {...attributes}
       {...{ before: 'Write some note here...' }}
       className={cn(
-        'leading-none mt-4 w-full font-normal relative text-base z-10 before:content-[attr(before)] before:text-foreground/30 before:break-normal before:absolute before:bottom-0 before:top-0 before:cursor-text before:items-center before:text-base before:font-normal',
+        'leading-none  mt-4 w-full font-normal relative text-base z-10 before:content-[attr(before)] before:text-foreground/30 before:break-normal before:absolute before:bottom-0 before:top-0 before:cursor-text before:items-center before:text-base before:font-normal',
         isPlaceholderShow ? 'before:flex' : 'before:hidden',
       )}
     >
