@@ -61,8 +61,8 @@ export const Header = ({
       </div>
 
       <div className="flex-1">
-        <div className="flex flex-col items-center lg:justify-between gap-4 lg:mx-auto sm:max-w-xl">
-          <div className="flex items-center justify-center gap-2">
+        <div className="flex flex-col  md:items-center lg:justify-between gap-4 lg:mx-auto sm:max-w-xl">
+          <div className="flex items-center md:justify-center gap-2">
             {site.logo && (
               <img src={site.logo} alt="" className="w-8 h-8 rounded-full" />
             )}

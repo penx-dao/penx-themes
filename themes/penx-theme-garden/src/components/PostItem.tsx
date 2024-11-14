@@ -1,10 +1,10 @@
 'use client'
 
+import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Node } from 'slate'
 import { Post, PostType } from '@penxio/types'
 import { cn, formatDate } from '@penxio/utils'
-import Link from './Link'
 
 interface PostItemProps {
   post: Post
