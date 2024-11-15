@@ -9,6 +9,7 @@ interface Props {
   ModeToggle: () => ReactNode
   MobileNav: () => ReactNode
   ConnectButton: () => ReactNode
+  Airdrop: () => ReactNode
   children: ReactNode
 }
 
@@ -19,6 +20,7 @@ export function SiteLayout({
   ModeToggle,
   MobileNav,
   ConnectButton,
+  Airdrop,
 }: Props) {
   return (
     <SectionContainer>
@@ -28,6 +30,7 @@ export function SiteLayout({
         ModeToggle={ModeToggle}
         MobileNav={MobileNav}
         ConnectButton={ConnectButton}
+        Airdrop={Airdrop}
       />
       <main className="mb-auto">{children}</main>
       <Footer site={site} ModeToggle={ModeToggle} />

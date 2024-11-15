@@ -25,11 +25,21 @@ export function Footer({ site, ModeToggle }: Props) {
           <SocialIcon kind="threads" href={socials.threads} size={6} />
         </div>
         <div className="mb-2 flex space-x-2 text-sm item-center text-card-foreground/50">
-          {/* <div>{` • `}</div> */}
-          <div>{`© ${new Date().getFullYear()}`}</div>
-          <div>{` • `}</div>
-          <div>{site.name}</div>
-          {/* <Link href="/">{site.title}</Link> */}
+          <div className="flex items-center">{`© ${new Date().getFullYear()}`}</div>
+          <div className="flex items-center">{` • `}</div>
+          <div className="flex items-center">{site.name}</div>
+          <div className="flex items-center">{` • `}</div>
+          <div className="flex items-center gap-1">
+            Build with
+            <a
+              href="https://penx.io"
+              target="_blank"
+              className="text-brand-500"
+            >
+              PenX
+            </a>
+          </div>
+          <ModeToggle />
         </div>
       </div>
     </footer>

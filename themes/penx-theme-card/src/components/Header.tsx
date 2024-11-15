@@ -25,6 +25,7 @@ interface Props {
   ModeToggle: () => ReactNode
   MobileNav: () => ReactNode
   ConnectButton: () => ReactNode
+  Airdrop: () => ReactNode
 }
 
 export const Header = ({
@@ -33,6 +34,7 @@ export const Header = ({
   ModeToggle,
   MobileNav,
   ConnectButton,
+  Airdrop,
 }: Props) => {
   return (
     <header className={cn('flex items-center w-full py-4 h-16 z-50')}>
@@ -79,8 +81,14 @@ export const Header = ({
           })}
         </div>
 
-        {ModeToggle && <ModeToggle />}
         {MobileNav && <MobileNav />}
+
+        {Airdrop && (
+          <div className="flex items-center">
+            <Airdrop />
+          </div>
+        )}
+
         {ConnectButton && (
           <Suspense fallback={<div></div>}>
             <ConnectButton />
