@@ -54,12 +54,14 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
     : nodes.find((n) => n.id === nodeId)!
 
   const [gateType, setGateType] = useState<GateType>(
-    activeNode.props?.gateType || GateType.FREE,
+    activeNode?.props?.gateType || GateType.FREE,
   )
-  const [collectable, setCollectable] = useState(
-    activeNode.props?.collectable || false,
+  const [collectible, setCollectible] = useState(
+    activeNode?.props?.collectible || false,
   )
   const { isLoading, publishPost } = usePublishPost()
+  if (!activeNode) return null
+
   return (
     <PopoverContent align="end" className="w-[360px] flex flex-col gap-5">
       <div className="text-center text-xl font-semibold">Publish your post</div>
@@ -79,13 +81,13 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
       />
       <div>
         <div className="flex items-center justify-between">
-          <Label htmlFor="post-collectable">Collectable</Label>
+          <Label htmlFor="post-collectible">Collectible</Label>
           <Switch
-            id="post-collectable"
-            checked={collectable}
+            id="post-collectible"
+            checked={collectible}
             disabled={!spaceId}
             onCheckedChange={(value) => {
-              setCollectable(value)
+              setCollectible(value)
             }}
           />
         </div>
@@ -106,7 +108,7 @@ function PublishPopoverContent({ setOpen }: PublishPopoverContentProps) {
             await publishPost(
               activeNode.raw as IObjectNode,
               gateType,
-              collectable,
+              collectible,
             )
             // updatePostPublishStatus()
             setOpen(false)

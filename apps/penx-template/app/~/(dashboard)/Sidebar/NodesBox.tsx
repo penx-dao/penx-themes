@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { syncLatestNodes } from '@/lib/syncLatestNodes'
 import { store } from '@/store'
 import { Plus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -41,7 +40,6 @@ export function NodesBox() {
           variant="ghost"
           onClick={async () => {
             const node = await store.node.createPageNode()
-            await syncLatestNodes()
             push(`/~/objects/${node.id}`)
           }}
         >

@@ -2,7 +2,7 @@ import prisma from '@/lib/prisma'
 import { getSite as getSiteInfo } from '@/server/lib/getSite'
 import ky from 'ky'
 import { unstable_cache } from 'next/cache'
-import { PostStatus, RESPACE_BASE_URI } from './constants'
+import { isProd, PostStatus, RESPACE_BASE_URI } from './constants'
 import { SpaceType } from './types'
 import { getUrl } from './utils'
 
@@ -46,7 +46,7 @@ export async function getPosts() {
     },
     [`posts`],
     {
-      revalidate: 10,
+      revalidate: isProd ? 3600 * 24 : 10,
       tags: [`posts`],
     },
   )()
@@ -68,7 +68,7 @@ export async function getPost(slug: string) {
     },
     [`post-${slug}`],
     {
-      revalidate: 3600, // 15 minutes
+      revalidate: 3600 * 24, // 15 minutes
       tags: [`posts-${slug}`],
     },
   )()
@@ -126,7 +126,7 @@ export async function getSpace(spaceId: string) {
     },
     [`space-${spaceId}`],
     {
-      revalidate: 10,
+      revalidate: 3600 * 24,
       tags: [`space-${spaceId}`],
     },
   )()

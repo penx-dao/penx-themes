@@ -59,18 +59,20 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   /** No gated */
   if (post?.gateType == GateType.FREE) {
     return (
-      <PostDetail
-        post={{
-          ...post,
-          content: getContent(post),
-          readingTime: readingTime(post.content),
-        }}
-        readable
-        next={next}
-        prev={prev}
-        PostActions={PostActions}
-        ContentRender={ContentRender}
-      />
+      <>
+        <PostDetail
+          post={{
+            ...post,
+            content: getContent(post),
+            readingTime: readingTime(post.content),
+          }}
+          readable
+          next={next}
+          prev={prev}
+          PostActions={PostActions}
+          ContentRender={ContentRender}
+        />
+      </>
     )
   }
 

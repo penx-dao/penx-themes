@@ -1,6 +1,6 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
-const crypto = require('crypto');
+const crypto = require('crypto')
 
 function genSecret(size = 32) {
   const bytes = crypto.getRandomValues(new Uint8Array(size))
@@ -9,6 +9,10 @@ function genSecret(size = 32) {
 }
 
 async function main() {
+  const DATABASE_URL = process.env.DATABASE_URL
+
+  if (!DATABASE_URL) return
+
   const site = await prisma.site.findFirst()
   const secret = genSecret()
 
@@ -20,7 +24,7 @@ async function main() {
         authSecret: secret,
         socials: {},
         config: {},
-        logo: 'https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/JRajRyC-PhBHEinQkupt02jqfKacBVHLWJq7Iy.png',
+        logo: 'https://penx.io/logo.png',
       },
     })
   }
