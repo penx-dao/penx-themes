@@ -1,6 +1,5 @@
 import { Lobster, Merienda } from 'next/font/google'
-import { Post, PostType, Site } from '@penxio/types'
-import { cn } from '@penxio/utils'
+import { Post, Site } from '@penxio/types'
 import { PostItem } from '../components/PostItem'
 
 const lobster = Lobster({
@@ -26,7 +25,7 @@ export function HomePage({
 
   return (
     <div className="mx-auto sm:max-w-xl flex flex-col gap-10 mt-4">
-      <div className="flex flex-col divide-y divide-foreground/10">
+      <div className="flex flex-col divide-y divide-foreground/5">
         {posts.map((post) => {
           return (
             <PostItem

@@ -59,7 +59,7 @@ export function PostDetail({
           </div>
 
           {post.cid && (
-            <div className="text-foreground/60 text-sm rounded-md px-3 py-2 border border-sidebar flex items-center gap-2">
+            <div className="text-foreground/60 text-xs rounded-md py-2 md:flex items-center gap-2 hidden">
               <span className="text-foreground/80">IPFS CID:</span>
               <span>{post.cid}</span>
               <a
@@ -67,7 +67,7 @@ export function PostDetail({
                 href={`https://ipfs-gateway.spaceprotocol.xyz/ipfs/${post.cid}`}
                 target="_blank"
               >
-                <ExternalLink className="cursor-pointer" size={16} />
+                <ExternalLink className="cursor-pointer" size={12} />
               </a>
             </div>
           )}

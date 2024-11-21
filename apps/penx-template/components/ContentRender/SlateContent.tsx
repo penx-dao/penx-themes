@@ -29,7 +29,7 @@ export function SlateContent() {
         switch (element.type) {
           case ELEMENT_P:
             if (element.listStyleType == 'disc') {
-              console.log('=====element:', element)
+              // console.log('=====element:', element)
               const { indent = 1 } = element
               return (
                 <ul

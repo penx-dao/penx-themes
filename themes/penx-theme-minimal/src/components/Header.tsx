@@ -9,6 +9,7 @@ const headerNavLinks = [
   // { href: '/tags', title: 'Tags' },
   { href: '/about', title: 'About' },
   { href: '/creator-fi/trade', title: 'CreatorFi' },
+  { href: '/membership', title: 'Membership', isMembership: true },
 ]
 
 interface Props {
@@ -38,11 +39,19 @@ export const Header = ({
             if (link.href === '/creator-fi/trade' && !site.spaceId) {
               return null
             }
+
+            if (link.href === '/membership' && !site.spaceId) {
+              return null
+            }
             return (
               <Link
                 key={link.title}
                 href={link.href}
-                className="font-medium hover:text-brand-500 dark:hover:text-brand-400 text-foreground/90"
+                className={cn(
+                  'font-medium hover:text-brand-500 dark:hover:text-brand-400 text-foreground/90',
+                  link.isMembership &&
+                    'border border-brand-500 text-brand-500 rounded-full px-2 py-1 hover:bg-brand-500 hover:text-background text-sm',
+                )}
               >
                 {link.title}
               </Link>

@@ -92,7 +92,6 @@ export type Post = {
   creationId: number
   type: PostType
   gateType: GateType
-  collectable: boolean
   readingTime: {
     text: string
     minutes: number
@@ -100,7 +99,10 @@ export type Post = {
     words: number
   }
   status: PostStatus
+  featured: boolean
+  collectible: boolean
   image: string | null
+  commentCount: number
   publishedAt: Date
   archivedAt: Date
   createdAt: Date

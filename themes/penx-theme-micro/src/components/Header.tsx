@@ -9,6 +9,7 @@ const headerNavLinks = [
   // { href: '/tags', title: 'Tags' },
   { href: '/about', title: 'About' },
   { href: '/creator-fi/trade', title: 'CreatorFi' },
+  { href: '/membership', title: 'Membership', isMembership: true },
 ]
 
 interface Props {
@@ -33,7 +34,7 @@ export const Header = ({
       className={cn('flex items-center w-full justify-between py-4 h-16 z-50')}
     >
       <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
-        <div className=" no-scrollbar hidden max-w-40 items-center space-x-4 overflow-x-auto sm:flex sm:space-x-6 md:max-w-72 lg:max-w-96">
+        <div className="no-scrollbar hidden items-center space-x-4 overflow-x-auto sm:flex sm:space-x-6">
           {headerNavLinks.map((link) => {
             if (link.href === '/creator-fi/trade' && !site.spaceId) {
               return null
@@ -42,7 +43,11 @@ export const Header = ({
               <Link
                 key={link.title}
                 href={link.href}
-                className="font-medium  hover:text-brand-500 dark:hover:text-brand-400 text-foreground/90"
+                className={cn(
+                  'font-medium hover:text-brand-500 dark:hover:text-brand-400 text-foreground/90',
+                  link.isMembership &&
+                    'border border-brand-500 text-brand-500 rounded-full px-2 py-1 hover:bg-brand-500 hover:text-background text-sm',
+                )}
               >
                 {link.title}
               </Link>

@@ -51,7 +51,7 @@ export function PostItem({
     }
 
     if (post.type === PostType.NOTE) {
-      return <div className="text-foreground/80">{post.title}</div>
+      return <div className="text-foreground/80">000{post.title}</div>
     }
 
     const nodes: any[] =
@@ -63,8 +63,8 @@ export function PostItem({
         <div className="text-2xl font-bold hover:scale-105 transition-all origin-left">
           {post.title}
         </div>
-        <div className="text-foreground/80 hover:text-foreground transition-all hover:scale-105">
-          {str.slice(0, 260)}...
+        <div className="text-foreground/80 hover:text-foreground transition-all hover:scale-105 break-words break-all">
+          {str.slice(0, 260)}x...
         </div>
       </Link>
     )
