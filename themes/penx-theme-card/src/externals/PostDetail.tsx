@@ -10,6 +10,7 @@ import SectionContainer from '../components/SectionContainer'
 interface LayoutProps {
   post: Post
   children: ReactNode
+  className?: string
   next?: Post
   prev?: Post
   PostActions?: (props: { post: Post; className?: string }) => JSX.Element
@@ -19,12 +20,13 @@ interface LayoutProps {
 export function PostDetail({
   post,
   PostActions,
+  className,
   ContentRender,
   next,
   prev,
 }: LayoutProps) {
   return (
-    <SectionContainer>
+    <SectionContainer className={className}>
       <article className="mt-20 mx-auto w-full lg:max-w-3xl">
         <header className="space-y-4 pb-4">
           <PageTitle>{post.title}</PageTitle>

@@ -1,13 +1,14 @@
 import { ReactNode } from 'react'
 import { ExternalLink } from 'lucide-react'
 import { Post } from '@penxio/types'
-import { formatDate } from '@penxio/utils'
+import { cn, formatDate } from '@penxio/utils'
 import Link from '../components/Link'
 import PageTitle from '../components/PageTitle'
 
 interface LayoutProps {
   post: Post
   children: ReactNode
+  className?: string
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
   PostActions?: (props: { post: Post; className?: string }) => JSX.Element
@@ -18,12 +19,13 @@ export function PostDetail({
   post,
   next,
   prev,
+  className,
   children,
   PostActions,
   ContentRender,
 }: LayoutProps) {
   return (
-    <div>
+    <div className={cn(className)}>
       <header className="space-y-4 pb-4">
         <PageTitle className="mb-0">{post.title}</PageTitle>
         <dl className="flex items-center gap-2">

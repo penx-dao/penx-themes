@@ -165,10 +165,3 @@ export type Theme = {
 interface Attrs {
   readonly [attr: string]: any
 }
-export interface TipTapNode {
-  type: string
-  attrs?: Attrs
-  marks?: Attrs[]
-  content?: TipTapNode[]
-  readonly [attr: string]: any
-}
