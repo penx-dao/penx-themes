@@ -1,5 +1,14 @@
 # penx-theme-card
 
+## 0.0.5
+
+### Patch Changes
+
+- imporve theme
+- Updated dependencies
+  - @penxio/types@0.0.5
+  - @penxio/utils@0.0.5
+
 ## 0.0.4
 
 ### Patch Changes
