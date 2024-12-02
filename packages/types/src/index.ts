@@ -115,10 +115,11 @@ export type Post = {
 export type User = {
   id: string
   name: string
+  displayName: string
   ensName: string
-  role: string
   email: string
   image: string | null
+  cover: string
   bio: string
   about: string
 }
