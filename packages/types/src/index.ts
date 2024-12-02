@@ -114,7 +114,6 @@ export type Post = {
 
 export type User = {
   id: string
-  address: string
   name: string
   ensName: string
   role: string
