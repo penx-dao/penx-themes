@@ -122,6 +122,14 @@ export type User = {
   cover: string
   bio: string
   about: string
+  accounts: Array<{
+    id: string
+    providerType: string
+    providerAccountId: string
+    providerInfo: any
+    refreshToken: string
+    accessToken: string
+  }>
 }
 
 export type PostTag = {
