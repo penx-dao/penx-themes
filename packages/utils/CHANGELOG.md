@@ -1,5 +1,11 @@
 # @penxio/utils
 
+## 0.0.8
+
+### Patch Changes
+
+- improve types
+
 ## 0.0.7
 
 ### Patch Changes
