@@ -1,5 +1,14 @@
 # penx-theme-card
 
+## 0.0.7
+
+### Patch Changes
+
+- improve types
+- Updated dependencies
+  - @penxio/types@0.0.7
+  - @penxio/utils@0.0.7
+
 ## 0.0.6
 
 ### Patch Changes
