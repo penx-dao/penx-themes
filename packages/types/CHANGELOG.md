@@ -1,5 +1,11 @@
 # @penxio/types
 
+## 0.0.9
+
+### Patch Changes
+
+- release theme
+
 ## 0.0.8
 
 ### Patch Changes
