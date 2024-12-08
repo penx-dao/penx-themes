@@ -39,6 +39,10 @@ export const Header = ({
             if (link.href === '/creator-fi/trade' && !site.spaceId) {
               return null
             }
+
+            if (link.href === '/membership' && !site.spaceId) {
+              return null
+            }
             return (
               <Link
                 key={link.title}

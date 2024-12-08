@@ -1,14 +1,24 @@
 import { ProfilePopover } from '@/components/Profile/ProfilePopover'
+import { useSiteContext } from '@/components/SiteContext'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, Feather, Settings } from 'lucide-react'
+import { SiteMode } from '@prisma/client'
+import { Calendar, Feather, Link2Icon, Settings } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import { EnableWeb3Entry } from './EnableWeb3Entry'
+import { LinkGoogleEntry } from './LinkGoogleEntry'
+import { LinkWalletEntry } from './LinkWalletEntry'
 import { NodesBox } from './NodesBox'
 import { SidebarItem } from './SidebarItem'
 import { SyncBar } from './SyncBar/SyncBar'
 
 export const Sidebar = () => {
   const pathname = usePathname()
+  const site = useSiteContext()
+  const { data: session } = useSession()
+  const { spaceId } = site
+  const isBasicMode = (site as any)?.mode === SiteMode.BASIC
 
   return (
     <div className="flex-col flex-1 flex gap-3 h-screen border-r border-r-sidebar">
@@ -21,13 +31,15 @@ export const Sidebar = () => {
       </div>
 
       <div className="flex flex-col gap-1 px-2">
-        <Link href="/~/objects/today">
-          <SidebarItem
-            isActive={pathname === '/~/objects/today'}
-            icon={<Calendar size={18} />}
-            label="Today"
-          />
-        </Link>
+        {!isBasicMode && (
+          <Link href="/~/objects/today">
+            <SidebarItem
+              isActive={pathname === '/~/objects/today'}
+              icon={<Calendar size={18} />}
+              label="Today"
+            />
+          </Link>
+        )}
 
         {/* <SidebarItem
               icon={
@@ -58,17 +70,10 @@ export const Sidebar = () => {
 
         <Link href="/~/posts">
           <SidebarItem
-            isActive={pathname === '/~/posts'}
+            isActive={pathname.startsWith('/~/posts')}
             icon={<Feather size={18} />}
             label="Posts"
-          >
-            <Badge
-              className="text-xs font-normal h-6 bg-green-500/20 text-green-500"
-              variant="secondary"
-            >
-              Published
-            </Badge>
-          </SidebarItem>
+          ></SidebarItem>
         </Link>
 
         <Link href="/~/settings">
@@ -78,13 +83,16 @@ export const Sidebar = () => {
             label="Settings"
           />
         </Link>
+        <EnableWeb3Entry />
+        <LinkGoogleEntry />
+        <LinkWalletEntry />
       </div>
 
       <div className="flex-1 z-10 overflow-auto px-2">
         {/* <FavoriteBox nodeList={nodeList} /> */}
-        <NodesBox />
+        {!isBasicMode && <NodesBox />}
       </div>
-      <SyncBar />
+      {!isBasicMode && <SyncBar />}
     </div>
   )
 }

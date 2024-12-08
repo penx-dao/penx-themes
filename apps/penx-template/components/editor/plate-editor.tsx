@@ -14,11 +14,13 @@ import { FloatingToolbar } from '@/components/plate-ui/floating-toolbar'
 import { FloatingToolbarButtons } from '@/components/plate-ui/floating-toolbar-buttons'
 import { cn } from '@/lib/utils'
 import { Plate } from '@udecode/plate-common/react'
+import { AddNodeBtn } from '../AddNodeBtn'
 
 interface Props {
   readonly?: boolean
   value: any
   className?: string
+  showAddButton?: boolean
   onChange?: (value: any) => void
 }
 
@@ -26,6 +28,7 @@ export function PlateEditor({
   onChange,
   value,
   className,
+  showAddButton = false,
   readonly = false,
 }: Props) {
   const containerRef = useRef(null)
@@ -55,6 +58,7 @@ export function PlateEditor({
           </FloatingToolbar>
 
           {/* <CommentsPopover /> */}
+          {showAddButton && <AddNodeBtn editor={editor} />}
 
           <CursorOverlay containerRef={containerRef} />
         </EditorContainer>

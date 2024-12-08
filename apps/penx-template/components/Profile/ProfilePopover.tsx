@@ -17,7 +17,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
-import { AuthType } from '@prisma/client'
+import { AuthType, SiteMode } from '@prisma/client'
 import {
   DatabaseBackup,
   FileText,
@@ -39,20 +39,18 @@ import { WalletInfo } from './WalletInfo'
 interface Props {
   className?: string
   showAddress?: boolean
-  showEnsName?: boolean
   showDropIcon?: boolean
 }
 
 export const ProfilePopover = memo(function ProfilePopover({
   showAddress,
-  showEnsName,
   showDropIcon = false,
   className = '',
 }: Props) {
   const { data } = useSession()
   const { push } = useRouter()
   const { authType } = useSiteContext()
-  const isGoogleOauth = authType === AuthType.GOOGLE
+  const site = useSiteContext()
 
   if (!data) return <div></div>
   const isEditor = ['ADMIN', 'AUTHOR'].includes(data.role)
@@ -62,7 +60,6 @@ export const ProfilePopover = memo(function ProfilePopover({
       <DropdownMenuTrigger asChild>
         <ProfileAvatar
           showAddress={showAddress}
-          showEnsName={showEnsName}
           showDropIcon={showDropIcon}
           image={data.user?.image || ''}
           className={cn('cursor-pointer', className)}
@@ -70,18 +67,8 @@ export const ProfilePopover = memo(function ProfilePopover({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="grid gap-2">
-          {isGoogleOauth && (
-            <div>
-              <div>{data.user?.name || data.user?.email}</div>
-            </div>
-          )}
-
-          {!isGoogleOauth && (
-            <>
-              <ProfileAvatar showAddress showEnsName showCopy />
-              <WalletInfo />
-            </>
-          )}
+          <ProfileAvatar showAddress showCopy image={data.user?.image || ''} />
+          <WalletInfo />
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
 
@@ -101,7 +88,11 @@ export const ProfilePopover = memo(function ProfilePopover({
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => {
-                  push('/~/objects/today')
+                  const path =
+                    (site as any)?.mode === SiteMode.BASIC
+                      ? '/~/posts'
+                      : '/~/objects/today'
+                  push(path)
                 }}
               >
                 <Gauge className="mr-2 h-4 w-4" />

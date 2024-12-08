@@ -63,10 +63,32 @@ export function PostItem({
         <div className="text-2xl font-bold hover:scale-105 transition-all origin-left">
           {post.title}
         </div>
-        <div className="text-foreground/80 hover:text-foreground transition-all hover:scale-105 break-words break-all">
-          {str.slice(0, 260)}x...
-        </div>
+        {str && (
+          <div className="text-foreground/80 hover:text-foreground transition-all hover:scale-105 break-words break-all">
+            {str.slice(0, 260)}...
+          </div>
+        )}
       </Link>
+    )
+  }
+  const getAvatar = () => {
+    if (post.user.image) {
+      return (
+        <img
+          className="h-6 w-6 rounded-full"
+          src={post.user.image || ''}
+          alt=""
+        />
+      )
+    }
+
+    return (
+      <div
+        className={cn(
+          'bg-red-300 h-6 w-6 rounded-full flex-shrink-0',
+          generateGradient(post.user.displayName || post.user.name),
+        )}
+      ></div>
     )
   }
 
@@ -74,12 +96,7 @@ export function PostItem({
     <div className="flex flex-col gap-3 py-8">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1 text-sm">
-          <div
-            className={cn(
-              'bg-red-300 h-6 w-6 rounded-full flex-shrink-0',
-              generateGradient(address),
-            )}
-          ></div>
+          {getAvatar()}
           <div className="font-medium">{name}</div>
           <div className="text-foreground/50 text-sm">posted</div>
           {getTitle()}

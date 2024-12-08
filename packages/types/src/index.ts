@@ -13,6 +13,11 @@ enum StorageProvider {
   SUPABASE_STORAGE = 'SUPABASE_STORAGE',
 }
 
+enum SiteMode {
+  BASIC = 'BASIC',
+  NOTE_TAKING = 'NOTE_TAKING',
+}
+
 export interface Socials {
   farcaster: string
   x: string
@@ -36,6 +41,7 @@ export type Site = {
   spaceId: string | null
   font: string
   image: string | null
+  mode: SiteMode
   privyAppId: string
   privyAppSecret: string
   authType: AuthType
