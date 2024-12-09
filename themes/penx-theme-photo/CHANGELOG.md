@@ -1,5 +1,14 @@
 # penx-theme-minimal
 
+## 0.0.10
+
+### Patch Changes
+
+- improve post item render
+- Updated dependencies
+  - @penxio/types@0.0.10
+  - @penxio/utils@0.0.10
+
 ## 0.0.9
 
 ### Patch Changes

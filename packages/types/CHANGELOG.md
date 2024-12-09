@@ -1,5 +1,11 @@
 # @penxio/types
 
+## 0.0.10
+
+### Patch Changes
+
+- improve post item render
+
 ## 0.0.9
 
 ### Patch Changes
