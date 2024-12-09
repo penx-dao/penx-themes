@@ -1,4 +1,4 @@
-import { Post } from '@penxio/types'
+import { Post, PostType } from '@penxio/types'
 import { formatDate } from '@penxio/utils'
 import Image from './Image'
 import Link from './Link'
@@ -10,6 +10,7 @@ interface PostItemProps {
 
 export function PostItem({ post }: PostItemProps) {
   const { slug, title } = post
+  if (post.type !== PostType.ARTICLE) return null
 
   return (
     <article key={slug} className="flex flex-col space-y-5">
